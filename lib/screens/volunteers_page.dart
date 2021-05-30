@@ -1,3 +1,4 @@
+import 'package:dough/dough.dart';
 import 'package:flutter/material.dart';
 
 class VolunteersPage extends StatelessWidget {
@@ -14,11 +15,13 @@ class VolunteersPage extends StatelessWidget {
         body: Center(
           child: Text('VolunteersPage'),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.animation),
-          onPressed: () {
-            // orphan page?
-          },
+        floatingActionButton: PressableDough(
+          child: FloatingActionButton(
+            child: Icon(Icons.animation),
+            onPressed: () {
+              // orphan page?
+            },
+          ),
         ),
       ),
     );
