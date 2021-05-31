@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/theme_switcher_icon_button.dart';
 
 class SettingsPage extends StatelessWidget {
   static const id = 'SettingsPage';
@@ -11,8 +12,12 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Text('SettingsPage'),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            const ThemeSwitcherIconButton(),
+          ],
         ),
       ),
     );

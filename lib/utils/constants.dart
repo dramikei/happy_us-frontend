@@ -8,6 +8,7 @@ final kLightTheme = ThemeData.light().copyWith(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: kAccentColor,
   ),
+  toggleableActiveColor: kFocusColor,
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: ZoomPageTransitionsBuilder(),
@@ -21,6 +22,7 @@ final kDarkTheme = ThemeData.dark().copyWith(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: kAccentColor,
   ),
+  toggleableActiveColor: kFocusColor,
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: ZoomPageTransitionsBuilder(),
