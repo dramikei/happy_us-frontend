@@ -32,7 +32,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final showBelow = MediaQuery.of(context).size.width < 475;
+    final showBelow = MediaQuery.of(context).size.width < 500;
     return WillPopScope(
       onWillPop: () async {
         if (_selectedIndex == 0)

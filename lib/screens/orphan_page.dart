@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:happy_us/widgets/static_info_card.dart';
 
 class OrphanPage extends StatelessWidget {
   static const id = 'OrphanPage';
@@ -12,14 +12,7 @@ class OrphanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ListView(
-          children: [
-            Lottie.asset("assets/lottie/volunteer.json"),
-            Lottie.asset("assets/lottie/loader.json"),
-            Lottie.asset("assets/lottie/support.json"),
-            Lottie.asset("assets/lottie/orphan.json"),
-          ],
-        )
+        body: StaticInfoCard(),
       ),
     );
   }
