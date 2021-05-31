@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,10 +19,10 @@ class RouteGenerator {
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Error'),
+            title: CustomText('Error'),
           ),
           body: Center(
-            child: Text('ROUTE \n\n$name\n\nNOT FOUND'),
+            child: CustomText('ROUTE \n\n$name\n\nNOT FOUND'),
           ),
         ),
       );

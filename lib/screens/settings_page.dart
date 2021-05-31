@@ -19,8 +19,13 @@ class SettingsPage extends StatelessWidget {
             const ThemeSwitcherIconButton(),
           ],
         ),
-        body: Center(
-          child: Text('SettingsPage'),
+        body: ListView.separated(
+          separatorBuilder: (c, i) => const SizedBox(height: 15),
+          itemBuilder: (context, index) {
+            return Placeholder(fallbackHeight: 100);
+          },
+          // about us page button here
+          itemCount: 100,
         ),
       ),
     );

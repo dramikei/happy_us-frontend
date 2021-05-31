@@ -1,6 +1,7 @@
 import 'package:dough/dough.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 
 class VolunteersPage extends StatelessWidget {
   static const id = 'VolunteersPage';
@@ -13,8 +14,12 @@ class VolunteersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Text('VolunteersPage'),
+        body: ListView.separated(
+          separatorBuilder: (c,i) => const SizedBox(height: 15),
+          itemBuilder: (context, index) {
+            return Placeholder();
+          },
+          itemCount: 100,
         ),
         floatingActionButton: kIsWeb
             ? SizedBox.shrink()
@@ -35,7 +40,7 @@ class VolunteersPage extends StatelessWidget {
                                 color: Colors.red,
                               ),
                               child: Center(
-                                child: Text(
+                                child: CustomText(
                                   "Content",
                                   style: TextStyle(
                                     color: Colors.white,

@@ -11,8 +11,12 @@ class FeedsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Text('FeedsPage'),
+        body: ListView.separated(
+          separatorBuilder: (c,i) => const SizedBox(height: 15),
+          itemBuilder: (context, index) {
+            return Placeholder();
+          },
+          itemCount: 100,
         ),
       ),
     );
