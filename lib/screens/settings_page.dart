@@ -19,6 +19,9 @@ class SettingsPage extends StatelessWidget {
             const ThemeSwitcherIconButton(),
           ],
         ),
+        body: Center(
+          child: Text('SettingsPage'),
+        ),
       ),
     );
   }
