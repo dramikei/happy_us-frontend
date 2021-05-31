@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happy_us/widgets/custom_text.dart';
+import 'package:lottie/lottie.dart';
 
 class OrphanPage extends StatelessWidget {
   static const id = 'OrphanPage';
@@ -12,25 +12,14 @@ class OrphanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(100),
-            child: CustomText(
-              '''
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-when an unknown printer took a galley of type and scrambled it to make a type 
-specimen book. It has survived not only five centuries, 
-but also the leap into electronic typesetting, remaining essentially unchanged. 
-It was popularised in the 1960s with the release of Letraset sheets containing 
-Lorem Ipsum passages, and more recently with desktop publishing software like Aldus 
-PageMaker including versions of Lorem Ipsum.          
-            ''',
-              style: TextStyle(fontSize: 30),
-            ),
-            // font
-          ),
-        ),
+        body: ListView(
+          children: [
+            Lottie.asset("assets/lottie/volunteer.json"),
+            Lottie.asset("assets/lottie/loader.json"),
+            Lottie.asset("assets/lottie/support.json"),
+            Lottie.asset("assets/lottie/orphan.json"),
+          ],
+        )
       ),
     );
   }

@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 const Color kAccentColor = Colors.amber;
 const Color kFocusColor = Colors.pink;
 
-final kLightTheme = ThemeData.light().copyWith(
+const String FONT_FAMILY = 'ProductSans';
+
+final kLightTheme = ThemeData(
+  brightness: Brightness.light,
+  fontFamily: FONT_FAMILY,
+).copyWith(
   accentColor: kAccentColor,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: kAccentColor,
@@ -18,7 +23,10 @@ final kLightTheme = ThemeData.light().copyWith(
   ),
 );
 
-final kDarkTheme = ThemeData.dark().copyWith(
+final kDarkTheme = ThemeData(
+  brightness: Brightness.dark,
+  fontFamily: FONT_FAMILY,
+).copyWith(
   accentColor: kAccentColor,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: kAccentColor,
