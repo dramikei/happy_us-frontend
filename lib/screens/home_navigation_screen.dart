@@ -1,6 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_container/easy_container.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:happy_us/screens/about_us_page.dart';
@@ -31,35 +30,44 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final showBelow = MediaQuery.of(context).size.width < 475;
     return SafeArea(
       child: ThemeSwitchingArea(
         child: Builder(
           builder: (context) {
             return Scaffold(
               backgroundColor: Colors.indigo,
-              appBar: kIsWeb
-                  ? AppBar(
+              appBar: showBelow
+                  ? null
+                  : AppBar(
                       toolbarHeight: 65,
-                      title: _customBottomNavigationBar(),
-                      titleSpacing: 0,
+                      title: Row(
+                        mainAxisAlignment: showBelow
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("LOGO HERE"),
+                          if (!showBelow) _customBottomNavigationBar(),
+                        ],
+                      ),
                       backgroundColor: Colors.transparent,
                       elevation: 0,
-                    )
-                  : null,
+                    ),
               body: EasyContainer(
                 margin: 0,
                 padding: 0,
                 color: Colors.transparent,
                 customBorderRadius: BorderRadius.vertical(
-                  top: kIsWeb ? Radius.circular(40) : Radius.zero,
-                  bottom: kIsWeb ? Radius.zero : Radius.circular(40),
+                  top: showBelow ? Radius.zero : Radius.circular(40),
+                  bottom: showBelow ? Radius.circular(40) : Radius.zero,
                 ),
                 child: IndexedStack(
                   index: _selectedIndex,
                   children: _pages,
                 ),
               ),
-              bottomNavigationBar: kIsWeb ? null : _customBottomNavigationBar(),
+              bottomNavigationBar:
+                  showBelow ? _customBottomNavigationBar() : null,
             );
           },
         ),
