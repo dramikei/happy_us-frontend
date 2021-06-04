@@ -26,8 +26,8 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
   final _pages = [
     FeedsPage(),
     VolunteersPage(),
-    SettingsPage(),
     OrphanPage(),
+    SettingsPage(),
   ];
 
   @override
@@ -110,12 +110,12 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
             text: 'Volunteers',
           ),
           GButton(
-            icon: Icons.settings,
-            text: 'Settings',
-          ),
-          GButton(
             icon: Icons.star,
             text: 'Orphan',
+          ),
+          GButton(
+            icon: Icons.settings,
+            text: 'Settings',
           ),
         ],
         selectedIndex: _selectedIndex,

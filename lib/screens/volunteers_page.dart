@@ -2,6 +2,7 @@ import 'package:dough/dough.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:happy_us/widgets/custom_text.dart';
+import 'package:happy_us/widgets/volunteer_card.dart';
 
 class VolunteersPage extends StatelessWidget {
   static const id = 'VolunteersPage';
@@ -15,9 +16,10 @@ class VolunteersPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: ListView.separated(
+          padding: const EdgeInsets.all(10),
           separatorBuilder: (c,i) => const SizedBox(height: 15),
           itemBuilder: (context, index) {
-            return Placeholder();
+            return VolunteerCard();
           },
           itemCount: 100,
         ),
