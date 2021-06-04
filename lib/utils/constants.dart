@@ -5,6 +5,8 @@ const Color kFocusColor = Colors.pink;
 
 const String FONT_FAMILY = 'ProductSans';
 
+const SMALL_SCREEN_WIDTH = 700;
+
 final kLightTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: FONT_FAMILY,
@@ -14,7 +16,9 @@ final kLightTheme = ThemeData(
     backgroundColor: kAccentColor,
   ),
   toggleableActiveColor: kFocusColor,
-  textSelectionTheme: TextSelectionThemeData(selectionColor: kFocusColor),
+  textSelectionTheme: TextSelectionThemeData(
+    selectionColor: kFocusColor.withOpacity(0.4),
+  ),
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: ZoomPageTransitionsBuilder(),
@@ -32,7 +36,9 @@ final kDarkTheme = ThemeData(
     backgroundColor: kAccentColor,
   ),
   toggleableActiveColor: kFocusColor,
-  textSelectionTheme: TextSelectionThemeData(selectionColor: kFocusColor),
+  textSelectionTheme: TextSelectionThemeData(
+    selectionColor: kFocusColor.withOpacity(0.4),
+  ),
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: ZoomPageTransitionsBuilder(),

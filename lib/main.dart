@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -19,13 +20,15 @@ class _MainApp extends StatelessWidget {
     return ThemeProvider(
       initTheme: initTheme,
       builder: (context, theme) {
-        return MaterialApp(
-          title: 'Happy Us',
-          debugShowCheckedModeBanner: false,
-          theme: theme,
-          darkTheme: theme,
-          onGenerateRoute: NavigationService.generateRoute,
-          initialRoute: NavigationService.initialPath,
+        return OverlaySupport.global(
+          child: MaterialApp(
+            title: 'Happy Us',
+            debugShowCheckedModeBanner: false,
+            theme: theme,
+            darkTheme: theme,
+            onGenerateRoute: NavigationService.generateRoute,
+            initialRoute: NavigationService.initialPath,
+          ),
         );
       },
     );

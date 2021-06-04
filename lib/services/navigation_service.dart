@@ -9,6 +9,18 @@ class NavigationService {
   static String initialPath = '/';
   static String loginPath = '/login';
 
+  static void _defineRoutes(FluroRouter router) {
+    router.define(loginPath, handler: _loginHandler);
+    router.define(initialPath, handler: _homeHandler);
+  }
+
+  static final _loginHandler = Handler(
+    handlerFunc: (context, params) => LoginScreen(),
+  );
+  static final _homeHandler = Handler(
+    handlerFunc: (context, params) => HomeNavigationScreen(),
+  );
+
   static late FluroRouter _router;
 
   static String get initialRoute => initialPath.replaceAll('/', '');
@@ -37,16 +49,4 @@ class NavigationService {
   static void pop(BuildContext context) {
     _router.pop(context);
   }
-
-  static void _defineRoutes(FluroRouter router) {
-    router.define(loginPath, handler: _loginHandler);
-    router.define(initialPath, handler: _homeHandler);
-  }
-
-  static final _loginHandler = Handler(
-    handlerFunc: (context, params) => LoginScreen(),
-  );
-  static final _homeHandler = Handler(
-    handlerFunc: (context, params) => HomeNavigationScreen(),
-  );
 }

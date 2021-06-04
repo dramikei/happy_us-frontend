@@ -22,8 +22,8 @@ class VolunteerCard extends StatelessWidget {
           TextButton(
             child: Text("Book Appointment"),
             onPressed: () async {
+              // logged in
               if (false) {
-                // logged in
                 final _date = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
@@ -56,7 +56,6 @@ class VolunteerCard extends StatelessWidget {
                 NavigationService.push(
                   context,
                   path: NavigationService.loginPath,
-
                 );
               }
             },
