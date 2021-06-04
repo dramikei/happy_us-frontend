@@ -18,6 +18,8 @@ dependencies:
   easy_container: ^0.0.8
   lottie: ^1.0.1
   timeline_tile: ^2.0.0
+  url_strategy: ^0.2.0
+  fluro: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +30,7 @@ flutter:
 
   assets:
     - assets/lottie/
+    - assets/images/
 
   fonts:
     - family: ProductSans

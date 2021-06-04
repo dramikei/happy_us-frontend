@@ -1,5 +1,6 @@
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 
 class VolunteerCard extends StatelessWidget {
@@ -21,7 +22,7 @@ class VolunteerCard extends StatelessWidget {
           TextButton(
             child: Text("Book Appointment"),
             onPressed: () async {
-              if (true) {
+              if (false) {
                 // logged in
                 final _date = await showDatePicker(
                     context: context,
@@ -52,6 +53,11 @@ class VolunteerCard extends StatelessWidget {
                 print(_date);
               } else {
                 // go to login
+                NavigationService.push(
+                  context,
+                  path: NavigationService.loginPath,
+
+                );
               }
             },
           ),

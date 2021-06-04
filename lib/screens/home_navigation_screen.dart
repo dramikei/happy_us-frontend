@@ -7,7 +7,6 @@ import 'package:happy_us/screens/feeds_page.dart';
 import 'package:happy_us/screens/settings_page.dart';
 import 'package:happy_us/screens/volunteers_page.dart';
 import 'package:happy_us/utils/constants.dart';
-import 'package:happy_us/widgets/custom_text.dart';
 
 class HomeNavigationScreen extends StatefulWidget {
   static const id = 'HomeNavigationScreen';
@@ -51,13 +50,37 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
                 appBar: showBelow
                     ? null
                     : AppBar(
+                        automaticallyImplyLeading: false,
                         toolbarHeight: 65,
                         title: Row(
                           mainAxisAlignment: showBelow
                               ? MainAxisAlignment.center
                               : MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomText("LOGO HERE"),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (_selectedIndex != 0)
+                                    setState(() => _selectedIndex = 0);
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/logo.png",
+                                      height: 65,
+                                    ),
+                                    Text(
+                                      "Happy Us",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                             if (!showBelow) _customBottomNavigationBar(),
                           ],
                         ),
@@ -72,10 +95,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
                     top: showBelow ? Radius.zero : Radius.circular(40),
                     bottom: showBelow ? Radius.circular(40) : Radius.zero,
                   ),
-                  child: IndexedStack(
-                    index: _selectedIndex,
-                    children: _pages,
-                  ),
+                  child: _pages[_selectedIndex],
                 ),
                 bottomNavigationBar:
                     showBelow ? _customBottomNavigationBar() : null,
