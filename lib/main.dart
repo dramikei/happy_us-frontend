@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 void main() {
-  setPathUrlStrategy();
   NavigationService.initialize();
   runApp(_MainApp());
 }

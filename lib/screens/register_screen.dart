@@ -23,6 +23,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _agreeTnC = false;
   int _age = 18;
 
+  final _acceptedIds = ['Snapchat', 'Discord'];
+  int _selectedIdIndex = 0;
+
   String? _username;
   String? _password;
   String? _socialId;
@@ -79,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(size.width * 0.08),
+                padding: EdgeInsets.all(size.width * 0.06),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -112,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     const SizedBox(height: 25),
                     Text(
-                      'Account ID',
+                      'Account ID (${_acceptedIds[_selectedIdIndex]})',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 21,
@@ -121,6 +124,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 10),
                     CustomTextField(
                       onChanged: (v) => _socialId = v,
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: List.generate(
+                        _acceptedIds.length,
+                        (index) => Expanded(
+                          child: RadioListTile<String>(
+                            title: Text(
+                              _acceptedIds[index],
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            activeColor: Theme.of(context).accentColor,
+                            value: _acceptedIds[index],
+                            groupValue: _acceptedIds[_selectedIdIndex],
+                            onChanged: (v) =>
+                                setState(() => _selectedIdIndex = index),
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 25),
                     const Text(
@@ -193,6 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           else {
                             print(_username);
                             print(_password);
+                            print(_acceptedIds[_selectedIdIndex]);
                             print(_socialId);
 
                             if (btnState == ButtonState.Idle) {

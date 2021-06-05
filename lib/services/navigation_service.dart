@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
 import 'package:happy_us/screens/login_screen.dart';
 import 'package:happy_us/screens/register_screen.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 class NavigationService {
   NavigationService._();
@@ -12,25 +13,30 @@ class NavigationService {
   static String registerPath = '/register';
 
   static void _defineRoutes(FluroRouter router) {
-    router.define(loginPath, handler: _loginHandler);
-    router.define(initialPath, handler: _homeHandler);
-    router.define(registerPath, handler: _registerHandler);
+    router.define(
+      initialPath,
+      handler: _defaultHandler(HomeNavigationScreen()),
+    );
+    router.define(
+      loginPath,
+      handler: _defaultHandler(LoginScreen()),
+    );
+    router.define(
+      registerPath,
+      handler: _defaultHandler(RegisterScreen()),
+    );
   }
 
-  static final _registerHandler =
-      Handler(handlerFunc: (context, params) => RegisterScreen());
-  static final _loginHandler = Handler(
-    handlerFunc: (context, params) => LoginScreen(),
-  );
-  static final _homeHandler = Handler(
-    handlerFunc: (context, params) => HomeNavigationScreen(),
-  );
+  static Handler _defaultHandler(Widget widget) {
+    return Handler(handlerFunc: (_, __) => widget);
+  }
 
   static late FluroRouter _router;
 
   static String get initialRoute => initialPath.replaceAll('/', '');
 
   static void initialize() {
+    setPathUrlStrategy();
     _router = FluroRouter();
     _defineRoutes(_router);
   }

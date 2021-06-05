@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -23,7 +24,7 @@ class AlertsService {
       _text(message),
       background: kAccentColor,
       subtitle: subtitle == null ? null : Text(subtitle),
-      position: NotificationPosition.bottom,
+      position: kIsWeb ? NotificationPosition.bottom : NotificationPosition.top,
     );
   }
 
@@ -31,7 +32,7 @@ class AlertsService {
     showSimpleNotification(
       _text(message, color: Colors.white),
       background: Colors.red,
-      position: NotificationPosition.bottom,
+      position: kIsWeb ? NotificationPosition.bottom : NotificationPosition.top,
     );
   }
 }
