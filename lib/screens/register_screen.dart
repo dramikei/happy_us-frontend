@@ -1,4 +1,5 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
@@ -7,22 +8,29 @@ import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/custom_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const id = 'LoginScreen';
+class RegisterScreen extends StatefulWidget {
+  static const id = "RegisterScreen";
+
+  const RegisterScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool _loginAsVolunteer = false;
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool _agreeTnC = false;
+  int _age = 18;
 
   String? _username;
   String? _password;
+  String? _socialId;
 
   String? _validate({
     String? username,
     String? password,
+    String? socialId,
   }) {
     if (username == null || username.isEmpty)
       return "Username cannot be empty";
@@ -32,6 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
       return "Password cannot be empty";
     else if (password.length < 6)
       return "Password length cannot be less than 6";
+    else if (socialId == null || socialId.isEmpty)
+      return "Please enter a valid social ID";
+    else if (!_agreeTnC) {
+      return "Please accept terms and conditions, to continue";
+    }
   }
 
   @override
@@ -71,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Welcome Back",
+                      "Hey there",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 35,
@@ -79,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      "Fill in the form and login to your account",
+                      "Fill in the form and create your account",
                       style: TextStyle(
                         fontSize: 17,
                       ),
@@ -98,6 +111,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: (v) => _username = v,
                     ),
                     const SizedBox(height: 25),
+                    Text(
+                      'Account ID',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 21,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    CustomTextField(
+                      onChanged: (v) => _socialId = v,
+                    ),
+                    const SizedBox(height: 25),
                     const Text(
                       "Dummy Password",
                       style: TextStyle(
@@ -112,12 +137,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 10),
                     CheckboxListTile(
-                      value: _loginAsVolunteer,
-                      onChanged: (v) => setState(() => _loginAsVolunteer = v!),
+                      value: _agreeTnC,
+                      onChanged: (v) => setState(() => _agreeTnC = v!),
                       contentPadding: EdgeInsets.zero,
                       controlAffinity: ListTileControlAffinity.leading,
                       activeColor: kFocusColor,
-                      title: Text("Login as volunteer"),
+                      title: Text("I agree to terms and conditions."),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Age: ${_age.toString()}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 21,
+                          ),
+                        ),
+                        Slider(
+                          max: 24,
+                          min: 18,
+                          inactiveColor: kAccentColor,
+                          activeColor: kFocusColor,
+                          onChanged: (double value) {
+                            setState(() {
+                              _age = value.toInt();
+                            });
+                          },
+                          value: _age.toDouble(),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     Center(
@@ -125,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50,
                         width: 150,
                         child: Text(
-                          "Login",
+                          "Register",
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                         loader: CircularProgressIndicator(
@@ -134,23 +184,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onTap: (startLoading, stopLoading, btnState) async {
                           final error = _validate(
-                            username: _username,
-                            password: _password,
-                          );
+                              username: _username,
+                              password: _password,
+                              socialId: _socialId);
 
                           if (error != null)
                             AlertsService.error(error);
                           else {
                             print(_username);
                             print(_password);
-                            print(_loginAsVolunteer ? 'volunteer' : 'user');
+                            print(_socialId);
 
                             if (btnState == ButtonState.Idle) {
                               startLoading();
                               await Future.delayed(Duration(seconds: 1));
                               // await callApi();
                               stopLoading();
-                              AlertsService.success("Logged in");
+                              AlertsService.success("Account Created!");
                             }
                           }
                         },
@@ -173,10 +223,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {
                           NavigationService.pop(context);
                           NavigationService.push(context,
-                              path: NavigationService.registerPath);
+                              path: NavigationService.loginPath);
                         },
                         child: Text(
-                          "New here? Register now!",
+                          "Already Registered? Login!",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             decoration: TextDecoration.underline,

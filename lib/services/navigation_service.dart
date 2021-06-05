@@ -2,18 +2,23 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
 import 'package:happy_us/screens/login_screen.dart';
+import 'package:happy_us/screens/register_screen.dart';
 
 class NavigationService {
   NavigationService._();
 
   static String initialPath = '/';
   static String loginPath = '/login';
+  static String registerPath = '/register';
 
   static void _defineRoutes(FluroRouter router) {
     router.define(loginPath, handler: _loginHandler);
     router.define(initialPath, handler: _homeHandler);
+    router.define(registerPath, handler: _registerHandler);
   }
 
+  static final _registerHandler =
+      Handler(handlerFunc: (context, params) => RegisterScreen());
   static final _loginHandler = Handler(
     handlerFunc: (context, params) => LoginScreen(),
   );
