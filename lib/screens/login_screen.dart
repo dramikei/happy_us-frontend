@@ -65,131 +65,134 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             Expanded(
-              child: Padding(
+              child: ListView(
                 padding: EdgeInsets.all(size.width * 0.08),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Welcome Back",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 35,
+                children: [
+                  const Text(
+                    "Welcome Back",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 35,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Fill in the form and login to your account",
+                    style: TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  const Text(
+                    "Anonymous Username",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 21,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    autofocus: true,
+                    onChanged: (v) => _username = v,
+                  ),
+                  const SizedBox(height: 25),
+                  const Text(
+                    "Dummy Password",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 21,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    isPasswordField: true,
+                    onChanged: (v) => _password = v,
+                  ),
+                  const SizedBox(height: 10),
+                  CheckboxListTile(
+                    value: _loginAsVolunteer,
+                    onChanged: (v) => setState(() => _loginAsVolunteer = v!),
+                    contentPadding: EdgeInsets.zero,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    activeColor: kFocusColor,
+                    title: Text("Login as volunteer"),
+                  ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: ArgonButton(
+                      height: 50,
+                      width: 150,
+                      child: Text(
+                        "Login",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "Fill in the form and login to your account",
-                      style: TextStyle(
-                        fontSize: 17,
+                      loader: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
-                    ),
-                    const SizedBox(height: 25),
-                    const Text(
-                      "Anonymous Username",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 21,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextField(
-                      autofocus: true,
-                      onChanged: (v) => _username = v,
-                    ),
-                    const SizedBox(height: 25),
-                    const Text(
-                      "Dummy Password",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 21,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextField(
-                      isPasswordField: true,
-                      onChanged: (v) => _password = v,
-                    ),
-                    const SizedBox(height: 10),
-                    CheckboxListTile(
-                      value: _loginAsVolunteer,
-                      onChanged: (v) => setState(() => _loginAsVolunteer = v!),
-                      contentPadding: EdgeInsets.zero,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      activeColor: kFocusColor,
-                      title: Text("Login as volunteer"),
-                    ),
-                    const SizedBox(height: 10),
-                    Center(
-                      child: ArgonButton(
-                        height: 50,
-                        width: 150,
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        loader: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                        onTap: (startLoading, stopLoading, btnState) async {
-                          final error = _validate(
-                            username: _username,
-                            password: _password,
-                          );
+                      onTap: (startLoading, stopLoading, btnState) async {
+                        final error = _validate(
+                          username: _username,
+                          password: _password,
+                        );
 
-                          if (error != null)
-                            AlertsService.error(error);
-                          else {
-                            print(_username);
-                            print(_password);
-                            print(_loginAsVolunteer ? 'volunteer' : 'user');
+                        if (error != null)
+                          AlertsService.error(error);
+                        else {
+                          print(_loginAsVolunteer ? 'volunteer' : 'user');
 
-                            if (btnState == ButtonState.Idle) {
-                              startLoading();
-                              await Future.delayed(Duration(seconds: 1));
-                              // await callApi();
-                              stopLoading();
-                              AlertsService.success("Logged in");
-                            }
+                          final data = {
+                            'username': _username,
+                            'password': _password,
+                            'type': _loginAsVolunteer ? 'volunteer' : 'user',
+                          };
+
+                          print(data);
+
+                          if (btnState == ButtonState.Idle) {
+                            startLoading();
+                            await Future.delayed(Duration(seconds: 1));
+                            // await callApi();
+                            stopLoading();
+                            AlertsService.success("Logged in");
                           }
-                        },
-                        color: kFocusColor,
-                        borderRadius: 10,
+                        }
+                      },
+                      color: kFocusColor,
+                      borderRadius: 10,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: EasyContainer(
+                      margin: 0,
+                      color: Colors.transparent,
+                      elevation: 0,
+                      customPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      alignment: null,
+                      onTap: () {
+                        NavigationService.pop(context);
+                        NavigationService.push(
+                          context,
+                          path: NavigationService.registerPath,
+                        );
+                      },
+                      child: Text(
+                        "New here? Register now!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.black
+                                  : Colors.white54,
+                        ),
                       ),
                     ),
-                    Spacer(),
-                    Align(
-                      alignment: Alignment.center,
-                      child: EasyContainer(
-                        margin: 0,
-                        color: Colors.transparent,
-                        elevation: 0,
-                        customPadding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        alignment: null,
-                        onTap: () {
-                          NavigationService.pop(context);
-                          NavigationService.push(context,
-                              path: NavigationService.registerPath);
-                        },
-                        child: Text(
-                          "New here? Register now!",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Colors.black
-                                    : Colors.white54,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

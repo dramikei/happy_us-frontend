@@ -33,8 +33,6 @@ class NavigationService {
 
   static late FluroRouter _router;
 
-  static String get initialRoute => initialPath.replaceAll('/', '');
-
   static void initialize() {
     setPathUrlStrategy();
     _router = FluroRouter();
