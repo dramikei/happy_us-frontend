@@ -17,6 +17,7 @@ class Tnc extends StatelessWidget {
         title: const Text('Terms and conditions'),
       ),
       body: PdfView(
+        physics: const BouncingScrollPhysics(),
         documentLoader: Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
@@ -28,8 +29,7 @@ class Tnc extends StatelessWidget {
           ),
         ),
         controller: PdfController(
-          document: PdfDocument.openAsset(
-              'assets/docs/tnc.pdf'),
+          document: PdfDocument.openAsset('assets/docs/tnc.pdf'),
         ),
       ),
     );

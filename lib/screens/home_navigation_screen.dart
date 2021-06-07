@@ -1,7 +1,7 @@
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:happy_us/screens/orphan_page.dart';
+import 'package:happy_us/screens/reach_out_page.dart';
 import 'package:happy_us/screens/feeds_page.dart';
 import 'package:happy_us/screens/dashboard_page.dart';
 import 'package:happy_us/screens/volunteers_page.dart';
@@ -24,7 +24,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
   final _pages = [
     FeedsPage(),
     VolunteersPage(),
-    OrphanPage(),
+    ReachOutPage(),
     DashboardPage(),
   ];
 
@@ -113,7 +113,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
           ),
           GButton(
             icon: Icons.star,
-            text: 'Orphan',
+            text: 'Reach Out',
           ),
           GButton(
             icon: Icons.settings,

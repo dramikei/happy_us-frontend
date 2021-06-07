@@ -2,7 +2,7 @@ import 'package:dough/dough.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:happy_us/models/volunteer.dart';
-import 'package:happy_us/widgets/custom_text.dart';
+import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
 
 class VolunteersPage extends StatelessWidget {
@@ -21,8 +21,8 @@ class VolunteersPage extends StatelessWidget {
       'type': 'volunteer',
       'age': 20,
       'social': {'discord': 'ABC#123'},
-      'hobbies': ['Hobby1', 'Hobby2', 'Hobby3'],
-      'aboutMe': 'Hello I am ABC',
+      'hobbies': ['Hobby1' * 12, 'Hobby2', 'Hobby3' * 5],
+      'aboutMe': 'Hello I am ABC' * 7,
       'imageUrl': '',
     }),
     Volunteer.fromJson({
@@ -33,8 +33,20 @@ class VolunteersPage extends StatelessWidget {
       'type': 'volunteer',
       'age': 22,
       'social': {'snapchat': 'Snap#123'},
-      'hobbies': ['Hobby1', 'Hobby2', 'Hobby3'],
-      'aboutMe': 'Hello I am Snap',
+      'hobbies': ['Hobby1', 'Hobby2' * 8, 'Hobby3'],
+      'aboutMe': 'Hello I am Snap' * 5,
+      'imageUrl': '',
+    }),
+    Volunteer.fromJson({
+      'id': '#3',
+      'username': 'user-name2',
+      'password': 'pass-word2',
+      'fcmToken': '',
+      'type': 'volunteer',
+      'age': 22,
+      'social': {'snapchat': 'Snap#123'},
+      'hobbies': ['Hobby1', 'Hobby2' * 8, 'Hobby3'],
+      'aboutMe': 'Hello I am Snap' * 5,
       'imageUrl': '',
     }),
   ];
@@ -44,8 +56,8 @@ class VolunteersPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: ListView.separated(
-          padding: const EdgeInsets.all(10),
-          separatorBuilder: (c, i) => const SizedBox(height: 15),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 100),
+          separatorBuilder: (c, i) => const SizedBox(height: 25),
           itemBuilder: (context, index) {
             final volunteer = _volunteers[index];
             return VolunteerCard(volunteer);
@@ -68,14 +80,22 @@ class VolunteersPage extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.red,
+                                color: kFocusColor,
                               ),
-                              child: Center(
-                                child: CustomText(
-                                  "Content",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
+                              child: Padding(
+                                padding: const EdgeInsets.all(50),
+                                child: FittedBox(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Stress",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        "Ball",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),

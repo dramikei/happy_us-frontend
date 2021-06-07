@@ -249,6 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: 10,
                     ),
                   ),
+                  const SizedBox(height: 25),
                   underlineText(
                       context: context,
                       text: "Already Registered? Login!",
@@ -269,10 +270,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 }
 
-Widget underlineText(
-    {required BuildContext context,
-    required String text,
-    required VoidCallback onTop}) {
+Widget underlineText({
+  required BuildContext context,
+  required String text,
+  required VoidCallback onTop,
+}) {
   return Align(
     alignment: Alignment.center,
     child: EasyContainer(

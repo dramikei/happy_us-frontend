@@ -1,29 +1,22 @@
+import 'package:timeago/timeago.dart' as timeago;
+
 class Post {
   late final String id;
   late final String content;
   late final String heading;
   late final DateTime time;
-  late final List<_PostComment> comments;
+  late final List<String> likedBy;
+
+  late final String timeAgo;
 
   Post.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     content = json['content'];
     heading = json['heading'];
+
     time = DateTime.parse(json['time']);
-    comments = (json['comments'] as List)
-        .map((comment) => _PostComment.fromJson(comment))
-        .toList();
-  }
-}
+    timeAgo = timeago.format(time);
 
-class _PostComment {
-  late final String id;
-  late final String message;
-  late final String username;
-
-  _PostComment.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    message = json['message'];
-    username = json['username'];
+    likedBy = (json['likedBy'] as List).cast<String>();
   }
 }

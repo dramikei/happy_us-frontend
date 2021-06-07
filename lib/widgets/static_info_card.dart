@@ -22,9 +22,10 @@ class StaticInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showRowLayout = MediaQuery.of(context).size.width >= 950;
+    final size = MediaQuery.of(context).size;
+    final showRowLayout = size.width >= 950;
     return ListView(
-      padding: const EdgeInsets.all(50),
+      padding: EdgeInsets.all(size.width * 0.06),
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

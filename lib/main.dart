@@ -19,6 +19,7 @@ class _MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: kLightTheme,
         darkTheme: kDarkTheme,
+        themeMode: ThemeMode.dark,
         onGenerateRoute: NavigationService.generateRoute,
         initialRoute: NavigationService.initialPath,
       ),

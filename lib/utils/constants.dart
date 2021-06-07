@@ -34,4 +34,8 @@ ThemeData _baseTheme(Brightness brightness) {
 }
 
 final kLightTheme = _baseTheme(Brightness.light);
-final kDarkTheme = _baseTheme(Brightness.dark);
+final kDarkTheme = _baseTheme(Brightness.dark).copyWith(
+  primaryColor: Color(0xFF17001F),
+  scaffoldBackgroundColor: Color(0xFF17001F),
+  canvasColor: Color(0xFF17001F),
+);
