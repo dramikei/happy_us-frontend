@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:happy_us/widgets/theme_switcher_icon_button.dart';
 
-class SettingsPage extends StatelessWidget {
-  static const id = 'SettingsPage';
+class DashboardPage extends StatelessWidget {
+  static const id = 'DashboardPage';
 
-  const SettingsPage({
+  const DashboardPage({
     Key? key,
   }) : super(key: key);
+
+  // login/profile button,
+  // about us page,
+  // my appointments,
+  // edit profile, etc.
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +19,6 @@ class SettingsPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          actions: [
-            const ThemeSwitcherIconButton(),
-          ],
         ),
         body: ListView.separated(
           separatorBuilder: (c, i) => const SizedBox(height: 15),

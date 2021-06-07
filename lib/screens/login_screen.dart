@@ -161,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: 10,
                     ),
                   ),
+                  const SizedBox(height: 25),
                   Align(
                     alignment: Alignment.center,
                     child: EasyContainer(

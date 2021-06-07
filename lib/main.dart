@@ -1,4 +1,3 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
@@ -12,23 +11,17 @@ void main() {
 class _MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isPlatformDark =
-        WidgetsBinding.instance!.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? kDarkTheme : kLightTheme;
-    return ThemeProvider(
-      initTheme: initTheme,
-      builder: (context, theme) {
-        return OverlaySupport.global(
-          child: MaterialApp(
-            title: 'Happy Us',
-            debugShowCheckedModeBanner: false,
-            theme: theme,
-            darkTheme: theme,
-            onGenerateRoute: NavigationService.generateRoute,
-            initialRoute: NavigationService.initialPath,
-          ),
-        );
-      },
+    // final isPlatformDark =
+    //     WidgetsBinding.instance!.window.platformBrightness == Brightness.dark;
+    return OverlaySupport.global(
+      child: MaterialApp(
+        title: 'Happy Us',
+        debugShowCheckedModeBanner: false,
+        theme: kLightTheme,
+        darkTheme: kDarkTheme,
+        onGenerateRoute: NavigationService.generateRoute,
+        initialRoute: NavigationService.initialPath,
+      ),
     );
   }
 }

@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
 
   dough: ^1.0.1
-  animated_theme_switcher: ^2.0.1
   google_nav_bar: ^5.0.5
   easy_container: ^0.0.8
   lottie: ^1.0.1

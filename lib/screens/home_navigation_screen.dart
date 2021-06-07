@@ -1,10 +1,9 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:happy_us/screens/orphan_page.dart';
 import 'package:happy_us/screens/feeds_page.dart';
-import 'package:happy_us/screens/settings_page.dart';
+import 'package:happy_us/screens/dashboard_page.dart';
 import 'package:happy_us/screens/volunteers_page.dart';
 import 'package:happy_us/utils/constants.dart';
 
@@ -26,83 +25,66 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
     FeedsPage(),
     VolunteersPage(),
     OrphanPage(),
-    SettingsPage(),
+    DashboardPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     final showBelow = MediaQuery.of(context).size.width < SMALL_SCREEN_WIDTH;
-    return WillPopScope(
-      onWillPop: () async {
-        if (_selectedIndex == 0)
-          return true;
-        else {
-          setState(() => _selectedIndex = 0);
-          return false;
-        }
-      },
-      child: SafeArea(
-        child: ThemeSwitchingArea(
-          child: Builder(
-            builder: (context) {
-              return Scaffold(
-                backgroundColor: Colors.amber,
-                appBar: showBelow
-                    ? null
-                    : AppBar(
-                        automaticallyImplyLeading: false,
-                        toolbarHeight: 65,
-                        title: Row(
-                          mainAxisAlignment: showBelow
-                              ? MainAxisAlignment.center
-                              : MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.amber,
+        appBar: showBelow
+            ? null
+            : AppBar(
+                automaticallyImplyLeading: false,
+                toolbarHeight: 65,
+                title: Row(
+                  mainAxisAlignment: showBelow
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.spaceBetween,
+                  children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (_selectedIndex != 0)
+                            setState(() => _selectedIndex = 0);
+                        },
+                        child: Row(
                           children: [
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {
-                                  if (_selectedIndex != 0)
-                                    setState(() => _selectedIndex = 0);
-                                },
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/logo.png",
-                                      height: 65,
-                                    ),
-                                    Text(
-                                      "Happy Us",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 25,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                            Image.asset(
+                              "assets/images/logo.png",
+                              height: 65,
+                            ),
+                            Text(
+                              "Happy Us",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 25,
                               ),
                             ),
-                            if (!showBelow) _customBottomNavigationBar(),
                           ],
                         ),
-                        backgroundColor: Colors.transparent,
-                        elevation: 0,
                       ),
-                body: EasyContainer(
-                  margin: 0,
-                  padding: 0,
-                  color: Colors.transparent,
-                  customBorderRadius: BorderRadius.vertical(
-                    top: showBelow ? Radius.zero : Radius.circular(40),
-                    bottom: showBelow ? Radius.circular(40) : Radius.zero,
-                  ),
-                  child: _pages[_selectedIndex],
+                    ),
+                    if (!showBelow) _customBottomNavigationBar(),
+                  ],
                 ),
-                bottomNavigationBar:
-                    showBelow ? _customBottomNavigationBar() : null,
-              );
-            },
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+        body: EasyContainer(
+          margin: 0,
+          padding: 0,
+          color: Colors.transparent,
+          customBorderRadius: BorderRadius.vertical(
+            top: showBelow ? Radius.zero : Radius.circular(40),
+            bottom: showBelow ? Radius.circular(40) : Radius.zero,
           ),
+          child: _pages[_selectedIndex],
         ),
+        bottomNavigationBar: showBelow ? _customBottomNavigationBar() : null,
       ),
     );
   }
@@ -135,7 +117,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
           ),
           GButton(
             icon: Icons.settings,
-            text: 'Settings',
+            text: 'Dashboard',
           ),
         ],
         selectedIndex: _selectedIndex,

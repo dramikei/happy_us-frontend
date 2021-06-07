@@ -7,6 +7,8 @@ class FeedsPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  // title, description, like, author,
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

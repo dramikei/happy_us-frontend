@@ -240,6 +240,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: 10,
                     ),
                   ),
+                  const SizedBox(height: 25),
                   Align(
                     alignment: Alignment.center,
                     child: EasyContainer(
