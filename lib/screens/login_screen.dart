@@ -66,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             Expanded(
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.all(size.width * 0.08),
                 children: [
                   const Text(

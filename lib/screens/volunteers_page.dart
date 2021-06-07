@@ -56,6 +56,7 @@ class VolunteersPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: ListView.separated(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 100),
           separatorBuilder: (c, i) => const SizedBox(height: 25),
           itemBuilder: (context, index) {

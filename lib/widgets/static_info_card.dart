@@ -25,6 +25,7 @@ class StaticInfoCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final showRowLayout = size.width >= 950;
     return ListView(
+      physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.all(size.width * 0.06),
       children: [
         Row(

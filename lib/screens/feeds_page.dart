@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:happy_us/models/post.dart';
 import 'package:happy_us/widgets/post_card.dart';
+import 'package:lottie/lottie.dart';
 
 class FeedsPage extends StatelessWidget {
   static const id = 'FeedsPage';
@@ -30,14 +31,22 @@ class FeedsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ListView.separated(
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 35),
-          separatorBuilder: (c, i) => const SizedBox(height: 25),
-          itemBuilder: (context, index) {
-            final post = _posts[index];
-            return PostCard(post);
-          },
-          itemCount: _posts.length,
+          children: [
+            Lottie.asset("assets/lottie/loader.json"),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (c, i) => const SizedBox(height: 25),
+              itemBuilder: (context, index) {
+                final post = _posts[index];
+                return PostCard(post);
+              },
+              itemCount: _posts.length,
+            ),
+          ],
         ),
       ),
     );

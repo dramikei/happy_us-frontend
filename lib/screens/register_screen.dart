@@ -82,6 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             Expanded(
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.all(size.width * 0.06),
                 children: [
                   const Text(

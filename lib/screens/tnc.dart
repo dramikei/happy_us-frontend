@@ -14,7 +14,7 @@ class Tnc extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: kFocusColor,
-        title: const Text('Terms and conditions'),
+        title: const Text('Terms & Conditions'),
       ),
       body: PdfView(
         physics: const BouncingScrollPhysics(),
