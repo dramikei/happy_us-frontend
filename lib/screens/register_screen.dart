@@ -159,6 +159,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onChanged: (v) => _password = v,
                   ),
                   const SizedBox(height: 10),
+                  underlineText(
+                    context: context,
+                    text: "View Terms and conditions",
+                    onTop: () {
+                      NavigationService.push(
+                        context,
+                        path: NavigationService.tncPath,
+                      );
+                    },
+                  ),
                   CheckboxListTile(
                     value: _agreeTnC,
                     onChanged: (v) => setState(() => _agreeTnC = v!),
@@ -224,7 +234,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   _socialId
                             },
                           };
-
                           print(data);
 
                           if (btnState == ButtonState.Idle) {
@@ -240,38 +249,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: 10,
                     ),
                   ),
-                  const SizedBox(height: 25),
-                  Align(
-                    alignment: Alignment.center,
-                    child: EasyContainer(
-                      margin: 0,
-                      color: Colors.transparent,
-                      elevation: 0,
-                      customPadding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      alignment: null,
-                      onTap: () {
+                  underlineText(
+                      context: context,
+                      text: "Already Registered? Login!",
+                      onTop: () {
                         NavigationService.pop(context);
                         NavigationService.push(
                           context,
                           path: NavigationService.loginPath,
                         );
-                      },
-                      child: Text(
-                        "Already Registered? Login!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? Colors.black
-                                  : Colors.white54,
-                        ),
-                      ),
-                    ),
-                  ),
+                      }),
                 ],
               ),
             ),
@@ -280,4 +267,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+}
+
+Widget underlineText(
+    {required BuildContext context,
+    required String text,
+    required VoidCallback onTop}) {
+  return Align(
+    alignment: Alignment.center,
+    child: EasyContainer(
+      margin: 0,
+      color: Colors.transparent,
+      elevation: 0,
+      customPadding: const EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 10,
+      ),
+      alignment: null,
+      onTap: onTop,
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          decoration: TextDecoration.underline,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.black
+              : Colors.white54,
+        ),
+      ),
+    ),
+  );
 }

@@ -21,6 +21,7 @@ dependencies:
   fluro: ^2.0.3
   argon_buttons_flutter: ^1.1.0
   overlay_support: ^1.2.1
+  native_pdf_view: ^4.0.1
   carousel_slider: ^4.0.0-nullsafety.0
 
 dev_dependencies:
@@ -33,6 +34,7 @@ flutter:
   assets:
     - assets/lottie/
     - assets/images/
+    - assets/docs/
 
   fonts:
     - family: ProductSans

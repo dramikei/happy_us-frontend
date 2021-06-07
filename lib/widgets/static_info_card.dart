@@ -9,12 +9,11 @@ class StaticInfoCard extends StatelessWidget {
   static const id = 'StaticInfoCard';
 
   static final _points = [
-    'point1' * 20,
-    'point2' * 15,
-    'point3' * 11,
-    'point4' * 18,
-    'point5' * 18,
-    'point6' * 18,
+    "Following a legal process to help a child reach a foster family, any concerned citizen can call Child-Line on 1098 to report an abandoned or orphaned child.",
+    "The concerned citizen may also refer the child to the Specialized Adoption Agency, which is an authorized child shelter.",
+    "One can find the nearest adoption agency by going to this link https://waic.in/report2020/ and selecting any state. The link will take you to the Central Adoption Resource Authority (CARA) page, which is part of the Department of Women and Children Development.",
+    "With the exception of abandoned children and orphans, or in cases where parents or guardians decide they will not be able to raise a child, the child may be provided by the family by going to a Specialized Adoption Agency.",
+    "When the specialised agencies receive a child they first enquire whether the child has any relative willing to look after them before declaring the child legally free. After the process the child would be available and put up for adoption by 30000 families willing to adopt them who have been assessed as eligible parents by cara, police, social workers. ",
   ];
 
   const StaticInfoCard({
@@ -37,12 +36,12 @@ class StaticInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    "Heading",
+                    "How to help others",
                     style: TextStyle(fontSize: 25),
                   ),
                   const SizedBox(height: 25),
                   CustomText(
-                    "Description" * 250,
+                    "As we all know covid 19 has made many children orphans  as loosing both their parents to  disease. It is important that such children enter the legal pool of adoption, not only for the welfare of the child but also for the legal protection of the entire adoptive family. If the procedure is not completed legally, the child may be separated from the adoptive parents, and the parents may even be arrested for child trafficking.",
                     style: TextStyle(fontSize: 17),
                   ),
                   const SizedBox(height: 25),
