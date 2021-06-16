@@ -134,7 +134,7 @@ class PostCard extends StatelessWidget {
       post.content,
       style: TextStyle(fontSize: 18),
       overflow: openedFromDialog ? null : TextOverflow.ellipsis,
-      maxLines: openedFromDialog ? null : 10,
+      maxLines: openedFromDialog ? null : 8,
     );
   }
 }

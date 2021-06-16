@@ -33,9 +33,16 @@ ThemeData _baseTheme(Brightness brightness) {
   );
 }
 
-final kLightTheme = _baseTheme(Brightness.light);
+final kLightTheme = _baseTheme(Brightness.light).copyWith(
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(color: Colors.black, fontSize: 35),
+  ),
+);
 final kDarkTheme = _baseTheme(Brightness.dark).copyWith(
   primaryColor: Color(0xFF17001F),
   scaffoldBackgroundColor: Color(0xFF17001F),
   canvasColor: Color(0xFF17001F),
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(color: Colors.white, fontSize: 35),
+  ),
 );

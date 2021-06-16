@@ -22,32 +22,18 @@ class VolunteersPage extends StatelessWidget {
       'type': 'volunteer',
       'age': 20,
       'social': {'discord': 'ABC#123'},
-      'hobbies': ['Hobby1' * 12, 'Hobby2', 'Hobby3' * 5],
-      'aboutMe': 'Hello I am ABC' * 7,
-      'imageUrl': '',
-    }),
-    Volunteer.fromJson({
-      'id': '#2',
-      'username': 'user-name2',
-      'password': 'pass-word2',
-      'fcmToken': '',
-      'type': 'volunteer',
-      'age': 22,
-      'social': {'snapchat': 'Snap#123'},
-      'hobbies': ['Hobby1', 'Hobby2' * 8, 'Hobby3'],
-      'aboutMe': 'Hello I am Snap' * 5,
-      'imageUrl': '',
-    }),
-    Volunteer.fromJson({
-      'id': '#3',
-      'username': 'user-name2',
-      'password': 'pass-word2',
-      'fcmToken': '',
-      'type': 'volunteer',
-      'age': 22,
-      'social': {'snapchat': 'Snap#123'},
-      'hobbies': ['Hobby1', 'Hobby2' * 8, 'Hobby3'],
-      'aboutMe': 'Hello I am Snap' * 5,
+      'hobbies': [
+        '''
+I love reading novels (won't admit that I only read romance so shhh🤫🤐
+A HUGE movie and series buff)
+        ''',
+        'Enjoy cooking and painting',
+        'From the bottom of my heart believe that Taylor Swift is a goddamn queen🙇🏻‍♀️👑',
+      ],
+      'aboutMe': '''
+Hey! Treat me as a human journal who can either just listen or maybe if YOU want give an awesome advice..
+Mainly I will hear you rant or rant together 😅
+      ''',
       'imageUrl': '',
     }),
   ];
@@ -75,7 +61,7 @@ class VolunteersPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               "Always happy to listen",
-              style: TextStyle(fontSize: 35),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
           ),
         ),

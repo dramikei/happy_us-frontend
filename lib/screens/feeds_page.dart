@@ -57,7 +57,7 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               "Show some love",
-              style: TextStyle(fontSize: 35),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
               maxLines: 2,
             ),
           ),
