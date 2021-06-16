@@ -1,4 +1,5 @@
 import 'package:easy_container/easy_container.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/models/post.dart';
@@ -8,17 +9,20 @@ class PostCard extends StatelessWidget {
   static const id = 'PostCard';
 
   final Post post;
+  final bool openedFromDialog;
 
   const PostCard(
-      this.post, {
-        Key? key,
-      }) : super(key: key);
+    this.post, {
+    Key? key,
+    this.openedFromDialog = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return EasyContainer(
       margin: 0,
       borderRadius: 10,
+      height: 300,
       padding: 0,
       elevation: 10,
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -27,11 +31,26 @@ class PostCard extends StatelessWidget {
       highlightColor: Colors.transparent,
       zeroDownElevationOnTap: false,
       alignment: null,
+      onTap: openedFromDialog
+          ? null
+          : () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(kIsWeb ? 100 : 30),
+                        child: PostCard(this.post, openedFromDialog: true),
+                      ),
+                    );
+                  });
+            },
       onDoubleTap: () {
         print("double tap to like?");
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             width: double.infinity,
@@ -46,6 +65,8 @@ class PostCard extends StatelessWidget {
                     fontSize: 25,
                     color: Colors.white,
                   ),
+                  overflow: openedFromDialog ? null : TextOverflow.ellipsis,
+                  maxLines: openedFromDialog ? null : 1,
                 ),
               ),
             ),
@@ -62,6 +83,8 @@ class PostCard extends StatelessWidget {
                 Text(
                   post.content,
                   style: TextStyle(fontSize: 16),
+                  overflow: openedFromDialog ? null : TextOverflow.ellipsis,
+                  maxLines: openedFromDialog ? null : 10,
                 ),
                 const SizedBox(height: 10),
                 Row(

@@ -1,31 +1,31 @@
-enum UserType { user, volunteer }
+enum _UserType { user, volunteer }
 
 abstract class BaseUser {
   late final String id;
   late final String username;
   late final String password;
   late final String fcmToken;
-  late final UserType type;
+  late final _UserType type;
   late final int age;
   late final Map<String, dynamic> social;
 
   String get userTypeAsString {
     switch (type) {
-      case UserType.user:
+      case _UserType.user:
         return 'user';
-      case UserType.volunteer:
+      case _UserType.volunteer:
         return 'volunteer';
     }
   }
 
-  UserType userTypeFromString(String type) {
+  _UserType userTypeFromString(String type) {
     switch (type) {
       case 'user':
-        return UserType.user;
+        return _UserType.user;
       case 'volunteer':
-        return UserType.volunteer;
+        return _UserType.volunteer;
       default:
-        return UserType.user;
+        return _UserType.user;
     }
   }
 }

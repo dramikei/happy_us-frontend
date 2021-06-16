@@ -4,7 +4,7 @@ class Post {
   late final String id;
   late final String content;
   late final String heading;
-  late final DateTime time;
+  late final DateTime _time;
   late final List<String> likedBy;
 
   late final String timeAgo;
@@ -14,8 +14,8 @@ class Post {
     content = json['content'];
     heading = json['heading'];
 
-    time = DateTime.parse(json['time']);
-    timeAgo = timeago.format(time);
+    _time = DateTime.parse(json['time']);
+    timeAgo = timeago.format(_time);
 
     likedBy = (json['likedBy'] as List).cast<String>();
   }

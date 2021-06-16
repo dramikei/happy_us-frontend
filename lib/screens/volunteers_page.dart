@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:happy_us/models/volunteer.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:happy_us/widgets/responsive_grid_view.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
 
 class VolunteersPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class VolunteersPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static final _volunteers = [
+  static final __volunteers = [
     Volunteer.fromJson({
       'id': '#1',
       'username': 'user-name',
@@ -51,19 +52,41 @@ class VolunteersPage extends StatelessWidget {
     }),
   ];
 
+  static final _volunteers = [
+    ...__volunteers,
+    ...__volunteers,
+    ...__volunteers,
+    ...__volunteers,
+    ...__volunteers,
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isSmallScreen = size.width < SMALL_SCREEN_WIDTH;
     return SafeArea(
       child: Scaffold(
-        body: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 100),
-          separatorBuilder: (c, i) => const SizedBox(height: 25),
-          itemBuilder: (context, index) {
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              "Always happy to listen",
+              style: TextStyle(fontSize: 35),
+            ),
+          ),
+        ),
+        body: ResponsiveGridList(
+          padding: const EdgeInsets.symmetric(vertical: 50),
+          minSpacing: 50,
+          desiredItemWidth: isSmallScreen ? 270 : 350,
+          children: List.generate(_volunteers.length, (index) {
             final volunteer = _volunteers[index];
             return VolunteerCard(volunteer);
-          },
-          itemCount: _volunteers.length,
+          }),
         ),
         floatingActionButton: kIsWeb
             ? SizedBox.shrink()

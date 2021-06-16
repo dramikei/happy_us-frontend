@@ -46,10 +46,7 @@ class VolunteerCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 5,
-            ),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
                 ...List.generate(
