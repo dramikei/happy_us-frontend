@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:happy_us/repository/post_repo.dart';
+import 'package:happy_us/utils/instances.dart';
 
 class DashboardPage extends StatelessWidget {
   static const id = 'DashboardPage';
@@ -6,11 +9,6 @@ class DashboardPage extends StatelessWidget {
   const DashboardPage({
     Key? key,
   }) : super(key: key);
-
-  // login/profile button,
-  // about us page,
-  // my appointments,
-  // edit profile, etc.
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +26,14 @@ class DashboardPage extends StatelessWidget {
               onTap: () {},
             ),
             _settingsTile(
+              title: "Notifications",
+              onTap: () {},
+            ),
+            _settingsTile(
+              title: "My Posts",
+              onTap: () {},
+            ),
+            _settingsTile(
               title: "My Appointments",
               onTap: () {},
             ),
@@ -36,8 +42,23 @@ class DashboardPage extends StatelessWidget {
               onTap: () {},
             ),
             _settingsTile(
+              title: "Change Theme",
+              onTap: () {
+                if (Get.theme.brightness == Brightness.dark) {
+                  Get.changeThemeMode(ThemeMode.light);
+                  Instances.updateThemeMode(ThemeMode.light);
+                } else {
+                  Get.changeThemeMode(ThemeMode.dark);
+                  Instances.updateThemeMode(ThemeMode.dark);
+                }
+              },
+            ),
+            _settingsTile(
               title: "Logout",
-              onTap: () {},
+              onTap: () async {
+                final msg = await PostRepo.createPost();
+                print(msg);
+              },
             ),
           ],
         ),
