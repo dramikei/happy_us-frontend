@@ -79,14 +79,19 @@ class VolunteersPage extends StatelessWidget {
             ),
           ),
         ),
-        body: ResponsiveGridList(
-          padding: const EdgeInsets.symmetric(vertical: 50),
-          minSpacing: 50,
-          desiredItemWidth: isSmallScreen ? 270 : 350,
-          children: List.generate(_volunteers.length, (index) {
-            final volunteer = _volunteers[index];
-            return VolunteerCard(volunteer);
-          }),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await Future.delayed(Duration(seconds: 3));
+          },
+          child: ResponsiveGridList(
+            padding: const EdgeInsets.symmetric(vertical: 50),
+            minSpacing: 50,
+            desiredItemWidth: isSmallScreen ? 270 : 350,
+            children: List.generate(_volunteers.length, (index) {
+              final volunteer = _volunteers[index];
+              return VolunteerCard(volunteer);
+            }),
+          ),
         ),
         floatingActionButton: kIsWeb
             ? SizedBox.shrink()

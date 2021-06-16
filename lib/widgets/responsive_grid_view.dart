@@ -67,6 +67,7 @@ class ResponsiveGridList extends StatelessWidget {
         if (scroll) {
           return ListView.builder(
               padding: padding,
+              physics: const BouncingScrollPhysics(),
               itemCount: (children.length / n).ceil() * 2 - 1,
               itemBuilder: (context, index) {
                 //if (index * n >= children.length) return null;
