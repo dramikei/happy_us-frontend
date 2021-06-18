@@ -11,7 +11,8 @@ class Instances {
     BaseOptions(
       baseUrl: 'http://10.0.2.2:3000/api',
     ),
-  )..interceptors.addAll([
+  )
+    ..interceptors.addAll([
       InterceptorsWrapper(
         onRequest: (request, handler) {
           if (accessToken != null && refreshToken != null) {
@@ -39,6 +40,15 @@ class Instances {
   static String? get accessToken => box.read('accessToken');
 
   static String? get refreshToken => box.read('refreshToken');
+
+  // to be stored on login
+  static String? get userId => box.read('userId');
+
+  // default = user
+  static String? get userType {
+    final type = box.read('userType');
+    return type ?? 'user';
+  }
 
   static void updateThemeMode(ThemeMode themeMode) {
     box.write('theme', themeMode.toString().split('.')[1]);
