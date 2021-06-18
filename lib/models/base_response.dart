@@ -1,15 +1,15 @@
-class BaseResponse {
-  late final dynamic data;
+class BaseResponse<T> {
+  late final T? data;
   late final Map<String, dynamic> tokens;
   late final String message;
   late final String path;
-  late final String status;
+  late final bool success;
 
   BaseResponse.fromJson(Map<String, dynamic> json) {
     data = json['data'];
     tokens = json['tokens'] ?? {};
     message = json['message'];
     path = json['path'];
-    status = json['status'];
+    success = json['status'];
   }
 }

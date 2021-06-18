@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:happy_us/models/base_response.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -11,8 +12,7 @@ class Instances {
     BaseOptions(
       baseUrl: 'http://10.0.2.2:3000/api',
     ),
-  )
-    ..interceptors.addAll([
+  )..interceptors.addAll([
       InterceptorsWrapper(
         onRequest: (request, handler) {
           if (accessToken != null && refreshToken != null) {
@@ -22,6 +22,9 @@ class Instances {
           handler.next(request);
         },
         onResponse: (response, handler) {
+          response.data['success'] =
+              response.data['status'] == 'Success' ? true : false;
+
           final data = BaseResponse.fromJson(response.data);
           if (data.tokens.containsKey('accessToken'))
             box.write('accessToken', data.tokens['accessToken']);
@@ -59,4 +62,23 @@ class Instances {
     if (theme == null) return ThemeMode.system;
     return theme == 'light' ? ThemeMode.light : ThemeMode.dark;
   }
+
+  static Future<T?> requestHandler<T>(Future response) async {
+    try {
+      final res = await response;
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        final response = BaseResponse<T>.fromJson(res.data);
+        if (response.success)
+          return response.data;
+        else {
+          Get.snackbar('An error occurred!', response.message);
+          return null;
+        }
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
 }
