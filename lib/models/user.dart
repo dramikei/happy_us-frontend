@@ -5,7 +5,7 @@ class User extends BaseUser {
   late final List<Post> posts;
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['_id'];
     username = json['username'];
     password = json['password'];
     fcmToken = json['fcmToken'];

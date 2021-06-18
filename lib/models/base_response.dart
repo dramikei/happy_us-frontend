@@ -10,6 +10,6 @@ class BaseResponse<T> {
     tokens = json['tokens'] ?? {};
     message = json['message'];
     path = json['path'];
-    success = json['status'];
+    success = json['success'];
   }
 }

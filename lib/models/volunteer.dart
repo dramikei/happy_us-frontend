@@ -6,7 +6,7 @@ class Volunteer extends BaseUser {
   late final String imageUrl;
 
   Volunteer.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['_id'];
     username = json['username'];
     password = json['password'];
     fcmToken = json['fcmToken'];

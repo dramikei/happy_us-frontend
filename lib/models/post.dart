@@ -11,7 +11,7 @@ class Post {
   late final String timeAgo;
 
   Post.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['_id'];
     content = json['content'];
     heading = json['heading'];
     creatorId = json['creatorId'];

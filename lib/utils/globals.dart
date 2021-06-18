@@ -37,7 +37,7 @@ class Globals {
           handler.next(response);
         },
       ),
-      PrettyDioLogger(requestHeader: true),
+      PrettyDioLogger(requestHeader: true, requestBody: true),
     ]);
 
   static String? get accessToken => box.read('accessToken');
@@ -67,6 +67,7 @@ class Globals {
         }
       }
     } catch (e) {
+      print(e);
       return null;
     }
   }
@@ -77,31 +78,36 @@ class Globals {
     try {
       final res = await response;
 
-      if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        final returnType = res.realUri.path;
+      final _list = <T>[];
 
-        switch (returnType) {
+      if (res.statusCode! >= 200 && res.statusCode! < 300) {
+        final endpoint = res.realUri.path.substring(4); // removing /api
+
+        if (!res.data['success']) return null;
+
+        switch (endpoint) {
           case '/notification':
-            res.data = (res.data as List)
-                .map((e) => notification.Notification.fromJson(e))
-                .toList();
+            (res.data['data'] as List).forEach(
+                (e) => _list.add(notification.Notification.fromJson(e) as T));
             break;
           case '/appointment':
-            res.data =
-                (res.data as List).map((e) => Appointment.fromJson(e)).toList();
+            (res.data['data'] as List)
+                .forEach((e) => _list.add(Appointment.fromJson(e) as T));
             break;
           case '/post':
           case '/post/user':
-            res.data = (res.data as List).map((e) => Post.fromJson(e)).toList();
+            (res.data['data'] as List)
+                .forEach((e) => _list.add(Post.fromJson(e) as T));
             break;
           case '/volunteer':
-            res.data =
-                (res.data as List).map((e) => Volunteer.fromJson(e)).toList();
+            (res.data['data'] as List)
+                .forEach((e) => _list.add(Volunteer.fromJson(e) as T));
             break;
         }
-        return res.data;
+        return _list;
       }
     } catch (e) {
+      print(e);
       return null;
     }
   }

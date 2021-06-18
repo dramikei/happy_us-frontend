@@ -1,4 +1,3 @@
-
 enum UserType { user, volunteer }
 
 extension typeAsString on UserType {
