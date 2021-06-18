@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:happy_us/repository/post_repo.dart';
 import 'package:happy_us/utils/instances.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -55,10 +54,7 @@ class DashboardPage extends StatelessWidget {
             ),
             _settingsTile(
               title: "Logout",
-              onTap: () async {
-                final msg = await PostRepo.createPost();
-                print(msg);
-              },
+              onTap: () async {},
             ),
           ],
         ),
