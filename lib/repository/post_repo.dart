@@ -1,46 +1,49 @@
 import 'package:happy_us/models/post.dart';
-import 'package:happy_us/utils/instances.dart';
+import 'package:happy_us/utils/globals.dart';
 
 enum UpdateCountEvent { remove, add }
 
 class PostRepo {
-  static final _dio = Instances.dio;
+  static final _dio = Globals.dio;
+  static final _requestHandler = Globals.requestHandler;
+  static final _listRequestHandler = Globals.listRequestHandler;
 
   static Future<Post?> createPost({
+    required String userId,
     required String content,
     required String header,
-  }) async {
-    // await _dio.post(
-    //   '/post',
-    //   data: {
-    //     'content': content,
-    //     'header': header,
-    //     'creatorId': Instances.userId,
-    //     'time': DateTime.now().toString(),
-    //     "likedBy": [],
-    //   },
-    // );
-    return null;
-  }
+  }) =>
+      _requestHandler(_dio.post(
+        '/post',
+        data: {
+          'content': content,
+          'header': header,
+          'creatorId': userId,
+          'time': DateTime.now().toString(),
+          "likedBy": [],
+        },
+      ));
 
-  static Future<List<Post>> getAllPost() async {
-    return [];
-  }
+  static Future<List<Post>?> getAllPost() =>
+      _listRequestHandler<Post>(_dio.get('/post'));
 
-  static Future<List<Post>> getUserPosts() async {
-    return [];
-  }
+  static Future<List<Post>?> getUserPosts() =>
+      _listRequestHandler<Post>(_dio.get('/post/user'));
 
-  static Future<bool> updateLikeCount({
+  static Future<bool?> updateLikeCount({
     required String postId,
     required UpdateCountEvent event,
-  }) async {
-    return true;
-  }
+  }) =>
+      _requestHandler<bool>(_dio.patch(
+        '/post',
+        data: {
+          'postId': postId,
+          'event': event.toString().split('.')[1],
+        },
+      ));
 
-  static Future<bool> removePost({
+  static Future<bool?> removePost({
     required String postId,
-  }) async {
-    return true;
-  }
+  }) =>
+      _requestHandler<bool>(_dio.delete('/post'));
 }

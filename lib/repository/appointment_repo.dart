@@ -1,19 +1,27 @@
 import 'package:happy_us/models/appointment.dart';
-import 'package:happy_us/utils/instances.dart';
+import 'package:happy_us/utils/globals.dart';
 
 class AppointmentRepo {
-  static final _dio = Instances.dio;
-  static final _requestHandler = Instances.requestHandler;
+  static final _dio = Globals.dio;
+  static final _requestHandler = Globals.requestHandler;
+  static final _listRequestHandler = Globals.listRequestHandler;
 
   static Future<Appointment?> createAppointment({
     required String volunteerId,
     required Map<String, dynamic> userSocial,
     required DateTime time,
   }) =>
-      _requestHandler<Appointment?>(_dio.get(''));
+      _requestHandler<Appointment?>(_dio.post(
+        '/appointment',
+        data: {
+          "volunteerId": volunteerId,
+          "userSocial": userSocial,
+          "time": time.toString(),
+        },
+      ));
 
   static Future<List<Appointment>?> getUserAppointments() =>
-      _requestHandler<List<Appointment>>(_dio.get(''));
+      _listRequestHandler<Appointment>(_dio.get('/appointment'));
 
   // to used only by volunteer
   static Future<Appointment?> updateStatus({
@@ -21,5 +29,12 @@ class AppointmentRepo {
     required String appointmentId,
     required String message,
   }) =>
-      _requestHandler<Appointment?>(_dio.get(''));
+      _requestHandler<Appointment?>(_dio.patch(
+        '/appointment',
+        data: {
+          "status": status,
+          "appointmentId": appointmentId,
+          "message": message,
+        },
+      ));
 }

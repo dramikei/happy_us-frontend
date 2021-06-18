@@ -1,4 +1,16 @@
+
 enum UserType { user, volunteer }
+
+extension typeAsString on UserType {
+  String get userTypeAsString {
+    switch (this) {
+      case UserType.user:
+        return 'user';
+      case UserType.volunteer:
+        return 'volunteer';
+    }
+  }
+}
 
 abstract class BaseUser {
   late final String id;
@@ -9,14 +21,7 @@ abstract class BaseUser {
   late final int age;
   late final Map<String, dynamic> social;
 
-  String get userTypeAsString {
-    switch (type) {
-      case UserType.user:
-        return 'user';
-      case UserType.volunteer:
-        return 'volunteer';
-    }
-  }
+  String get userTypeAsString => type.userTypeAsString;
 
   UserType userTypeFromString(String type) {
     switch (type) {

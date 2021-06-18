@@ -6,7 +6,7 @@ class BaseResponse<T> {
   late final bool success;
 
   BaseResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'];
+    data = json['data'] is List ? <T>[] : json['data'];
     tokens = json['tokens'] ?? {};
     message = json['message'];
     path = json['path'];

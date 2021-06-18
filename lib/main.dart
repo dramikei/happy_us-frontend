@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
-import 'package:happy_us/utils/instances.dart';
+import 'package:happy_us/utils/globals.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 void main() async {
@@ -21,7 +21,7 @@ class _MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: kLightTheme,
         darkTheme: kDarkTheme,
-        themeMode: Instances.theme,
+        themeMode: Globals.theme,
         onGenerateRoute: NavigationService.generateRoute,
         initialRoute: NavigationService.initialPath,
       ),

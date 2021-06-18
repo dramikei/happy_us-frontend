@@ -2,22 +2,25 @@ import 'dart:async';
 
 import 'package:happy_us/models/base_user.dart';
 import 'package:happy_us/models/user.dart';
-import 'package:happy_us/utils/instances.dart';
+import 'package:happy_us/utils/globals.dart';
 
 class AuthRepo {
-  static final _dio = Instances.dio;
+  static final _dio = Globals.dio;
+  static final _requestHandler = Globals.requestHandler;
 
-  static Future<Map<String, dynamic>?> login({
+  static Future login({
     required String username,
     required String password,
     required UserType type,
-  }) async {
-    // based on type return
-    // {
-    //   type: user,
-    //   entity: Instance<User | Volunteer>
-    // }
-  }
+  }) =>
+      _requestHandler(_dio.post(
+        '/auth/login',
+        data: {
+          "username": username,
+          "password": password,
+          "type": type.userTypeAsString,
+        },
+      ));
 
   // only for user -- volunteer can't be created from app
   static Future<User?> register({
@@ -26,12 +29,28 @@ class AuthRepo {
     required int age,
     required Map<String, dynamic> social,
     String? fcmToken,
-  }) async {}
+  }) =>
+      _requestHandler(_dio.post(
+        '/auth/register',
+        data: {
+          "type": "user",
+          "username": username,
+          "fcmToken": "string",
+          "password": password,
+          "age": age,
+          "social": social,
+        },
+      ));
 
-  static Future<bool> changePassword({
+  static Future<bool?> changePassword({
     required String oldPassword,
     required String newPassword,
-  }) async {
-    return true;
-  }
+  }) =>
+      _requestHandler<bool>(_dio.patch(
+        '/auth/changePassword',
+        data: {
+          "oldPassword": oldPassword,
+          "newPassword": newPassword,
+        },
+      ));
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:happy_us/utils/instances.dart';
+import 'package:happy_us/utils/globals.dart';
 
 class DashboardPage extends StatelessWidget {
   static const id = 'DashboardPage';
@@ -45,10 +45,10 @@ class DashboardPage extends StatelessWidget {
               onTap: () {
                 if (Get.theme.brightness == Brightness.dark) {
                   Get.changeThemeMode(ThemeMode.light);
-                  Instances.updateThemeMode(ThemeMode.light);
+                  Globals.updateThemeMode(ThemeMode.light);
                 } else {
                   Get.changeThemeMode(ThemeMode.dark);
-                  Instances.updateThemeMode(ThemeMode.dark);
+                  Globals.updateThemeMode(ThemeMode.dark);
                 }
               },
             ),
