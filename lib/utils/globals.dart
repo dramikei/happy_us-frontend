@@ -51,6 +51,19 @@ class Globals {
 
           handler.next(response);
         },
+        onError: (error, handler) {
+          final message = error.response?.data['message'];
+          print("ERROR: $error");
+          if (message != null)
+            GetX.Get.snackbar(
+              'An error occurred',
+              message,
+              backgroundColor: Colors.red,
+              animationDuration: const Duration(milliseconds: 500),
+            );
+
+          handler.next(error);
+        },
       ),
       PrettyDioLogger(requestHeader: true, requestBody: true),
     ]);
@@ -136,13 +149,6 @@ class Globals {
         return (isList ? _list : _data) as ReturnType;
       }
     } catch (e) {
-      print(e);
-      GetX.Get.snackbar(
-        'An error occurred',
-        'Something went wrong',
-        backgroundColor: Colors.red,
-        animationDuration: const Duration(milliseconds: 500),
-      );
       return null;
     }
   }

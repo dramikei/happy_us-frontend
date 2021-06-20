@@ -47,7 +47,7 @@ class AuthRepo {
         data: {
           "type": "user",
           "username": username,
-          "fcmToken": "string",
+          "fcmToken": fcmToken,
           "password": password,
           "age": age,
           "social": social,

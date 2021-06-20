@@ -168,8 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 NavigationService.pop(context);
                               }
                             }
+                            stopLoading();
                           }
-                          stopLoading();
                         }
                       },
                       color: kFocusColor,

@@ -3,6 +3,9 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:happy_us/controllers/user.getx.dart';
+import 'package:happy_us/repository/auth_repo.dart';
 import 'package:happy_us/services/alerts_service.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
@@ -148,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 25),
                   const Text(
-                    "Dummy Password",
+                    "Not your usual Password",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 21,
@@ -225,24 +228,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (error != null)
                           AlertsService.error(error);
                         else {
-                          final data = {
-                            'username': _username,
-                            'password': _password,
-                            'type': 'user', //  Default type?
-                            'age': _age,
-                            'social': {
-                              _acceptedAccounts[_selectedIdIndex].toLowerCase():
-                                  _socialId
-                            },
-                          };
-                          print(data);
-
                           if (btnState == ButtonState.Idle) {
                             startLoading();
-                            await Future.delayed(Duration(seconds: 1));
-                            // await callApi();
+
+                            final user = await AuthRepo.register(
+                              username: _username!,
+                              password: _password!,
+                              age: _age,
+                              // TODO: pass FCM token
+                              fcmToken: null,
+                              social: {
+                                _acceptedAccounts[_selectedIdIndex]
+                                    .toLowerCase(): _socialId
+                              },
+                            );
+                            if (user != null) {
+                              Get.find<UserController>().updateUser(user);
+                              AlertsService.success("Account created!");
+                              NavigationService.pop(context);
+                            }
                             stopLoading();
-                            AlertsService.success("Account Created!");
                           }
                         }
                       },
