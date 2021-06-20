@@ -15,7 +15,7 @@ class VolunteersPage extends StatelessWidget {
 
   static final __volunteers = [
     Volunteer.fromJson({
-      'id': '#1',
+      '_id': '#1',
       'username': 'user-name',
       'password': 'pass-word',
       'fcmToken': '',

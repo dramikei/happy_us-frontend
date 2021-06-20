@@ -5,7 +5,7 @@ class UserRepo {
   static final _dio = Globals.dio;
   static final _requestHandler = Globals.requestHandler;
 
-  static Future<User?> findOne() => _requestHandler<User>(_dio.get('/user'));
+  static Future<User?> getLoggedInUser() => _requestHandler<User>(_dio.get('/user'));
 
   static Future<User?> updateUser({
     String? username,

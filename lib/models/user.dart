@@ -18,4 +18,15 @@ class User extends BaseUser {
         )
         .toList();
   }
+
+  User.initialObj() {
+    id = "";
+    username = "";
+    password = "";
+    fcmToken = "";
+    type = UserType.user;
+    age = -1;
+    social = {};
+    posts = [];
+  }
 }
