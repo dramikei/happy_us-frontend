@@ -5,7 +5,8 @@ class UserRepo {
   static final _dio = Globals.dio;
   static final _requestHandler = Globals.requestHandler;
 
-  static Future<User?> getLoggedInUser() => _requestHandler<User>(_dio.get('/user'));
+  static Future<User?> getLoggedInUser() =>
+      _requestHandler<User, User>(_dio.get('/user'));
 
   static Future<User?> updateUser({
     String? username,
@@ -13,7 +14,7 @@ class UserRepo {
     String? fcm,
     Map<String, String>? social,
   }) =>
-      _requestHandler<User>(_dio.patch(
+      _requestHandler<User, User>(_dio.patch(
         '/user',
         data: {
           'username': username,
@@ -24,5 +25,5 @@ class UserRepo {
       ));
 
   static Future<bool?> deleteUser() =>
-      _requestHandler<bool>(_dio.delete('/user'));
+      _requestHandler<bool, bool>(_dio.delete('/user'));
 }

@@ -4,7 +4,7 @@ class Appointment {
   late final DateTime time;
   late final String userId;
   late final String volunteerId;
-  late final String message;
+  late final String? message;
 
   Appointment.fromJson(Map<String, dynamic> json) {
     userSocial = json['userSocial'] ?? {};

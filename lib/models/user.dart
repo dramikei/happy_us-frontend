@@ -7,9 +7,8 @@ class User extends BaseUser {
   User.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     username = json['username'];
-    password = json['password'];
     fcmToken = json['fcmToken'];
-    type = userTypeFromString(json['type']);
+    type = UserType.user;
     age = json['age'];
     social = json['social'];
     posts = (json['posts'] as List)
@@ -22,7 +21,6 @@ class User extends BaseUser {
   User.initialObj() {
     id = "";
     username = "";
-    password = "";
     fcmToken = "";
     type = UserType.user;
     age = -1;

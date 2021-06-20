@@ -14,8 +14,7 @@ extension typeAsString on UserType {
 abstract class BaseUser {
   late final String id;
   late final String username;
-  late final String password;
-  late final String fcmToken;
+  late final String? fcmToken;
   late final UserType type;
   late final int age;
   late final Map<String, dynamic> social;

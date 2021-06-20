@@ -30,7 +30,7 @@ class AuthRepo {
     required Map<String, dynamic> social,
     String? fcmToken,
   }) =>
-      _requestHandler(_dio.post(
+      _requestHandler<User, User>(_dio.post(
         '/auth/register',
         data: {
           "type": "user",
@@ -46,7 +46,7 @@ class AuthRepo {
     required String oldPassword,
     required String newPassword,
   }) =>
-      _requestHandler<bool>(_dio.patch(
+      _requestHandler<bool, bool>(_dio.patch(
         '/auth/changePassword',
         data: {
           "oldPassword": oldPassword,

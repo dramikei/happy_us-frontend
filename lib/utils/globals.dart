@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' as GetX;
 import 'package:get_storage/get_storage.dart';
 import 'package:happy_us/models/appointment.dart';
-import 'package:happy_us/models/base_response.dart';
 import 'package:happy_us/models/notification.dart' as notification;
 import 'package:happy_us/models/post.dart';
+import 'package:happy_us/models/user.dart';
 import 'package:happy_us/models/volunteer.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -27,12 +27,9 @@ class Globals {
           /// just because the guy developing the backend was too lazy!
           response.data['success'] = response.data['status'] == 'Success';
 
-          final data = BaseResponse.fromJson(response.data);
-          if (data.tokens.containsKey('accessToken'))
-            box.write('accessToken', data.tokens['accessToken']);
-
-          if (data.tokens.containsKey('refreshToken'))
-            box.write('refreshToken', data.tokens['refreshToken']);
+          response.data['tokens'] ??= {};
+          (response.data['tokens'] as Map<String, dynamic>)
+              .forEach((key, value) => box.write(key, value));
 
           handler.next(response);
         },
@@ -54,60 +51,58 @@ class Globals {
     return theme == 'light' ? ThemeMode.light : ThemeMode.dark;
   }
 
-  static Future<T?> requestHandler<T>(Future<Response> response) async {
-    try {
-      final res = await response;
-      if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        final response = BaseResponse<T>.fromJson(res.data);
-        if (response.success)
-          return response.data;
-        else {
-          GetX.Get.snackbar('An error occurred!', response.message);
-          return null;
-        }
-      }
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
+  static Map<String, Function(Map<String, dynamic>)> _fromJsonReferences = {
+    '/notification': (e) => notification.Notification.fromJson(e),
+    '/appointment': (e) => Appointment.fromJson(e),
+    '/volunteer': (e) => Volunteer.fromJson(e),
+    '/post': (e) => Post.fromJson(e),
+    '/post/user': (e) => Post.fromJson(e),
+    '/user': (e) => User.fromJson(e),
+  };
 
-  static Future<List<T>?> listRequestHandler<T>(
+  static Future<ReturnType?> requestHandler<DataType, ReturnType>(
     Future<Response> response,
   ) async {
     try {
       final res = await response;
 
-      final _list = <T>[];
+      if (!res.data['success']) {
+        GetX.Get.snackbar(
+          'An error occurred',
+          res.data['message'],
+          backgroundColor: Colors.red,
+          animationDuration: const Duration(milliseconds: 500),
+        );
+        return null;
+      }
+
+      if (ReturnType == bool) return res.data['success'];
+
+      late final DataType? _data;
+      final List<DataType> _list = [];
+
+      final isList = res.data['data'] is List;
 
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
-        final endpoint = res.realUri.path.substring(4); // removing /api
+        final endpoint = res.realUri.path.replaceFirst('/api', '');
 
-        if (!res.data['success']) return null;
+        final _fromJson = _fromJsonReferences[endpoint]!;
 
-        switch (endpoint) {
-          case '/notification':
-            (res.data['data'] as List).forEach(
-                (e) => _list.add(notification.Notification.fromJson(e) as T));
-            break;
-          case '/appointment':
-            (res.data['data'] as List)
-                .forEach((e) => _list.add(Appointment.fromJson(e) as T));
-            break;
-          case '/post':
-          case '/post/user':
-            (res.data['data'] as List)
-                .forEach((e) => _list.add(Post.fromJson(e) as T));
-            break;
-          case '/volunteer':
-            (res.data['data'] as List)
-                .forEach((e) => _list.add(Volunteer.fromJson(e) as T));
-            break;
-        }
-        return _list;
+        if (isList)
+          (res.data['data'] as List).forEach((e) => _list.add(_fromJson(e)));
+        else
+          _data = _fromJson(res.data['data']);
+
+        return (isList ? _list : _data) as ReturnType;
       }
     } catch (e) {
       print(e);
+      GetX.Get.snackbar(
+        'An error occurred',
+        'Something went wrong',
+        backgroundColor: Colors.red,
+        animationDuration: const Duration(milliseconds: 500),
+      );
       return null;
     }
   }

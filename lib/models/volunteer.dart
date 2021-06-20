@@ -8,9 +8,8 @@ class Volunteer extends BaseUser {
   Volunteer.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     username = json['username'];
-    password = json['password'];
     fcmToken = json['fcmToken'];
-    type = userTypeFromString(json['type']);
+    type = UserType.volunteer;
     age = json['age'];
     social = json['social'];
     hobbies = (json['hobbies'] as List).cast<String>();

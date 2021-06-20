@@ -6,7 +6,6 @@ enum UpdateCountEvent { remove, add }
 class PostRepo {
   static final _dio = Globals.dio;
   static final _requestHandler = Globals.requestHandler;
-  static final _listRequestHandler = Globals.listRequestHandler;
 
   static Future<Post?> createPost({
     required String userId,
@@ -25,16 +24,16 @@ class PostRepo {
       ));
 
   static Future<List<Post>?> getAllPost() =>
-      _listRequestHandler<Post>(_dio.get('/post'));
+      _requestHandler<Post, List<Post>>(_dio.get('/post'));
 
   static Future<List<Post>?> getUserPosts() =>
-      _listRequestHandler<Post>(_dio.get('/post/user'));
+      _requestHandler<Post, List<Post>>(_dio.get('/post/user'));
 
   static Future<bool?> updateLikeCount({
     required String postId,
     required UpdateCountEvent event,
   }) =>
-      _requestHandler<bool>(_dio.patch(
+      _requestHandler<bool, bool>(_dio.patch(
         '/post',
         data: {
           'postId': postId,
@@ -45,5 +44,5 @@ class PostRepo {
   static Future<bool?> removePost({
     required String postId,
   }) =>
-      _requestHandler<bool>(_dio.delete('/post'));
+      _requestHandler<bool, bool>(_dio.delete('/post'));
 }
