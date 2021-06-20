@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as GetX;
 import 'package:get_storage/get_storage.dart';
+import 'package:happy_us/controllers/user.getx.dart';
+import 'package:happy_us/controllers/volunteer.getx.dart';
 import 'package:happy_us/models/appointment.dart';
 import 'package:happy_us/models/notification.dart' as notification;
 import 'package:happy_us/models/post.dart';
@@ -27,9 +29,25 @@ class Globals {
           /// just because the guy developing the backend was too lazy!
           response.data['success'] = response.data['status'] == 'Success';
 
-          response.data['tokens'] ??= {};
-          (response.data['tokens'] as Map<String, dynamic>)
-              .forEach((key, value) => box.write(key, value));
+          final isAuth =
+              response.realUri.path.replaceFirst('/api', '').contains('auth');
+
+          if (isAuth && response.data['data'] != null) {
+            final data = response.data['data'] as Map<String, dynamic>;
+
+            if (data.containsKey('accessToken'))
+              box.write('accessToken', data['accessToken']);
+
+            if (data.containsKey('refreshToken'))
+              box.write('refreshToken', data['refreshToken']);
+
+            // storing userType
+            box.write('type', data['type']);
+          }
+
+          if (response.data['tokens'] != null)
+            (response.data['tokens'] as Map<String, dynamic>)
+                .forEach((key, value) => box.write(key, value));
 
           handler.next(response);
         },
@@ -45,10 +63,15 @@ class Globals {
 
   static String? get refreshToken => box.read('refreshToken');
 
-  static void removeTokens() {
+  static void removeCredentials() {
     box.remove('accessToken');
     box.remove('refreshToken');
+    box.remove('type');
   }
+
+  static bool get isLoggedIn =>
+      GetX.Get.find<UserController>().isLoggedIn ||
+      GetX.Get.find<VolunteerController>().isLoggedIn;
 
   static void updateThemeMode(ThemeMode themeMode) {
     box.write('theme', themeMode.toString().split('.')[1]);
@@ -95,7 +118,15 @@ class Globals {
       if (res.statusCode! >= 200 && res.statusCode! < 300) {
         final endpoint = res.realUri.path.replaceFirst('/api', '');
 
-        final _fromJson = _fromJsonReferences[endpoint]!;
+        late dynamic Function(Map<String, dynamic>) _fromJson;
+
+        if (endpoint.contains('auth')) {
+          if (res.data['data']['type'] == 'user')
+            _fromJson = _fromJsonReferences['/user']!;
+          else
+            _fromJson = _fromJsonReferences['/volunteer']!;
+        } else
+          _fromJson = _fromJsonReferences[endpoint]!;
 
         if (isList)
           (res.data['data'] as List).forEach((e) => _list.add(_fromJson(e)));

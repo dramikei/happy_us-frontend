@@ -1,8 +1,7 @@
 import 'package:happy_us/models/base_user.dart';
-import 'package:happy_us/models/post.dart';
 
 class User extends BaseUser {
-  late final List<Post> posts;
+  late final List<String> postIds;
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -11,11 +10,7 @@ class User extends BaseUser {
     type = UserType.user;
     age = json['age'];
     social = json['social'];
-    posts = (json['posts'] as List)
-        .map(
-          (post) => Post.fromJson(post),
-        )
-        .toList();
+    postIds = (json['posts'] as List).cast<String>();
   }
 
   User.initialObj() {
@@ -25,6 +20,6 @@ class User extends BaseUser {
     type = UserType.user;
     age = -1;
     social = {};
-    posts = [];
+    postIds = [];
   }
 }

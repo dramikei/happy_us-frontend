@@ -2,6 +2,10 @@ import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:happy_us/controllers/user.getx.dart';
+import 'package:happy_us/controllers/volunteer.getx.dart';
+import 'package:happy_us/repository/auth_repo.dart';
 import 'package:happy_us/services/alerts_service.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
@@ -139,23 +143,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (error != null)
                           AlertsService.error(error);
                         else {
-                          print(_loginAsVolunteer ? 'volunteer' : 'user');
-
-                          final data = {
-                            'username': _username,
-                            'password': _password,
-                            'type': _loginAsVolunteer ? 'volunteer' : 'user',
-                          };
-
-                          print(data);
-
                           if (btnState == ButtonState.Idle) {
                             startLoading();
-                            await Future.delayed(Duration(seconds: 1));
-                            // await callApi();
-                            stopLoading();
-                            AlertsService.success("Logged in");
+
+                            if (_loginAsVolunteer) {
+                              final volunteer = await AuthRepo.loginVolunteer(
+                                username: _username!,
+                                password: _password!,
+                              );
+                              if (volunteer != null) {
+                                Get.find<VolunteerController>()
+                                    .updateVolunteer(volunteer);
+                                AlertsService.success("Logged in");
+                                NavigationService.pop(context);
+                              }
+                            } else {
+                              final user = await AuthRepo.loginUser(
+                                username: _username!,
+                                password: _password!,
+                              );
+                              if (user != null) {
+                                Get.find<UserController>().updateUser(user);
+                                AlertsService.success("Logged in");
+                                NavigationService.pop(context);
+                              }
+                            }
                           }
+                          stopLoading();
                         }
                       },
                       color: kFocusColor,

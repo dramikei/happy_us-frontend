@@ -1,24 +1,36 @@
 import 'dart:async';
 
-import 'package:happy_us/models/base_user.dart';
 import 'package:happy_us/models/user.dart';
+import 'package:happy_us/models/volunteer.dart';
 import 'package:happy_us/utils/globals.dart';
 
 class AuthRepo {
   static final _dio = Globals.dio;
   static final _requestHandler = Globals.requestHandler;
 
-  static Future login({
+  static Future<User?> loginUser({
     required String username,
     required String password,
-    required UserType type,
   }) =>
-      _requestHandler(_dio.post(
+      _requestHandler<User, User>(_dio.post(
         '/auth/login',
         data: {
           "username": username,
           "password": password,
-          "type": type.userTypeAsString,
+          "type": 'user',
+        },
+      ));
+
+  static Future<Volunteer?> loginVolunteer({
+    required String username,
+    required String password,
+  }) =>
+      _requestHandler<Volunteer, Volunteer>(_dio.post(
+        '/auth/login',
+        data: {
+          "username": username,
+          "password": password,
+          "type": 'volunteer',
         },
       ));
 

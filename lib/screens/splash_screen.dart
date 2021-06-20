@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       // access and refresh token expired
       if (authenticatedEntity == null)
-        Globals.removeTokens();
+        Globals.removeCredentials();
 
       // store entity in
       else {
@@ -47,9 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       }
     }
-    await Future.delayed(
-      Duration(seconds: 0),
-    );
+    await Future.delayed(Duration.zero);
     NavigationService.push(context, path: NavigationService.homePath);
   }
 
