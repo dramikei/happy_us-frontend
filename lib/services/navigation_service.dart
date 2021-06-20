@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
 import 'package:happy_us/screens/login_screen.dart';
 import 'package:happy_us/screens/register_screen.dart';
+import 'package:happy_us/screens/splash_screen.dart';
 import 'package:happy_us/screens/tnc.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -10,6 +11,7 @@ class NavigationService {
   NavigationService._();
 
   static String initialPath = '/';
+  static String homePath = '/home';
   static String loginPath = '/login';
   static String registerPath = '/register';
   static String tncPath = '/tnc';
@@ -17,6 +19,10 @@ class NavigationService {
   static void _defineRoutes(FluroRouter router) {
     router.define(
       initialPath,
+      handler: _defaultHandler(SplashScreen()),
+    );
+    router.define(
+      homePath,
       handler: _defaultHandler(HomeNavigationScreen()),
     );
     router.define(

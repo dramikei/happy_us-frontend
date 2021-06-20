@@ -6,6 +6,7 @@ import 'package:happy_us/screens/feeds_page.dart';
 import 'package:happy_us/screens/dashboard_page.dart';
 import 'package:happy_us/screens/volunteers_page.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:happy_us/widgets/logo.dart';
 
 class HomeNavigationScreen extends StatefulWidget {
   static const id = 'HomeNavigationScreen';
@@ -51,21 +52,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
                           if (_selectedIndex != 0)
                             setState(() => _selectedIndex = 0);
                         },
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/logo.png",
-                              height: 65,
-                            ),
-                            Text(
-                              "Happy Us",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: Logo()
                       ),
                     ),
                     if (!showBelow) _customBottomNavigationBar(),

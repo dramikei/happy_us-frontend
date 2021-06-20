@@ -16,4 +16,16 @@ class Volunteer extends BaseUser {
     aboutMe = json['aboutMe'];
     imageUrl = json['imageUrl'];
   }
+
+  Volunteer.initialObj() {
+    id = "";
+    username = "";
+    fcmToken = "";
+    type = UserType.volunteer;
+    age = -1;
+    social = {};
+    hobbies = [];
+    aboutMe = "";
+    imageUrl = "";
+  }
 }

@@ -39,7 +39,16 @@ class Globals {
 
   static String? get accessToken => box.read('accessToken');
 
+  static String? get userType => box.read('type');
+
+  static bool get isUser => box.read('type') == 'user';
+
   static String? get refreshToken => box.read('refreshToken');
+
+  static void removeTokens() {
+    box.remove('accessToken');
+    box.remove('refreshToken');
+  }
 
   static void updateThemeMode(ThemeMode themeMode) {
     box.write('theme', themeMode.toString().split('.')[1]);
