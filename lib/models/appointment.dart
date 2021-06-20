@@ -1,4 +1,5 @@
 class Appointment {
+  late final String id;
   late final Map<String, dynamic> userSocial;
   late final String status;
   late final DateTime time;
@@ -9,6 +10,7 @@ class Appointment {
   Appointment.fromJson(Map<String, dynamic> json) {
     userSocial = json['userSocial'] ?? {};
     status = json['status'];
+    id = json['_id'];
     time = DateTime.parse(json['time']);
     userId = json['userId'];
     volunteerId = json['volunteerId'];

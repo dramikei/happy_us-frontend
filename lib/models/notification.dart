@@ -1,4 +1,5 @@
 class Notification {
+  late final String id;
   late final String userId;
   late final String redirectTo;
   late final String title;
@@ -8,6 +9,7 @@ class Notification {
 
   Notification.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
+    id = json['_id'];
     redirectTo = json['redirectTo'];
     title = json['title'];
     description = json['description'];
