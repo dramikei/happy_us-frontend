@@ -9,6 +9,18 @@ class PostController extends GetxController {
     posts.value = fetchedPosts;
   }
 
+  bool isLiked({required String postId, required String userId}) {
+    // ignore: invalid_use_of_protected_member
+    final values = posts.value;
+
+    for (int i = 0; i < values.length; i++) {
+      if (values[i].id == postId && values[i].likedBy.contains(userId)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void updateLike({
     required String postId,
     required String userId,

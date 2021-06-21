@@ -74,6 +74,15 @@ class Globals {
 
   static bool get isUser => box.read('type') == 'user';
 
+  static String? get userId {
+    if (isLoggedIn) {
+      return userType == 'user'
+          ? GetX.Get.find<UserController>().user.value.id
+          : GetX.Get.find<VolunteerController>().volunteer.value.id;
+    }
+    return null;
+  }
+
   static String? get refreshToken => box.read('refreshToken');
 
   static void removeCredentials() {
