@@ -15,11 +15,9 @@ class PostController extends GetxController {
   }) {
     for (int i = 0; i < posts.length; i++) {
       if (posts[i].id == postId && posts[i].likedBy.contains(userId)) {
-        print(true);
         return true;
       }
     }
-    print(false);
     return false;
   }
 

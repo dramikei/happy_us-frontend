@@ -74,7 +74,7 @@ class _FeedsPageState extends State<FeedsPage> {
                           postController.posts.length,
                           (index) {
                             final post = postController.posts[index];
-                            return PostCard(post.id);
+                            return PostCard(post);
                           },
                         ),
                       )

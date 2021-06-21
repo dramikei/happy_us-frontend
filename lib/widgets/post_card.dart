@@ -10,28 +10,42 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/utils/constants.dart';
 
-// ignore: must_be_immutable
-class PostCard extends GetView<PostController> {
+class PostCard extends StatefulWidget {
   static const id = 'PostCard';
 
-  final String postId;
+  final Post post;
   final bool openedFromDialog;
-  late Post post;
 
   PostCard(
-    this.postId, {
+    this.post, {
     Key? key,
     this.openedFromDialog = false,
   }) : super(key: key);
 
   @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  late bool isLiked;
+
+  @override
+  void initState() {
+    isLiked = Get.find<PostController>().isLiked(
+      postId: widget.post.id,
+      userId: Globals.userId!,
+    );
+    setState(() {});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    post = controller.posts.firstWhere((element) => element.id == postId);
-    print(post.likedBy);
+    final controller = Get.find<PostController>();
     return EasyContainer(
       margin: 0,
       borderRadius: 10,
-      height: openedFromDialog ? null : 300,
+      height: widget.openedFromDialog ? null : 300,
       padding: 0,
       elevation: 10,
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -40,7 +54,7 @@ class PostCard extends GetView<PostController> {
       highlightColor: Colors.transparent,
       zeroDownElevationOnTap: false,
       alignment: null,
-      onTap: openedFromDialog
+      onTap: widget.openedFromDialog
           ? null
           : () {
               showDialog(
@@ -51,15 +65,15 @@ class PostCard extends GetView<PostController> {
                         padding: const EdgeInsets.all(kIsWeb ? 100 : 30),
                         child: SizedBox(
                           height: kIsWeb ? 1000 : 450,
-                          child: PostCard(this.postId, openedFromDialog: true),
+                          child: PostCard(
+                            this.widget.post,
+                            openedFromDialog: true,
+                          ),
                         ),
                       ),
                     );
                   });
             },
-      onDoubleTap: () {
-        print("double tap to like?");
-      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -71,14 +85,15 @@ class PostCard extends GetView<PostController> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: CustomText(
-                  post.heading,
+                  widget.post.heading,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 25,
                     color: Colors.white,
                   ),
-                  overflow: openedFromDialog ? null : TextOverflow.ellipsis,
-                  maxLines: openedFromDialog ? null : 1,
+                  overflow:
+                      widget.openedFromDialog ? null : TextOverflow.ellipsis,
+                  maxLines: widget.openedFromDialog ? null : 1,
                 ),
               ),
             ),
@@ -94,7 +109,7 @@ class PostCard extends GetView<PostController> {
                 children: [
                   const SizedBox(height: 10),
                   Expanded(
-                    child: openedFromDialog
+                    child: widget.openedFromDialog
                         ? SingleChildScrollView(
                             physics: const BouncingScrollPhysics(),
                             child: _content(),
@@ -106,7 +121,7 @@ class PostCard extends GetView<PostController> {
                     children: [
                       Expanded(
                         child: CustomText(
-                          post.timeAgo,
+                          widget.post.timeAgo,
                           style: TextStyle(
                             fontSize: 14,
                             color: kFocusColor.withOpacity(0.7),
@@ -115,7 +130,7 @@ class PostCard extends GetView<PostController> {
                       ),
                       const SizedBox(width: 5),
                       CustomText(
-                        post.likedBy.length.toString(),
+                        widget.post.likedBy.length.toString(),
                         style: TextStyle(),
                       ),
                       const SizedBox(width: 5),
@@ -125,37 +140,38 @@ class PostCard extends GetView<PostController> {
                             NavigationService.push(context,
                                 path: NavigationService.loginPath);
                           } else {
-                            final isLiked = controller.isLiked(
-                                postId: post.id, userId: Globals.userId!);
+                            var isLiked = controller.isLiked(
+                                postId: widget.post.id,
+                                userId: Globals.userId!);
 
                             final success = await PostRepo.updateLikeCount(
-                                postId: post.id,
+                                postId: widget.post.id,
                                 event: isLiked
                                     ? UpdateCountEvent.remove
                                     : UpdateCountEvent.add);
 
                             if (success == true) {
                               controller.updateLike(
-                                  postId: post.id,
+                                  postId: widget.post.id,
                                   userId: Globals.userId!,
                                   event: isLiked
                                       ? UpdateCountEvent.remove
                                       : UpdateCountEvent.add);
+                              isLiked = !isLiked;
+                              setState(() {});
                             }
                           }
                         },
-                        child: Obx(
-                          () => Icon(
-                            Globals.isLoggedIn
-                                ? controller.isLiked(
-                                        postId: post.id,
-                                        userId: Globals.userId!)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border
-                                : Icons.favorite_border,
-                            size: 25,
-                            color: kFocusColor,
-                          ),
+                        child: Icon(
+                          Globals.isLoggedIn
+                              ? controller.isLiked(
+                              postId: widget.post.id,
+                              userId: Globals.userId!)
+                              ? Icons.favorite
+                              : Icons.favorite_border
+                              : Icons.favorite_border,
+                          size: 25,
+                          color: kFocusColor,
                         ),
                       ),
                     ],
@@ -172,10 +188,10 @@ class PostCard extends GetView<PostController> {
 
   Widget _content() {
     return CustomText(
-      post.content,
+      widget.post.content,
       style: TextStyle(fontSize: 18),
-      overflow: openedFromDialog ? null : TextOverflow.ellipsis,
-      maxLines: openedFromDialog ? null : 8,
+      overflow: widget.openedFromDialog ? null : TextOverflow.ellipsis,
+      maxLines: widget.openedFromDialog ? null : 8,
     );
   }
 }
