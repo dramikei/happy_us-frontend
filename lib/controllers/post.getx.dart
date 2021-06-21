@@ -9,15 +9,17 @@ class PostController extends GetxController {
     posts.value = fetchedPosts;
   }
 
-  bool isLiked({required String postId, required String userId}) {
-    // ignore: invalid_use_of_protected_member
-    final values = posts.value;
-
-    for (int i = 0; i < values.length; i++) {
-      if (values[i].id == postId && values[i].likedBy.contains(userId)) {
+  bool isLiked({
+    required String postId,
+    required String userId,
+  }) {
+    for (int i = 0; i < posts.length; i++) {
+      if (posts[i].id == postId && posts[i].likedBy.contains(userId)) {
+        print(true);
         return true;
       }
     }
+    print(false);
     return false;
   }
 
@@ -26,17 +28,12 @@ class PostController extends GetxController {
     required String userId,
     required UpdateCountEvent event,
   }) {
-    // ignore: invalid_use_of_protected_member
-    final values = posts.value;
-
-    for (int i = 0; i < values.length; i++) {
-      if (values[i].id == postId) {
+    for (int i = 0; i < posts.length; i++) {
+      if (posts[i].id == postId) {
         if (event == UpdateCountEvent.add)
-          // ignore: invalid_use_of_protected_member
-          posts.value[i].likedBy.add(userId);
+          posts[i].likedBy.add(userId);
         else
-          // ignore: invalid_use_of_protected_member
-          posts.value[i].likedBy.remove(userId);
+          posts[i].likedBy.remove(userId);
         break;
       }
     }

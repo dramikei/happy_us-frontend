@@ -64,7 +64,7 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
               posts.length,
               (index) {
                 final post = posts[index];
-                return PostCard(post);
+                return PostCard(post.id);
               },
             ),
           ),

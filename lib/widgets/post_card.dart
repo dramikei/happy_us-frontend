@@ -1,28 +1,32 @@
 import 'package:easy_container/easy_container.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/controllers/post.getx.dart';
+import 'package:happy_us/models/post.dart';
+import 'package:happy_us/repository/post_repo.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:happy_us/models/post.dart';
 import 'package:happy_us/utils/constants.dart';
 
 class PostCard extends GetView<PostController> {
   static const id = 'PostCard';
 
-  final Post post;
+  final String postId;
   final bool openedFromDialog;
+  late Post post;
 
-  const PostCard(
-    this.post, {
+  PostCard(
+    this.postId, {
     Key? key,
     this.openedFromDialog = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    post = controller.posts.firstWhere((element) => element.id == postId);
+    print(post.likedBy);
     return EasyContainer(
       margin: 0,
       borderRadius: 10,
@@ -46,7 +50,7 @@ class PostCard extends GetView<PostController> {
                         padding: const EdgeInsets.all(kIsWeb ? 100 : 30),
                         child: SizedBox(
                           height: kIsWeb ? 1000 : 450,
-                          child: PostCard(this.post, openedFromDialog: true),
+                          child: PostCard(this.postId, openedFromDialog: true),
                         ),
                       ),
                     );
@@ -115,10 +119,28 @@ class PostCard extends GetView<PostController> {
                       ),
                       const SizedBox(width: 5),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (!Globals.isLoggedIn) {
                             NavigationService.push(context,
                                 path: NavigationService.loginPath);
+                          } else {
+                            final isLiked = controller.isLiked(
+                                postId: post.id, userId: Globals.userId!);
+
+                            final success = await PostRepo.updateLikeCount(
+                                postId: post.id,
+                                event: isLiked
+                                    ? UpdateCountEvent.remove
+                                    : UpdateCountEvent.add);
+
+                            if (success == true) {
+                              controller.updateLike(
+                                  postId: post.id,
+                                  userId: Globals.userId!,
+                                  event: isLiked
+                                      ? UpdateCountEvent.remove
+                                      : UpdateCountEvent.add);
+                            }
                           }
                         },
                         child: Obx(
