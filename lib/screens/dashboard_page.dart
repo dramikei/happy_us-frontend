@@ -30,13 +30,6 @@ class DashboardPage extends StatelessWidget {
                   },
                 ),
                 _settingsTile(
-                  title: "Notifications",
-                  onTap: () {
-                    NavigationService.push(context,
-                        path: NavigationService.notificationPath);
-                  },
-                ),
-                _settingsTile(
                   title: "My Posts",
                   onTap: () {
                     NavigationService.push(context,
@@ -48,6 +41,13 @@ class DashboardPage extends StatelessWidget {
                   onTap: () {
                     NavigationService.push(context,
                         path: NavigationService.appointmentPath);
+                  },
+                ),
+                _settingsTile(
+                  title: "Notifications",
+                  onTap: () {
+                    NavigationService.push(context,
+                        path: NavigationService.notificationPath);
                   },
                 ),
               ],
