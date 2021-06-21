@@ -48,13 +48,10 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
   Widget build(BuildContext context) {
     final isSmallScreen =
         MediaQuery.of(context).size.width < SMALL_SCREEN_WIDTH;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kAccentColor,
-        title: CustomText('My Posts'),
-      ),
-      body: SafeArea(
-        child: RefreshIndicator(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: CustomText('My Posts')),
+        body: RefreshIndicator(
           onRefresh: () async {},
           child: ResponsiveGridList(
             padding: const EdgeInsets.symmetric(vertical: 35),

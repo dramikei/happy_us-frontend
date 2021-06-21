@@ -10,13 +10,13 @@ class PostRepo {
   static Future<Post?> createPost({
     required String userId,
     required String content,
-    required String header,
+    required String heading,
   }) =>
       _requestHandler(_dio.post(
         '/post',
         data: {
           'content': content,
-          'header': header,
+          'heading': heading,
           'creatorId': userId,
           'time': DateTime.now().toString(),
           "likedBy": [],

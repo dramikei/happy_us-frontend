@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:happy_us/widgets/custom_text.dart';
-import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/notification_card.dart';
-import 'package:happy_us/models/notification.dart' as notif;
+import 'package:happy_us/models/notification.dart' as notification;
 
 class NotificationScreen extends StatelessWidget {
   static const id = 'NotificationScreen';
@@ -11,7 +10,7 @@ class NotificationScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   static final notifications = [
-    notif.Notification.fromJson({
+    notification.Notification.fromJson({
       "userId": "lol",
       "_id": "q",
       "redirectTo": "",
@@ -24,13 +23,10 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kAccentColor,
-        title: CustomText('My Notifications'),
-      ),
-      body: SafeArea(
-        child: RefreshIndicator(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: CustomText('My Notifications')),
+        body: RefreshIndicator(
           onRefresh: () async {},
           child: ListView.builder(
             padding: const EdgeInsets.all(30),

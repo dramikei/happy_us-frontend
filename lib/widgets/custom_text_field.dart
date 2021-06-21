@@ -6,6 +6,11 @@ class CustomTextField extends StatefulWidget {
   static const id = 'CustomTextField';
 
   final bool autofocus;
+  final Color color;
+  final int? maxLines;
+  final int? maxLength;
+  final String? hintText;
+  final EdgeInsets? contentPadding;
   final void Function(String)? onChanged;
   final bool isPasswordField;
   final String? Function(String?)? validator;
@@ -14,6 +19,11 @@ class CustomTextField extends StatefulWidget {
     Key? key,
     this.onChanged,
     this.validator,
+    this.maxLines,
+    this.maxLength,
+    this.contentPadding,
+    this.hintText,
+    this.color = kAccentColor,
     this.autofocus = false,
     this.isPasswordField = false,
   }) : super(key: key);
@@ -40,7 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return EasyContainer(
-      color: kAccentColor,
+      color: this.widget.color,
       padding: 0,
       borderRadius: 10,
       margin: 0,
@@ -55,11 +65,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
               style: TextStyle(color: kFocusColor),
               cursorColor: kFocusColor,
               obscureText: _obscureText,
+              maxLines: this.widget.maxLines,
+              maxLength: this.widget.maxLength,
               decoration: InputDecoration(
+                hintText: this.widget.hintText,
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 10),
+                contentPadding:
+                    this.widget.contentPadding ?? EdgeInsets.only(left: 10),
                 hintStyle: TextStyle(
-                  color: kFocusColor.withOpacity(0.5),
+                  color: kFocusColor.withOpacity(0.4),
                 ),
               ),
             ),

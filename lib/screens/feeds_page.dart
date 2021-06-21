@@ -98,19 +98,10 @@ class _FeedsPageState extends State<FeedsPage> {
       if (!Globals.isLoggedIn) {
         NavigationService.push(context, path: NavigationService.loginPath);
       } else {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(kIsWeb ? 100 : 30),
-                  child: SizedBox(
-                    height: kIsWeb ? 1000 : 450,
-                    child: CreatePost(),
-                  ),
-                ),
-              );
-            });
+        NavigationService.push(
+          context,
+          path: NavigationService.createPostPath,
+        );
       }
     };
     if (kIsWeb)
