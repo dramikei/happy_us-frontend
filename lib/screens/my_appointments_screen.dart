@@ -25,13 +25,10 @@ class MyAppointmentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kAccentColor,
-        title: CustomText('My Appointments'),
-      ),
-      body: SafeArea(
-        child: RefreshIndicator(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: CustomText('My Appointments')),
+        body: RefreshIndicator(
           onRefresh: () async {},
           child: ListView.builder(
             padding: const EdgeInsets.all(50),

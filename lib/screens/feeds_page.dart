@@ -4,11 +4,9 @@ import 'package:happy_us/models/post.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
-import 'package:happy_us/widgets/create_post.dart';
 import 'package:happy_us/widgets/post_card.dart';
 import 'package:happy_us/widgets/responsive_grid_view.dart';
 import 'package:happy_us/widgets/custom_text.dart';
-
 
 class FeedsPage extends StatelessWidget {
   static const id = 'FeedsPage';
@@ -94,19 +92,10 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
       if (!Globals.isLoggedIn) {
         NavigationService.push(context, path: NavigationService.loginPath);
       } else {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(kIsWeb ? 100 : 30),
-                  child: SizedBox(
-                    height: kIsWeb ? 1000 : 450,
-                    child: CreatePost(),
-                  ),
-                ),
-              );
-            });
+        NavigationService.push(
+          context,
+          path: NavigationService.createPostPath,
+        );
       }
     };
     if (kIsWeb)

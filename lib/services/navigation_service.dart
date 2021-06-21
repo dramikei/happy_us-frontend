@@ -11,6 +11,7 @@ import 'package:happy_us/screens/profile_screen.dart';
 import 'package:happy_us/screens/register_screen.dart';
 import 'package:happy_us/screens/splash_screen.dart';
 import 'package:happy_us/screens/tnc.dart';
+import 'package:happy_us/widgets/create_post_screen.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 class NavigationService {
@@ -26,12 +27,17 @@ class NavigationService {
   static String appointmentPath = '/appointments';
   static String postsPath = '/posts';
   static String aboutPath = '/about';
+  static String createPostPath = '/create';
   static String connectionLostPath = '/connection-lost';
 
   static void _defineRoutes(FluroRouter router) {
     router.define(
       initialPath,
       handler: _defaultHandler(SplashScreen()),
+    );
+    router.define(
+      createPostPath,
+      handler: _defaultHandler(CreatePostScreen()),
     );
     router.define(
       profilePath,
