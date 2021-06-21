@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,7 +20,35 @@ void main() async {
   runApp(_MainApp());
 }
 
-class _MainApp extends StatelessWidget {
+class _MainApp extends StatefulWidget {
+  @override
+  __MainAppState createState() => __MainAppState();
+}
+
+class __MainAppState extends State<_MainApp> {
+  late final StreamSubscription _connectivitySubscription;
+
+  @override
+  void initState() {
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult connectivityResult) {
+      if (connectivityResult == ConnectivityResult.none) {
+        NavigationService.push(
+          context,
+          path: NavigationService.connectionLostPath,
+        );
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _connectivitySubscription.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return OverlaySupport.global(

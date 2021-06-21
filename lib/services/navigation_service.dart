@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:happy_us/screens/about_screen.dart';
+import 'package:happy_us/screens/connection_lost_screen.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
 import 'package:happy_us/screens/login_screen.dart';
 import 'package:happy_us/screens/my_appointments_screen.dart';
@@ -25,6 +26,7 @@ class NavigationService {
   static String appointmentPath = '/appointments';
   static String postsPath = '/posts';
   static String aboutPath = '/about';
+  static String connectionLostPath = '/connection-lost';
 
   static void _defineRoutes(FluroRouter router) {
     router.define(
@@ -54,6 +56,10 @@ class NavigationService {
     router.define(
       homePath,
       handler: _defaultHandler(HomeNavigationScreen()),
+    );
+    router.define(
+      connectionLostPath,
+      handler: _defaultHandler(ConnectionLostScreen()),
     );
     router.define(
       loginPath,

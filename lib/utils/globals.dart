@@ -15,7 +15,10 @@ class Globals {
   static final box = GetStorage();
 
   static final dio = Dio(
-    BaseOptions(baseUrl: 'http://10.0.2.2:3000/api'),
+    BaseOptions(
+      baseUrl: 'http://10.0.2.2:3000/api',
+      connectTimeout: 11000,
+    ),
   )..interceptors.addAll([
       InterceptorsWrapper(
         onRequest: (request, handler) {

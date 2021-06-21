@@ -8,6 +8,9 @@ class AuthRepo {
   static final _dio = Globals.dio;
   static final _requestHandler = Globals.requestHandler;
 
+  static Future<bool?> pingServer() =>
+      _requestHandler<bool, bool>(_dio.get('/ping'));
+
   static Future<User?> loginUser({
     required String username,
     required String password,

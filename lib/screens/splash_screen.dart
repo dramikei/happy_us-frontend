@@ -5,6 +5,7 @@ import 'package:happy_us/controllers/user.getx.dart';
 import 'package:happy_us/controllers/volunteer.getx.dart';
 import 'package:happy_us/models/user.dart';
 import 'package:happy_us/models/volunteer.dart';
+import 'package:happy_us/repository/auth_repo.dart';
 import 'package:happy_us/repository/user_repo.dart';
 import 'package:happy_us/repository/volunteer_repo.dart';
 import 'package:happy_us/services/navigation_service.dart';
@@ -55,7 +56,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    isLoggedIn();
+    () async {
+      final success = await AuthRepo.pingServer();
+      if (success == null || !success) {
+        NavigationService.pop(context);
+        NavigationService.push(
+          context,
+          path: NavigationService.connectionLostPath,
+        );
+      } else
+        isLoggedIn();
+    }();
   }
 
   @override
