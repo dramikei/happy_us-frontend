@@ -1,7 +1,12 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:happy_us/screens/about_screen.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
 import 'package:happy_us/screens/login_screen.dart';
+import 'package:happy_us/screens/my_appointments_screen.dart';
+import 'package:happy_us/screens/my_posts_screen.dart';
+import 'package:happy_us/screens/notifications_screen.dart';
+import 'package:happy_us/screens/profile_screen.dart';
 import 'package:happy_us/screens/register_screen.dart';
 import 'package:happy_us/screens/splash_screen.dart';
 import 'package:happy_us/screens/tnc.dart';
@@ -15,11 +20,36 @@ class NavigationService {
   static String loginPath = '/login';
   static String registerPath = '/register';
   static String tncPath = '/tnc';
+  static String profilePath = '/profile';
+  static String notificationPath = '/notifications';
+  static String appointmentPath = '/appointments';
+  static String postsPath = '/posts';
+  static String aboutPath = '/about';
 
   static void _defineRoutes(FluroRouter router) {
     router.define(
       initialPath,
       handler: _defaultHandler(SplashScreen()),
+    );
+    router.define(
+      profilePath,
+      handler: _defaultHandler(ProfileScreen()),
+    );
+    router.define(
+      notificationPath,
+      handler: _defaultHandler(NotificationScreen()),
+    );
+    router.define(
+      appointmentPath,
+      handler: _defaultHandler(MyAppointmentsScreen()),
+    );
+    router.define(
+      postsPath,
+      handler: _defaultHandler(MyPostsScreen()),
+    );
+    router.define(
+      aboutPath,
+      handler: _defaultHandler(AboutScreen()),
     );
     router.define(
       homePath,

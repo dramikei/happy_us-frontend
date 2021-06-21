@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:happy_us/models/volunteer.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:happy_us/utils/globals.dart';
 
 class VolunteerCard extends StatelessWidget {
   static const id = 'VolunteerCard';
@@ -85,36 +86,8 @@ class VolunteerCard extends StatelessWidget {
                       child: Text("Book Appointment"),
                       style: ElevatedButton.styleFrom(primary: kFocusColor),
                       onPressed: () async {
-                        // logged in
-                        if (false) {
-                          final _date = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime.now().add(Duration(days: 7)),
-                              builder: (context, child) {
-                                return Theme(
-                                  data: ThemeData(
-                                    brightness: Theme.of(context).brightness,
-                                    fontFamily: FONT_FAMILY,
-                                  ).copyWith(
-                                    primaryColor: kFocusColor,
-                                    accentColor: kFocusColor,
-                                    colorScheme: Theme.of(context).brightness ==
-                                            Brightness.light
-                                        ? ColorScheme.light(
-                                            primary: kFocusColor)
-                                        : ColorScheme.dark(
-                                            primary: kFocusColor),
-                                    buttonTheme: ButtonThemeData(
-                                      textTheme: ButtonTextTheme.primary,
-                                    ),
-                                  ),
-                                  child: child!,
-                                );
-                              });
-
-                          //
+                        if (Globals.isLoggedIn) {
+                          final _date = await _showDatePicker(context);
                           print(_date);
                         } else {
                           // go to login
@@ -132,6 +105,33 @@ class VolunteerCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Future<DateTime?> _showDatePicker(BuildContext context) async {
+    return showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 7)),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            brightness: Theme.of(context).brightness,
+            fontFamily: FONT_FAMILY,
+          ).copyWith(
+            primaryColor: kFocusColor,
+            accentColor: kFocusColor,
+            colorScheme: Theme.of(context).brightness == Brightness.light
+                ? ColorScheme.light(primary: kFocusColor)
+                : ColorScheme.dark(primary: kFocusColor),
+            buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
   }
 }

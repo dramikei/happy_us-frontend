@@ -24,24 +24,39 @@ class DashboardPage extends StatelessWidget {
               if (Globals.isLoggedIn) ...[
                 _settingsTile(
                   title: "My Profile",
-                  onTap: () {},
+                  onTap: () {
+                    NavigationService.push(context,
+                        path: NavigationService.profilePath);
+                  },
                 ),
                 _settingsTile(
                   title: "Notifications",
-                  onTap: () {},
+                  onTap: () {
+                    NavigationService.push(context,
+                        path: NavigationService.notificationPath);
+                  },
                 ),
                 _settingsTile(
                   title: "My Posts",
-                  onTap: () {},
+                  onTap: () {
+                    NavigationService.push(context,
+                        path: NavigationService.postsPath);
+                  },
                 ),
                 _settingsTile(
                   title: "My Appointments",
-                  onTap: () {},
+                  onTap: () {
+                    NavigationService.push(context,
+                        path: NavigationService.appointmentPath);
+                  },
                 ),
               ],
               _settingsTile(
                 title: "About Us",
-                onTap: () {},
+                onTap: () {
+                  NavigationService.push(context,
+                      path: NavigationService.aboutPath);
+                },
               ),
               _settingsTile(
                 title: "Change Theme",
