@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:happy_us/controllers/appointment.getx.dart';
+import 'package:happy_us/controllers/notification.getx.dart';
+import 'package:happy_us/controllers/post.getx.dart';
 import 'package:happy_us/controllers/user.getx.dart';
 import 'package:happy_us/controllers/volunteer.getx.dart';
 import 'package:happy_us/services/navigation_service.dart';
@@ -24,6 +27,9 @@ class _MainApp extends StatelessWidget {
           () => {
             Get.put(UserController(), permanent: true),
             Get.put(VolunteerController(), permanent: true),
+            Get.put(PostController(), permanent: true),
+            Get.put(NotificationController(), permanent: true),
+            Get.put(AppointmentController(), permanent: true)
           },
         ),
         debugShowCheckedModeBanner: false,

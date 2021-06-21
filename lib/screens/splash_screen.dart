@@ -48,12 +48,12 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     }
     await Future.delayed(Duration.zero);
+    NavigationService.pop(context);
     NavigationService.push(context, path: NavigationService.homePath);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isLoggedIn();
   }
