@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/utils/constants.dart';
 
+// ignore: must_be_immutable
 class PostCard extends GetView<PostController> {
   static const id = 'PostCard';
 

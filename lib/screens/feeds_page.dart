@@ -7,7 +7,6 @@ import 'package:happy_us/repository/post_repo.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
-import 'package:happy_us/widgets/create_post.dart';
 import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/post_card.dart';
 import 'package:happy_us/widgets/responsive_grid_view.dart';
