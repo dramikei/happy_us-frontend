@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/controllers/user.getx.dart';
 import 'package:happy_us/controllers/volunteer.getx.dart';
@@ -100,7 +101,7 @@ class DashboardPage extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      title: Text(
+      title: CustomText(
         title,
         style: TextStyle(fontSize: 20),
       ),

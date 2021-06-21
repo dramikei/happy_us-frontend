@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/models/notification.dart' as notif;
 import 'package:happy_us/utils/constants.dart';
@@ -16,7 +17,7 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
+      child: CustomText(
           isSmallScreen ? 'small screen' : 'notif-card #${notification.id}'),
     );
   }

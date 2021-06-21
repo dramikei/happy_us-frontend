@@ -1,4 +1,5 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_container/easy_container.dart';
@@ -88,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.all(size.width * 0.06),
                 children: [
-                  const Text(
+                  const CustomText(
                     "Hey there",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -96,14 +97,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
+                  const CustomText(
                     "Fill in the form and create your account",
                     style: TextStyle(
                       fontSize: 17,
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Text(
+                  const CustomText(
                     "Anonymous Username",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -116,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onChanged: (v) => _username = v,
                   ),
                   const SizedBox(height: 25),
-                  Text(
+                  CustomText(
                     '${_acceptedAccounts[_selectedIdIndex]} ID',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -133,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _acceptedAccounts.length,
                       (index) => Expanded(
                         child: RadioListTile<String>(
-                          title: Text(
+                          title: CustomText(
                             _acceptedAccounts[index],
                             style: TextStyle(
                               fontSize: 18,
@@ -150,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Text(
+                  const CustomText(
                     "Not your usual Password",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -179,13 +180,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     contentPadding: EdgeInsets.zero,
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: kFocusColor,
-                    title: Text("I agree to terms and conditions."),
+                    title: CustomText("I agree to terms and conditions."),
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      CustomText(
                         "Age: ${_age.toString()}",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
@@ -211,7 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: ArgonButton(
                       height: 50,
                       width: 150,
-                      child: Text(
+                      child: CustomText(
                         "Register",
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),

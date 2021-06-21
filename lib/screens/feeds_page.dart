@@ -7,6 +7,8 @@ import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/create_post.dart';
 import 'package:happy_us/widgets/post_card.dart';
 import 'package:happy_us/widgets/responsive_grid_view.dart';
+import 'package:happy_us/widgets/custom_text.dart';
+
 
 class FeedsPage extends StatelessWidget {
   static const id = 'FeedsPage';
@@ -60,7 +62,7 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
           centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(
+            child: CustomText(
               "Show some love",
               style: Theme.of(context).appBarTheme.titleTextStyle,
               maxLines: 2,
@@ -110,7 +112,7 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
     if (kIsWeb)
       return FloatingActionButton.extended(
         icon: Icon(Icons.favorite, color: kFocusColor),
-        label: Text(text),
+        label: CustomText(text),
         onPressed: onPressed,
       );
     else

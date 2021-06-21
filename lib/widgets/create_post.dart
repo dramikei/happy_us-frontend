@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 
 class CreatePost extends StatelessWidget {
   static const id = 'CreatePost';
@@ -12,7 +13,7 @@ class CreatePost extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Text('CreatePost'),
+          child: CustomText('CreatePost'),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.all(size.width * 0.08),
                 children: [
-                  const Text(
+                  const CustomText(
                     "Welcome Back",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -81,14 +82,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
+                  const CustomText(
                     "Fill in the form and login to your account",
                     style: TextStyle(
                       fontSize: 17,
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Text(
+                  const CustomText(
                     "Anonymous Username",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -101,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onChanged: (v) => _username = v,
                   ),
                   const SizedBox(height: 25),
-                  const Text(
+                  const CustomText(
                     "Dummy Password",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -120,14 +121,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     contentPadding: EdgeInsets.zero,
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: kFocusColor,
-                    title: Text("Login as volunteer"),
+                    title: CustomText("Login as volunteer"),
                   ),
                   const SizedBox(height: 10),
                   Center(
                     child: ArgonButton(
                       height: 50,
                       width: 150,
-                      child: Text(
+                      child: CustomText(
                         "Login",
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),

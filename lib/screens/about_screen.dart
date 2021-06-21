@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
+
 
 class AboutScreen extends StatelessWidget {
   static const id = 'AboutScreen';
@@ -9,7 +11,7 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
         child: Center(
-            child: Text('AboutScreen'),
+            child: CustomText('AboutScreen'),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/notification_card.dart';
 import 'package:happy_us/models/notification.dart' as notif;
@@ -26,7 +27,7 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kAccentColor,
-        title: Text('My Notifications'),
+        title: CustomText('My Notifications'),
       ),
       body: SafeArea(
         child: RefreshIndicator(

@@ -6,18 +6,31 @@ class CustomText extends StatelessWidget {
 
   final String text;
   final TextStyle? style;
+  final TextOverflow? overflow;
+  final int? maxLines;
 
   const CustomText(
     this.text, {
     Key? key,
     this.style,
+    this.maxLines,
+    this.overflow,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb)
-      return SelectableText(text, style: style);
+    if (kIsWeb && overflow == null)
+      return SelectableText(
+        text,
+        style: style,
+        maxLines: maxLines,
+      );
     else
-      return Text(text, style: style);
+      return Text(
+        text,
+        style: style,
+        maxLines: maxLines,
+        overflow: overflow,
+      );
   }
 }

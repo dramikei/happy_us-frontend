@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/models/post.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/post_card.dart';
@@ -50,7 +51,7 @@ On a spring day, Jack Hawthorne accidentally runs over and kills his younger bro
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kAccentColor,
-        title: Text('My Posts'),
+        title: CustomText('My Posts'),
       ),
       body: SafeArea(
         child: RefreshIndicator(

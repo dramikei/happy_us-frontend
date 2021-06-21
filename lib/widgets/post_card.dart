@@ -1,10 +1,15 @@
 import 'package:easy_container/easy_container.dart';
+import 'package:get/get.dart';
+import 'package:happy_us/controllers/post.getx.dart';
+import 'package:happy_us/services/navigation_service.dart';
+import 'package:happy_us/utils/globals.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/models/post.dart';
 import 'package:happy_us/utils/constants.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends GetView<PostController> {
   static const id = 'PostCard';
 
   final Post post;
@@ -60,7 +65,7 @@ class PostCard extends StatelessWidget {
               color: kFocusColor,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(
+                child: CustomText(
                   post.heading,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -95,7 +100,7 @@ class PostCard extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(
+                        child: CustomText(
                           post.timeAgo,
                           style: TextStyle(
                             fontSize: 14,
@@ -104,17 +109,30 @@ class PostCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 5),
-                      Text(
+                      CustomText(
                         post.likedBy.length.toString(),
                         style: TextStyle(),
                       ),
                       const SizedBox(width: 5),
                       GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          false ? Icons.favorite : Icons.favorite_border,
-                          size: 25,
-                          color: kFocusColor,
+                        onTap: () {
+                          if (!Globals.isLoggedIn) {
+                            NavigationService.push(context,
+                                path: NavigationService.loginPath);
+                          }
+                        },
+                        child: Obx(
+                          () => Icon(
+                            Globals.isLoggedIn
+                                ? controller.isLiked(
+                                        postId: post.id,
+                                        userId: Globals.userId!)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border
+                                : Icons.favorite_border,
+                            size: 25,
+                            color: kFocusColor,
+                          ),
                         ),
                       ),
                     ],
@@ -130,7 +148,7 @@ class PostCard extends StatelessWidget {
   }
 
   Widget _content() {
-    return Text(
+    return CustomText(
       post.content,
       style: TextStyle(fontSize: 18),
       overflow: openedFromDialog ? null : TextOverflow.ellipsis,

@@ -5,6 +5,7 @@ import 'package:happy_us/models/volunteer.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/responsive_grid_view.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 
 class VolunteersPage extends StatelessWidget {
   static const id = 'VolunteersPage';
@@ -59,7 +60,7 @@ Mainly I will hear you rant or rant together 😅
           centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(
+            child: CustomText(
               "Always happy to listen",
               style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
@@ -102,11 +103,11 @@ Mainly I will hear you rant or rant together 😅
                                 child: FittedBox(
                                   child: Column(
                                     children: [
-                                      Text(
+                                      CustomText(
                                         "Stress",
                                         style: TextStyle(color: Colors.white),
                                       ),
-                                      Text(
+                                      CustomText(
                                         "Ball",
                                         style: TextStyle(color: Colors.white),
                                       ),

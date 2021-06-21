@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/models/appointment.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/appointment_card.dart';
@@ -27,7 +28,7 @@ class MyAppointmentsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kAccentColor,
-        title: Text('My Appointments'),
+        title: CustomText('My Appointments'),
       ),
       body: SafeArea(
         child: RefreshIndicator(

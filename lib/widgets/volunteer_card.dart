@@ -4,6 +4,7 @@ import 'package:happy_us/models/volunteer.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 
 class VolunteerCard extends StatelessWidget {
   static const id = 'VolunteerCard';
@@ -34,7 +35,7 @@ class VolunteerCard extends StatelessWidget {
               color: kFocusColor,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(
+                child: CustomText(
                   volunteer.aboutMe,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -64,7 +65,7 @@ class VolunteerCard extends StatelessWidget {
                             child: SizedBox.expand(),
                           ),
                           const SizedBox(width: 10),
-                          Expanded(child: Text(hobby)),
+                          Expanded(child: CustomText(hobby)),
                         ],
                       ),
                     );
@@ -75,7 +76,7 @@ class VolunteerCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
+                    CustomText(
                       "Volunteer ${volunteer.id}",
                       style: TextStyle(
                         color: Colors.grey,
@@ -83,7 +84,7 @@ class VolunteerCard extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      child: Text("Book Appointment"),
+                      child: CustomText("Book Appointment"),
                       style: ElevatedButton.styleFrom(primary: kFocusColor),
                       onPressed: () async {
                         if (Globals.isLoggedIn) {

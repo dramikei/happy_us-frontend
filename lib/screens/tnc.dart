@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 
@@ -14,7 +15,7 @@ class Tnc extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: kFocusColor,
-        title: const Text('Terms & Conditions'),
+        title: const CustomText('Terms & Conditions'),
       ),
       body: PdfView(
         physics: const BouncingScrollPhysics(),

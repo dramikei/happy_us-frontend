@@ -87,7 +87,7 @@ class StaticInfoCard extends StatelessWidget {
                   _completedStageIndex < index ? Colors.grey : _selectedColor,
               color:
                   _completedStageIndex < index ? Colors.grey : _selectedColor,
-              child: Text(
+              child: CustomText(
                 (index + 1).toString(),
                 style: TextStyle(
                   fontSize: 20,
