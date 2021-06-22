@@ -33,6 +33,11 @@ class _FeedsPageState extends State<FeedsPage> {
     super.initState();
   }
 
+  Future<void> refreshPage() async {
+    _posts = PostRepo.getAllPost();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final isSmallScreen =
@@ -57,10 +62,7 @@ class _FeedsPageState extends State<FeedsPage> {
           ),
         ),
         body: RefreshIndicator(
-          onRefresh: () async {
-            _posts = PostRepo.getAllPost();
-            setState(() {});
-          },
+          onRefresh: refreshPage,
           child: FutureBuilder<List<Post>?>(
             future: _posts,
             builder: (ctx, snapshot) {
@@ -77,7 +79,10 @@ class _FeedsPageState extends State<FeedsPage> {
                           postController.posts.length,
                           (index) {
                             final post = postController.posts[index];
-                            return PostCard(post);
+                            return PostCard(
+                              post,
+                              isCreator: false,
+                            );
                           },
                         ),
                       )
@@ -100,10 +105,9 @@ class _FeedsPageState extends State<FeedsPage> {
       if (!Globals.isLoggedIn) {
         NavigationService.push(context, path: NavigationService.loginPath);
       } else {
-        NavigationService.push(
-          context,
-          path: NavigationService.createPostPath,
-        );
+        NavigationService.push(context,
+            path: NavigationService.createPostPath,
+            args: {'refreshPage': refreshPage});
       }
     };
     if (kIsWeb)

@@ -1,70 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:happy_us/controllers/post.getx.dart';
+import 'package:happy_us/repository/post_repo.dart';
+import 'package:happy_us/services/alerts_service.dart';
+import 'package:happy_us/services/navigation_service.dart';
+import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/models/post.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/post_card.dart';
 import 'package:happy_us/widgets/responsive_grid_view.dart';
 
-class MyPostsScreen extends StatelessWidget {
+class MyPostsScreen extends StatefulWidget {
   static const id = 'MyPostsScreen';
 
   const MyPostsScreen({
     Key? key,
   }) : super(key: key);
 
-  static final __posts = [
-    Post.fromJson({
-      '_id': '#1',
-      'heading': 'My Dead Brother Comes to America',
-      'content': '''
-The narrator recounts the foggy winter day his family arrived at Ellis Island. There was a crowd waiting for the passengers to disembark. People called out to their family members. He heard a shout calling his mother's name. It was his father. The family hasn't seen him in years. He went ahead of them to America. Now, he's waiting to see his wife and four children again.
-''',
-      'creatorId': '',
-      'time': '2021-06-09 00:00:00.000',
-      'likedBy': ['11', '22'],
-    }),
-    Post.fromJson({
-      '_id': '#2',
-      'heading': 'Redemption',
-      'content': '''
-On a spring day, Jack Hawthorne accidentally runs over and kills his younger brother, David, with a tractor. His father is nearly destroyed by it and turns to smoking and women to survive. His mother is sapped by grief. She gets comfort from food and her friends. While no one blames Jack for the tragedy, he takes it badly, replaying the accident in his mind and viewing himself as evil.
-''',
-      'creatorId': '',
-      'time': '2021-06-04 00:00:00.000',
-      'likedBy': ['44'],
-    }),
-  ];
+  @override
+  _MyPostsScreenState createState() => _MyPostsScreenState();
+}
 
-  static final posts = [
-    ...__posts,
-    ...__posts,
-    ...__posts,
-    ...__posts,
-    ...__posts,
-    ...__posts,
-  ];
+class _MyPostsScreenState extends State<MyPostsScreen> {
+  late Future<List<Post>?> _posts;
+  bool allDeleted = false;
+
+  @override
+  void initState() {
+    _posts = PostRepo.getUserPosts();
+    super.initState();
+  }
+
+  void deletePost(String postId) async {
+    if (!Globals.isLoggedIn) {
+      NavigationService.push(context, path: NavigationService.loginPath);
+    } else {
+      final success = await PostRepo.removePost(
+        postId: postId,
+      );
+      if (success == true) {
+        Get.find<PostController>()
+            .posts
+            .removeWhere((element) => element.id == postId);
+        if (Get.find<PostController>().posts.length == 0) {
+          allDeleted = true;
+        }
+        setState(() {});
+        AlertsService.success("Deleted Successfully");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final isSmallScreen =
         MediaQuery.of(context).size.width < SMALL_SCREEN_WIDTH;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: CustomText('My Posts')),
         body: RefreshIndicator(
-          onRefresh: () async {},
-          child: ResponsiveGridList(
-            padding: const EdgeInsets.symmetric(vertical: 35),
-            minSpacing: 50,
-            desiredItemWidth: isSmallScreen ? 270 : 350,
-            children: List.generate(
-              posts.length,
-              (index) {
-                final post = posts[index];
-                return PostCard(post);
-              },
-            ),
-          ),
+          onRefresh: () async {
+            _posts = PostRepo.getUserPosts();
+            setState(() {});
+          },
+          child: allDeleted
+              ? NoData()
+              : FutureBuilder<List<Post>?>(
+                  future: _posts,
+                  builder: (ctx, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      return snapshot.data is List && snapshot.data!.length > 0
+                          ? Obx(
+                              () => ResponsiveGridList(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 35),
+                                minSpacing: 50,
+                                desiredItemWidth: isSmallScreen ? 270 : 350,
+                                children: List.generate(
+                                  Get.find<PostController>().posts.length,
+                                  (index) {
+                                    final post =
+                                        Get.find<PostController>().posts[index];
+                                    return PostCard(
+                                      post,
+                                      isCreator: true,
+                                      onDeleteTap: () => deletePost(post.id),
+                                    );
+                                  },
+                                ),
+                              ),
+                            )
+                          : NoData();
+                    } else
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                  },
+                ),
         ),
       ),
     );

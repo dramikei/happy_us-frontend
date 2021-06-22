@@ -44,5 +44,10 @@ class PostRepo {
   static Future<bool?> removePost({
     required String postId,
   }) =>
-      _requestHandler<bool, bool>(_dio.delete('/post'));
+      _requestHandler<bool, bool>(
+        _dio.delete(
+          '/post',
+          data: {"postId": postId},
+        ),
+      );
 }

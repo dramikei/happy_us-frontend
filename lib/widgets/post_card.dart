@@ -15,11 +15,15 @@ class PostCard extends StatefulWidget {
 
   final Post post;
   final bool openedFromDialog;
+  final bool isCreator;
+  final VoidCallback? onDeleteTap;
 
   PostCard(
     this.post, {
     Key? key,
     this.openedFromDialog = false,
+    this.onDeleteTap,
+    this.isCreator = false,
   }) : super(key: key);
 
   @override
@@ -84,16 +88,31 @@ class _PostCardState extends State<PostCard> {
               color: kFocusColor,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: CustomText(
-                  widget.post.heading,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 25,
-                    color: Colors.white,
-                  ),
-                  overflow:
-                      widget.openedFromDialog ? null : TextOverflow.ellipsis,
-                  maxLines: widget.openedFromDialog ? null : 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                      widget.post.heading,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 21,
+                        color: Colors.white,
+                      ),
+                      overflow: widget.openedFromDialog
+                          ? null
+                          : TextOverflow.ellipsis,
+                      maxLines: widget.openedFromDialog ? null : 1,
+                    ),
+                    if (Globals.isLoggedIn && widget.isCreator)
+                      GestureDetector(
+                        onTap: widget.onDeleteTap,
+                        child: Icon(
+                          Icons.delete,
+                          size: 25,
+                          color: kAccentColor,
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -140,7 +159,7 @@ class _PostCardState extends State<PostCard> {
                             NavigationService.push(context,
                                 path: NavigationService.loginPath);
                           } else {
-                            var isLiked = controller.isLiked(
+                            bool isLiked = controller.isLiked(
                                 postId: widget.post.id,
                                 userId: Globals.userId!);
 
@@ -165,10 +184,10 @@ class _PostCardState extends State<PostCard> {
                         child: Icon(
                           Globals.isLoggedIn
                               ? controller.isLiked(
-                              postId: widget.post.id,
-                              userId: Globals.userId!)
-                              ? Icons.favorite
-                              : Icons.favorite_border
+                                      postId: widget.post.id,
+                                      userId: Globals.userId!)
+                                  ? Icons.favorite
+                                  : Icons.favorite_border
                               : Icons.favorite_border,
                           size: 25,
                           color: kFocusColor,
@@ -189,7 +208,7 @@ class _PostCardState extends State<PostCard> {
   Widget _content() {
     return CustomText(
       widget.post.content,
-      style: TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: 16),
       overflow: widget.openedFromDialog ? null : TextOverflow.ellipsis,
       maxLines: widget.openedFromDialog ? null : 8,
     );

@@ -35,10 +35,14 @@ class NavigationService {
       initialPath,
       handler: _defaultHandler(SplashScreen()),
     );
-    router.define(
-      createPostPath,
-      handler: _defaultHandler(CreatePostScreen()),
-    );
+    router.define(createPostPath, handler: Handler(
+      handlerFunc: (context, params) {
+        final args = context!.settings!.arguments as Map;
+        return CreatePostScreen(
+          refreshPage: args['refreshPage'],
+        );
+      },
+    ));
     router.define(
       profilePath,
       handler: _defaultHandler(ProfileScreen()),

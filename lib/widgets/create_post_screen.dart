@@ -10,9 +10,11 @@ import 'package:happy_us/widgets/custom_text_field.dart';
 // ignore: must_be_immutable
 class CreatePostScreen extends StatelessWidget {
   static const id = 'CreatePostScreen';
+  final Future<void> Function() refreshPage;
 
   CreatePostScreen({
     Key? key,
+    required this.refreshPage,
   }) : super(key: key);
 
   String? _heading;
@@ -63,6 +65,7 @@ class CreatePostScreen extends StatelessWidget {
 
                     if (post != null) {
                       AlertsService.success('Post created');
+                      await refreshPage();
                       NavigationService.pop(context);
                     }
                     stopLoading();
