@@ -7,7 +7,6 @@ import 'package:happy_us/screens/login_screen.dart';
 import 'package:happy_us/screens/my_appointments_screen.dart';
 import 'package:happy_us/screens/my_posts_screen.dart';
 import 'package:happy_us/screens/notifications_screen.dart';
-import 'package:happy_us/screens/profile_screen.dart';
 import 'package:happy_us/screens/register_screen.dart';
 import 'package:happy_us/screens/splash_screen.dart';
 import 'package:happy_us/screens/tnc.dart';
@@ -22,7 +21,6 @@ class NavigationService {
   static String loginPath = '/login';
   static String registerPath = '/register';
   static String tncPath = '/tnc';
-  static String profilePath = '/profile';
   static String notificationPath = '/notifications';
   static String appointmentPath = '/appointments';
   static String postsPath = '/posts';
@@ -43,10 +41,6 @@ class NavigationService {
         );
       },
     ));
-    router.define(
-      profilePath,
-      handler: _defaultHandler(ProfileScreen()),
-    );
     router.define(
       notificationPath,
       handler: _defaultHandler(NotificationScreen()),
