@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/repository/notification_repo.dart';
+import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/controllers/notification.getx.dart';
 import 'package:happy_us/widgets/no_data.dart';
@@ -38,6 +39,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+              ? kFocusColor
+              : Colors.transparent,
+          elevation: 0,
           title: CustomText('My Notifications'),
         ),
         body: RefreshIndicator(
@@ -55,9 +60,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         itemCount: notificationController.notifications.length,
                         itemBuilder: (context, index) {
                           return NotificationCard(
-                              notification:
-                                  notificationController.notifications[index],
-                            );
+                            notification:
+                                notificationController.notifications[index],
+                          );
                         },
                       )
                     : NoData();

@@ -60,7 +60,13 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: CustomText('My Posts')),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+              ? kFocusColor
+              : Colors.transparent,
+          elevation: 0,
+          title: CustomText('My Posts'),
+        ),
         body: RefreshIndicator(
           onRefresh: () async {
             _posts = PostRepo.getUserPosts();
