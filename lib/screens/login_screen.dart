@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 25),
                   const CustomText(
-                    "Dummy Password",
+                    "Password",
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 21,
@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 10),
                   CustomTextField(
                     isPasswordField: true,
+                    maxLines: 1,
                     onChanged: (v) => _password = v,
                   ),
                   const SizedBox(height: 10),

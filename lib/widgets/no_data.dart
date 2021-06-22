@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class NoData extends StatelessWidget {
   static const id = 'NoData';
@@ -9,8 +10,17 @@ class NoData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('No Data found'),
+    return ListView(
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      children: [
+        Lottie.asset('assets/lottie/404.json'),
+        Text(
+          "Beep boop Beoop boop,\n\n no result found(op)",
+          style: TextStyle(fontSize: 21),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

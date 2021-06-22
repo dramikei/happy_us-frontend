@@ -158,9 +158,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontSize: 21,
                     ),
                   ),
+                  const CustomText(
+                    "as we didn't invest much in security",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   CustomTextField(
                     isPasswordField: true,
+                    maxLines: 1,
                     onChanged: (v) => _password = v,
                   ),
                   const SizedBox(height: 10),
