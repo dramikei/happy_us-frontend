@@ -6,8 +6,12 @@ class VolunteerRepo {
   static final _requestHandler = Globals.requestHandler;
 
   static Future<Volunteer?> getLoggedInVolunteer() =>
-      _requestHandler<Volunteer, Volunteer>(_dio.get('/volunteer'));
+      _requestHandler<Volunteer, Volunteer>(
+        _dio.get('/volunteer'),
+      );
 
   static Future<List<Volunteer>?> getAllVolunteers() =>
-      _requestHandler<Volunteer, List<Volunteer>>(_dio.get('/volunteer/all'));
+      _requestHandler<Volunteer, List<Volunteer>>(
+        _dio.get('/volunteer/all'),
+      );
 }

@@ -112,6 +112,7 @@ class Globals {
     '/notification': (e) => notification.Notification.fromJson(e),
     '/appointment': (e) => Appointment.fromJson(e),
     '/volunteer': (e) => Volunteer.fromJson(e),
+    '/volunteer/all': (e) => Volunteer.fromJson(e),
     '/post': (e) => Post.fromJson(e),
     '/post/user': (e) => Post.fromJson(e),
     '/user': (e) => User.fromJson(e),

@@ -2,55 +2,38 @@ import 'package:dough/dough.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:happy_us/models/volunteer.dart';
+import 'package:happy_us/repository/volunteer_repo.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/responsive_grid_view.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 
-class VolunteersPage extends StatelessWidget {
+class VolunteersPage extends StatefulWidget {
   static const id = 'VolunteersPage';
 
   const VolunteersPage({
     Key? key,
   }) : super(key: key);
 
-  static final __volunteers = [
-    Volunteer.fromJson({
-      '_id': '#1',
-      'username': 'user-name',
-      'password': 'pass-word',
-      'fcmToken': '',
-      'type': 'volunteer',
-      'age': 20,
-      'social': {'discord': 'ABC#123'},
-      'hobbies': [
-        '''
-I love reading novels (won't admit that I only read romance so shhh🤫🤐
-A HUGE movie and series buff)
-        ''',
-        'Enjoy cooking and painting',
-        'From the bottom of my heart believe that Taylor Swift is a goddamn queen🙇🏻‍♀️👑',
-      ],
-      'aboutMe': '''
-Hey! Treat me as a human journal who can either just listen or maybe if YOU want give an awesome advice..
-Mainly I will hear you rant or rant together 😅
-      ''',
-      'imageUrl': '',
-    }),
-  ];
+  @override
+  _VolunteersPageState createState() => _VolunteersPageState();
+}
 
-  static final _volunteers = [
-    ...__volunteers,
-    ...__volunteers,
-    ...__volunteers,
-    ...__volunteers,
-    ...__volunteers,
-  ];
+class _VolunteersPageState extends State<VolunteersPage> {
+  late Future<List<Volunteer>?> _volunteers;
+
+  @override
+  void initState() {
+    _volunteers = VolunteerRepo.getAllVolunteers();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final isSmallScreen = size.width < SMALL_SCREEN_WIDTH;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -60,24 +43,45 @@ Mainly I will hear you rant or rant together 😅
           centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: CustomText(
-              "Always happy to listen",
-              style: Theme.of(context).appBarTheme.titleTextStyle,
+            child: FittedBox(
+              child: CustomText(
+                "Always happy to listen",
+                maxLines: 2,
+                style: Theme.of(context).appBarTheme.titleTextStyle,
+              ),
             ),
           ),
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            await Future.delayed(Duration(seconds: 3));
+            _volunteers = VolunteerRepo.getAllVolunteers();
+            setState(() {});
           },
-          child: ResponsiveGridList(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            minSpacing: 50,
-            desiredItemWidth: isSmallScreen ? 270 : 350,
-            children: List.generate(_volunteers.length, (index) {
-              final volunteer = _volunteers[index];
-              return VolunteerCard(volunteer);
-            }),
+          child: FutureBuilder<List<Volunteer>?>(
+            future: _volunteers,
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data is List)
+                  return ResponsiveGridList(
+                    padding: const EdgeInsets.symmetric(vertical: 50),
+                    minSpacing: 50,
+                    desiredItemWidth: isSmallScreen ? 270 : 350,
+                    children: List.generate(
+                      snapshot.data!.length,
+                      (index) {
+                        final volunteer = snapshot.data![index];
+                        return VolunteerCard(volunteer, index);
+                      },
+                    ),
+                  );
+                else {
+                  return NoData();
+                }
+              } else
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+            },
           ),
         ),
         floatingActionButton: kIsWeb

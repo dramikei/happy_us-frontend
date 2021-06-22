@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,10 +47,12 @@ class _FeedsPageState extends State<FeedsPage> {
           centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: CustomText(
-              "Show some love",
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-              maxLines: 2,
+            child: FittedBox(
+              child: CustomText(
+                "Show some love",
+                style: Theme.of(context).appBarTheme.titleTextStyle,
+                maxLines: 2,
+              ),
             ),
           ),
         ),

@@ -1,6 +1,11 @@
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:get/get.dart';
+import 'package:happy_us/controllers/user.getx.dart';
 import 'package:happy_us/models/volunteer.dart';
+import 'package:happy_us/repository/appointment_repo.dart';
+import 'package:happy_us/services/alerts_service.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
@@ -10,9 +15,11 @@ class VolunteerCard extends StatelessWidget {
   static const id = 'VolunteerCard';
 
   final Volunteer volunteer;
+  final int index;
 
   const VolunteerCard(
-    this.volunteer, {
+    this.volunteer,
+    this.index, {
     Key? key,
   }) : super(key: key);
 
@@ -77,28 +84,21 @@ class VolunteerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CustomText(
-                      "Volunteer ${volunteer.id}",
+                      "Volunteer ${index + 1}",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 17,
                       ),
                     ),
-                    ElevatedButton(
-                      child: CustomText("Book Appointment"),
-                      style: ElevatedButton.styleFrom(primary: kFocusColor),
-                      onPressed: () async {
-                        if (Globals.isLoggedIn) {
-                          final _date = await _showDatePicker(context);
-                          print(_date);
-                        } else {
-                          // go to login
-                          NavigationService.push(
-                            context,
-                            path: NavigationService.loginPath,
-                          );
-                        }
-                      },
-                    ),
+                    Globals.isUser
+                        ? ElevatedButton(
+                            child: CustomText("Book Appointment"),
+                            style:
+                                ElevatedButton.styleFrom(primary: kFocusColor),
+                            onPressed: () => _showTimeDatePicker(context)
+                            ,
+                          )
+                        : SizedBox.shrink(),
                   ],
                 ),
               ],
@@ -109,29 +109,49 @@ class VolunteerCard extends StatelessWidget {
     );
   }
 
-  Future<DateTime?> _showDatePicker(BuildContext context) async {
-    return showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 7)),
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData(
-            brightness: Theme.of(context).brightness,
+  Future _bookAppointment(BuildContext context, DateTime? _date) async {
+    if (Globals.isLoggedIn) {
+      if (_date != null) {
+        await AppointmentRepo.createAppointment(
+            volunteerId: volunteer.id,
+            userSocial: Get.find<UserController>().user.value.social,
+            time: _date);
+        AlertsService.success("Appointment requested successfully!!");
+      }
+    } else {
+      NavigationService.push(
+        context,
+        path: NavigationService.loginPath,
+      );
+    }
+  }
+
+  Future _showTimeDatePicker(BuildContext context) async {
+    DatePicker.showDateTimePicker(
+      context,
+      showTitleActions: true,
+      minTime: DateTime.now(),
+      maxTime: DateTime.now().add(
+        Duration(days: 7),
+      ),
+      theme: DatePickerTheme(
+        headerColor: kFocusColor,
+        backgroundColor: Theme.of(context).primaryColor,
+        itemStyle: TextStyle(
+            color: Colors.white, fontFamily: FONT_FAMILY, fontSize: 18),
+        doneStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
             fontFamily: FONT_FAMILY,
-          ).copyWith(
-            primaryColor: kFocusColor,
-            accentColor: kFocusColor,
-            colorScheme: Theme.of(context).brightness == Brightness.light
-                ? ColorScheme.light(primary: kFocusColor)
-                : ColorScheme.dark(primary: kFocusColor),
-            buttonTheme: ButtonThemeData(
-              textTheme: ButtonTextTheme.primary,
-            ),
-          ),
-          child: child!,
-        );
+            fontSize: 20),
+        cancelStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: FONT_FAMILY,
+            fontSize: 20),
+      ),
+      onConfirm: (date) {
+        _bookAppointment(context, date);
       },
     );
   }
