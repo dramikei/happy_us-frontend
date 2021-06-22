@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:happy_us/repository/appointment_repo.dart';
+import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/models/appointment.dart';
@@ -44,9 +46,32 @@ class AppointmentCard extends StatelessWidget {
             ),
           ],
         ),
-        subtitle: CustomText(
-          "Message: " + (appointment.message ?? "Waiting for confirmation"),
-          style: TextStyle(color: Colors.white),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+              "Message: " +
+                  (appointment.message ?? "Waiting for confirmation") +
+                  "\n",
+              style: TextStyle(color: Colors.white),
+            ),
+            if (!Globals.isUser)
+              ElevatedButton(
+                  child: CustomText(
+                    "Update Appointment",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  style: ElevatedButton.styleFrom(primary: kAccentColor),
+                  onPressed: () async {
+                    final res = await AppointmentRepo.updateStatus(
+                      appointmentId: appointment.id,
+                      status: "",
+                      message: "",
+                    );
+
+                    if (res != null) {}
+                  })
+          ],
         ),
       ),
     );
