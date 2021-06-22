@@ -11,5 +11,7 @@ class NotificationRepo {
 
   static Future<bool?> markedSeen({required String notificationId}) =>
       _requestHandler<bool, bool>(
-          _dio.get('/notification/markSeen/$notificationId'));
+        _dio.patch('/notification/markSeen',
+            data: {'notificationId': notificationId}),
+      );
 }

@@ -4,7 +4,7 @@ class Notification {
   late final String redirectTo;
   late final String title;
   late final String description;
-  late final bool seen;
+  late bool seen;
   late final DateTime time;
 
   Notification.fromJson(Map<String, dynamic> json) {

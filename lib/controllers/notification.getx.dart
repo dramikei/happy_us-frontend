@@ -17,7 +17,7 @@ class NotificationController extends GetxController {
     for (int i = 0; i < values.length; i++) {
       if (values[i].id == notificationId) {
         // ignore: invalid_use_of_protected_member
-        notifications.value[i].seen = true;
+        notifications[i].seen = true;
         break;
       }
     }
