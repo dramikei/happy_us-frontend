@@ -17,10 +17,10 @@ class UserRepo {
       _requestHandler<User, User>(_dio.patch(
         '/user',
         data: {
-          'username': username,
-          'age': age,
-          'fcm': fcm,
-          'social': social,
+          if (username != null) 'username': username,
+          if (age != null) 'age': age,
+          if (fcm != null) 'fcmToken': fcm,
+          if (social != null) 'social': social,
         },
       ));
 
