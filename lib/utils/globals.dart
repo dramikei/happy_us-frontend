@@ -164,7 +164,6 @@ class Globals {
         return (isList ? _list : _data) as ReturnType;
       }
     } catch (e) {
-      print('errrrr $e');
       return null;
     }
   }
