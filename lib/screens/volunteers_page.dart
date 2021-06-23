@@ -61,7 +61,7 @@ class _VolunteersPageState extends State<VolunteersPage> {
             future: _volunteers,
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.data is List)
+                if (snapshot.data?.isNotEmpty ?? true)
                   return ResponsiveGridList(
                     padding: const EdgeInsets.symmetric(vertical: 50),
                     minSpacing: 50,

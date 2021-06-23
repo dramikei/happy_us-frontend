@@ -25,7 +25,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  int? _age;
+  late int _age;
   bool _editingUsername = false;
   bool _editingSocial = false;
   String? _username;
@@ -47,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
     final user = Globals.isUser
         ? Get.find<UserController>().user.value
         : Get.find<VolunteerController>().volunteer.value;
-    _age ??= user.age;
+    _age = user.age;
     return SafeArea(
       child: Scaffold(
         body: Obx(
@@ -268,7 +268,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   _age = value.toInt();
                 });
             },
-            value: _age?.toDouble() ?? 18,
+            value: _age.toDouble(),
           ),
           trailing: _age != user.age
               ? IconButton(
@@ -287,7 +287,8 @@ class _DashboardPageState extends State<DashboardPage> {
         const SizedBox(height: 10),
         ...user.social.keys.map(
           (socialId) => ListTile(
-            title: CustomText('${socialId.capitalize!} ID'),
+            title: CustomText(
+                '${Globals.isUser ? socialId.capitalize! : socialId.replaceFirst('Id', '').capitalize!} ID'),
             subtitle: _editingSocial
                 ? Padding(
                     padding: const EdgeInsets.only(top: 15),

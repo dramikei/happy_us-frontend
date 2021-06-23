@@ -16,7 +16,7 @@ class Globals {
 
   static final dio = Dio(
     BaseOptions(
-      baseUrl: 'http://10.0.2.2:3000/api',
+      baseUrl: 'https://happyusapi.herokuapp.com/api',
       connectTimeout: 11000,
     ),
   )..interceptors.addAll([
