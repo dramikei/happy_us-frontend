@@ -86,6 +86,18 @@ class _DashboardPageState extends State<DashboardPage> {
                   },
                 ),
               ],
+              if (!Globals.isLoggedIn)
+                Material(
+                  color: kAccentColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(13.0),
+                    child: CustomText(
+                      "Login for a better now!",
+                      style: TextStyle(fontSize: 30),
+                      maxLines: 3,
+                    ),
+                  ),
+                ),
               _settingsTile(
                 title: "About Us",
                 onTap: () {
