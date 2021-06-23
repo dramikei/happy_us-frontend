@@ -255,6 +255,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Get.find<UserController>().updateUser(user);
                               AlertsService.success("Account created!");
                               NavigationService.pop(context);
+                              NavigationService.pop(context);
+                              NavigationService.push(
+                                context,
+                                path: NavigationService.homePath,
+                              );
                             }
                             stopLoading();
                           }
