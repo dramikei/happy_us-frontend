@@ -35,10 +35,12 @@ class _PostCardState extends State<PostCard> {
 
   @override
   void initState() {
-    isLiked = Get.find<PostController>().isLiked(
-      postId: widget.post.id,
-      userId: Globals.userId!,
-    );
+    isLiked = Globals.isLoggedIn
+        ? Get.find<PostController>().isLiked(
+            postId: widget.post.id,
+            userId: Globals.userId!,
+          )
+        : false;
     setState(() {});
     super.initState();
   }
