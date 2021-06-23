@@ -25,6 +25,10 @@ class CreatePostScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+              ? kFocusColor
+              : Colors.transparent,
+          elevation: 0,
           title: Text(
             "Create Post",
             style: TextStyle(
@@ -39,7 +43,7 @@ class CreatePostScreen extends StatelessWidget {
               child: ArgonButton(
                 height: 25,
                 width: 100,
-                color: kFocusColor,
+                color: kAccentColor,
                 borderRadius: 10,
                 child: Text("Post"),
                 onTap: (startLoading, stopLoading, btnState) async {

@@ -10,7 +10,7 @@ import 'package:happy_us/screens/notifications_screen.dart';
 import 'package:happy_us/screens/register_screen.dart';
 import 'package:happy_us/screens/splash_screen.dart';
 import 'package:happy_us/screens/tnc.dart';
-import 'package:happy_us/widgets/create_post_screen.dart';
+import 'package:happy_us/screens/create_post_screen.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 class NavigationService {

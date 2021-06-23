@@ -4,9 +4,14 @@ import 'package:happy_us/repository/post_repo.dart';
 
 class PostController extends GetxController {
   RxList<Post> posts = <Post>[].obs;
+  RxList<Post> userPosts = <Post>[].obs;
 
   void insertPosts(List<Post> fetchedPosts) {
     posts.value = fetchedPosts;
+  }
+
+  void insertUserPosts(List<Post> fetchedPosts) {
+    userPosts.value = fetchedPosts;
   }
 
   bool isLiked({
@@ -34,6 +39,15 @@ class PostController extends GetxController {
           posts[i].likedBy.remove(userId);
         break;
       }
+    }
+    final postOfUserIndex =
+        userPosts.indexWhere((element) => element.id == postId);
+
+    if (postOfUserIndex != -1) {
+      if (event == UpdateCountEvent.add)
+        userPosts[postOfUserIndex].likedBy.add(userId);
+      else
+        userPosts[postOfUserIndex].likedBy.remove(userId);
     }
   }
 }

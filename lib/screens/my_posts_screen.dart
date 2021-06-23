@@ -42,9 +42,9 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
       );
       if (success == true) {
         Get.find<PostController>()
-            .posts
+            .userPosts
             .removeWhere((element) => element.id == postId);
-        if (Get.find<PostController>().posts.length == 0) {
+        if (Get.find<PostController>().userPosts.length == 0) {
           allDeleted = true;
         }
         setState(() {});
@@ -79,6 +79,8 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
                   builder: (ctx, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done &&
                         snapshot.hasData) {
+                      Get.find<PostController>()
+                          .insertUserPosts(snapshot.data ?? []);
                       return snapshot.data is List && snapshot.data!.length > 0
                           ? Obx(
                               () => ResponsiveGridList(
@@ -87,10 +89,10 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
                                 minSpacing: 50,
                                 desiredItemWidth: isSmallScreen ? 270 : 350,
                                 children: List.generate(
-                                  Get.find<PostController>().posts.length,
+                                  Get.find<PostController>().userPosts.length,
                                   (index) {
-                                    final post =
-                                        Get.find<PostController>().posts[index];
+                                    final post = Get.find<PostController>()
+                                        .userPosts[index];
                                     return PostCard(
                                       post,
                                       isCreator: true,
