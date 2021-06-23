@@ -158,6 +158,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     .updateVolunteer(volunteer);
                                 AlertsService.success("Logged in");
                                 NavigationService.pop(context);
+                                NavigationService.pop(context);
+                                NavigationService.push(
+                                  context,
+                                  path: NavigationService.homePath,
+                                );
                               }
                             } else {
                               final user = await AuthRepo.loginUser(
@@ -168,6 +173,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Get.find<UserController>().updateUser(user);
                                 AlertsService.success("Logged in");
                                 NavigationService.pop(context);
+                                NavigationService.pop(context);
+                                NavigationService.push(
+                                  context,
+                                  path: NavigationService.homePath,
+                                );
                               }
                             }
                             stopLoading();

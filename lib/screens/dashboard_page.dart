@@ -25,7 +25,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  late int _age;
+  int? _age;
   bool _editingUsername = false;
   bool _editingSocial = false;
   String? _username;
@@ -47,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
     final user = Globals.isUser
         ? Get.find<UserController>().user.value
         : Get.find<VolunteerController>().volunteer.value;
-    _age = user.age;
+    _age ??= user.age;
     return SafeArea(
       child: Scaffold(
         body: Obx(
@@ -268,7 +268,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   _age = value.toInt();
                 });
             },
-            value: _age.toDouble(),
+            value: _age!.toDouble(),
           ),
           trailing: _age != user.age
               ? IconButton(
