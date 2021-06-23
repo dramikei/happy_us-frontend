@@ -84,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ? Icon(Icons.visibility_off)
                   : Icon(Icons.visibility),
               color: Colors.black,
-              iconSize: 25,
+              iconSize: 22,
               onPressed: toggleShowPassword,
             ),
         ],

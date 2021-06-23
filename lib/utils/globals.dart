@@ -35,7 +35,9 @@ class Globals {
           final isAuth =
               response.realUri.path.replaceFirst('/api', '').contains('auth');
 
-          if (isAuth && response.data['data'] != null) {
+          if (isAuth &&
+              response.data['data'] != null &&
+              response.data['data'] is Map) {
             final data = response.data['data'] as Map<String, dynamic>;
 
             if (data.containsKey('accessToken'))
@@ -162,6 +164,7 @@ class Globals {
         return (isList ? _list : _data) as ReturnType;
       }
     } catch (e) {
+      print('errrrr $e');
       return null;
     }
   }
