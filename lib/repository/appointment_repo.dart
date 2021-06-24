@@ -14,7 +14,10 @@ class AppointmentRepo {
         '/appointment',
         data: {
           "volunteerId": volunteerId,
-          "userSocial": userSocial,
+          "userSocial": {
+            "id": userSocial.values.first,
+            "platform": userSocial.keys.first,
+          },
           "time": time.toString(),
         },
       ));
