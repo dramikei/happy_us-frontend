@@ -90,13 +90,15 @@ class VolunteerCard extends StatelessWidget {
                         fontSize: 17,
                       ),
                     ),
-                    Globals.isUser
+                    Globals.userType != 'volunteer'
                         ? ElevatedButton(
                             child: CustomText("Book Appointment"),
                             style:
                                 ElevatedButton.styleFrom(primary: kFocusColor),
-                            onPressed: () => _showTimeDatePicker(context)
-                            ,
+                            onPressed: () => Globals.isLoggedIn
+                                ? _showTimeDatePicker(context)
+                                : NavigationService.push(context,
+                                    path: NavigationService.loginPath),
                           )
                         : SizedBox.shrink(),
                   ],
