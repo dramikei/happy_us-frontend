@@ -1,4 +1,5 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_container/easy_container.dart';
@@ -152,6 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               final volunteer = await AuthRepo.loginVolunteer(
                                 username: _username!,
                                 password: _password!,
+                                fcmToken: Globals.fcmToken,
                               );
                               if (volunteer != null) {
                                 Get.find<VolunteerController>()
@@ -168,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               final user = await AuthRepo.loginUser(
                                 username: _username!,
                                 password: _password!,
+                                fcmToken: Globals.fcmToken,
                               );
                               if (user != null) {
                                 Get.find<UserController>().updateUser(user);

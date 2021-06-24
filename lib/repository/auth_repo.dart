@@ -14,6 +14,7 @@ class AuthRepo {
   static Future<User?> loginUser({
     required String username,
     required String password,
+    String? fcmToken,
   }) =>
       _requestHandler<User, User>(_dio.post(
         '/auth/login',
@@ -21,12 +22,14 @@ class AuthRepo {
           "username": username,
           "password": password,
           "type": 'user',
+          'fcmToken': fcmToken,
         },
       ));
 
   static Future<Volunteer?> loginVolunteer({
     required String username,
     required String password,
+    String? fcmToken,
   }) =>
       _requestHandler<Volunteer, Volunteer>(_dio.post(
         '/auth/login',
@@ -34,6 +37,7 @@ class AuthRepo {
           "username": username,
           "password": password,
           "type": 'volunteer',
+          'fcmToken': fcmToken,
         },
       ));
 

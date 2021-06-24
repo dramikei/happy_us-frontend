@@ -1,4 +1,5 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -244,8 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               username: _username!,
                               password: _password!,
                               age: _age,
-                              // TODO: pass FCM token
-                              fcmToken: null,
+                              fcmToken: Globals.fcmToken,
                               social: {
                                 _acceptedAccounts[_selectedIdIndex]
                                     .toLowerCase(): _socialId

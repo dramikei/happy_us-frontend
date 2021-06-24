@@ -57,15 +57,14 @@ class Globals {
           handler.next(response);
         },
         onError: (error, handler) {
-          final message = error.response?.data['message'];
+          final message = error.response?.data['message'] as String?;
           print("ERROR: $error");
-          if (message != null)
-            GetX.Get.snackbar(
-              'An error occurred',
-              message,
-              backgroundColor: Colors.red,
-              animationDuration: const Duration(milliseconds: 500),
-            );
+          GetX.Get.snackbar(
+            'An error occurred',
+            message ?? 'Something went wrong',
+            backgroundColor: Colors.red,
+            animationDuration: const Duration(milliseconds: 500),
+          );
 
           handler.next(error);
         },
@@ -76,6 +75,8 @@ class Globals {
   static String? get accessToken => box.read('accessToken');
 
   static String? get userType => box.read('type');
+
+  static String? fcmToken;
 
   static bool get isUser => box.read('type') == 'user';
 

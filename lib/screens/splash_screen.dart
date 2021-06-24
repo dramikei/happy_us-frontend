@@ -1,3 +1,4 @@
+import 'package:firebase_notifications_handler/firebase_notifications_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void isLoggedIn() async {
+  void _initCurrentUser() async {
     if (Globals.accessToken != null &&
         Globals.refreshToken != null &&
         Globals.userType != null) {
@@ -37,15 +38,13 @@ class _SplashScreenState extends State<SplashScreen> {
       if (authenticatedEntity == null)
         Globals.removeCredentials();
 
-      // store entity in
+      // store entity in state
       else {
-        if (Globals.isUser) {
-          final _controller = Get.find<UserController>();
-          _controller.updateUser(authenticatedEntity as User);
-        } else {
-          final _controller = Get.find<VolunteerController>();
-          _controller.updateVolunteer(authenticatedEntity as Volunteer);
-        }
+        if (Globals.isUser)
+          Get.find<UserController>().updateUser(authenticatedEntity as User);
+        else
+          Get.find<VolunteerController>()
+              .updateVolunteer(authenticatedEntity as Volunteer);
       }
     }
     await Future.delayed(Duration.zero);
@@ -57,6 +56,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     () async {
+      Globals.fcmToken = await PushNotificationService.initialize();
+      PushNotificationService.onTokenRefresh.listen((token) {
+        Globals.fcmToken = token;
+        UserRepo.updateUser(fcm: token);
+      });
+
       final success = await AuthRepo.pingServer();
       if (success == null || !success) {
         NavigationService.pop(context);
@@ -65,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
           path: NavigationService.connectionLostPath,
         );
       } else
-        isLoggedIn();
+        _initCurrentUser();
     }();
   }
 
@@ -77,9 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Logo(
-              isSplashScreen: true,
-            ),
+            Logo(isSplashScreen: true),
             CircularProgressIndicator(),
           ],
         ),
