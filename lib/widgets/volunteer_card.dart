@@ -132,7 +132,9 @@ class VolunteerCard extends StatelessWidget {
     DatePicker.showDateTimePicker(
       context,
       showTitleActions: true,
-      minTime: DateTime.now(),
+      minTime: DateTime.now().add(
+        Duration(hours: 1),
+      ),
       maxTime: DateTime.now().add(
         Duration(days: 7),
       ),
