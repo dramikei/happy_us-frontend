@@ -90,6 +90,10 @@ class _AppointmentCardState extends State<AppointmentCard> {
                   "\n",
               style: TextStyle(color: Colors.white),
             ),
+            CustomText(
+              '${widget.appointment.userSocial['platform'].toString().capitalize} ID: ${widget.appointment.userSocial['id']}',
+              style: TextStyle(color: Colors.white),
+            ),
             if (!Globals.isUser && widget.appointment.message == null)
               ElevatedButton(
                 child: CustomText(
