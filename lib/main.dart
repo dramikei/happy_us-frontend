@@ -1,7 +1,10 @@
 import 'dart:async';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,7 +18,6 @@ import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:firebase_notifications_handler/firebase_notifications_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,9 +34,19 @@ class _MainApp extends StatefulWidget {
 
 class __MainAppState extends State<_MainApp> {
   late final StreamSubscription _connectivitySubscription;
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   void initState() {
+    () async {
+      if (kDebugMode) {
+        await FirebaseCrashlytics.instance
+            .setCrashlyticsCollectionEnabled(false);
+      }
+    }();
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     _connectivitySubscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult connectivityResult) {
@@ -77,6 +89,7 @@ class __MainAppState extends State<_MainApp> {
         },
         child: GetMaterialApp(
           title: 'Happy Us',
+          navigatorObservers: <NavigatorObserver>[observer],
           initialBinding: BindingsBuilder(
             () => {
               Get.put(UserController(), permanent: true),
