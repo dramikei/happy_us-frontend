@@ -118,6 +118,14 @@ class _DashboardPageState extends State<DashboardPage> {
                 },
               ),
               _settingsTile(
+                  title: 'View Terms and Conditions',
+                  onTap: () {
+                    NavigationService.push(
+                      context,
+                      path: NavigationService.tncPath,
+                    );
+                  }),
+              _settingsTile(
                 title: Globals.isLoggedIn ? "Logout" : "Login",
                 onTap: () async {
                   if (Globals.isLoggedIn) {

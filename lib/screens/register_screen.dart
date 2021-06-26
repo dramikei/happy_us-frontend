@@ -176,7 +176,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   underlineText(
                     context: context,
                     text: "View Terms and conditions",
-                    onTop: () {
+                    onTap: () {
                       NavigationService.push(
                         context,
                         path: NavigationService.tncPath,
@@ -273,7 +273,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   underlineText(
                       context: context,
                       text: "Already Registered? Login!",
-                      onTop: () {
+                      onTap: () {
                         NavigationService.pop(context);
                         NavigationService.push(
                           context,
@@ -293,7 +293,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 Widget underlineText({
   required BuildContext context,
   required String text,
-  required VoidCallback onTop,
+  required VoidCallback onTap,
 }) {
   return Align(
     alignment: Alignment.center,
@@ -306,7 +306,7 @@ Widget underlineText({
         vertical: 10,
       ),
       alignment: null,
-      onTap: onTop,
+      onTap: onTap,
       child: Text(
         text,
         textAlign: TextAlign.center,
