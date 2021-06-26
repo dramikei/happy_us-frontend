@@ -1,5 +1,3 @@
-import 'package:firebase_notifications_handler/firebase_notifications_handler.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/controllers/user.getx.dart';
@@ -56,12 +54,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     () async {
-      Globals.fcmToken = await PushNotificationService.initialize();
-      PushNotificationService.onTokenRefresh.listen((token) {
-        Globals.fcmToken = token;
-        UserRepo.updateUser(fcm: token);
-      });
-
       final success = await AuthRepo.pingServer();
       if (success == null || !success) {
         NavigationService.pop(context);
