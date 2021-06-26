@@ -18,13 +18,21 @@ import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:firebase_notifications_handler/firebase_notifications_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await GetStorage.init();
-  NavigationService.initialize();
-  runApp(_MainApp());
+  runZonedGuarded<Future<void>>(() async {
+    final originalOnError = FlutterError.onError;
+    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
+      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+      originalOnError!(errorDetails);
+    };
+    await GetStorage.init();
+    NavigationService.initialize();
+    runApp(_MainApp());
+  }, FirebaseCrashlytics.instance.recordError);
 }
 
 class _MainApp extends StatefulWidget {
@@ -36,15 +44,13 @@ class __MainAppState extends State<_MainApp> {
   late final StreamSubscription _connectivitySubscription;
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   void initState() {
     () async {
-      if (kDebugMode) {
-        await FirebaseCrashlytics.instance
-            .setCrashlyticsCollectionEnabled(false);
-      }
+      await FirebaseCrashlytics.instance
+          .setCrashlyticsCollectionEnabled(!kDebugMode);
     }();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     _connectivitySubscription = Connectivity()

@@ -55,7 +55,11 @@ class _FeedsPageState extends State<FeedsPage> {
             child: FittedBox(
               child: CustomText(
                 "Show some love",
-                style: Theme.of(context).appBarTheme.titleTextStyle,
+                style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white.withOpacity(0.87)
+                          : null,
+                    ),
                 maxLines: 2,
               ),
             ),

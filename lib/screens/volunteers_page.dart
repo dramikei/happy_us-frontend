@@ -47,7 +47,11 @@ class _VolunteersPageState extends State<VolunteersPage> {
               child: CustomText(
                 "Always happy to listen",
                 maxLines: 2,
-                style: Theme.of(context).appBarTheme.titleTextStyle,
+                style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white.withOpacity(0.87)
+                      : null,
+                ),
               ),
             ),
           ),
