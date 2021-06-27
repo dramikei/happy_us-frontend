@@ -10,7 +10,6 @@ import 'package:happy_us/models/post.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/post_card.dart';
-import 'package:happy_us/widgets/responsive_grid_view.dart';
 
 class MyPostsScreen extends StatefulWidget {
   static const id = 'MyPostsScreen';
@@ -55,8 +54,6 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isSmallScreen =
-        MediaQuery.of(context).size.width < SMALL_SCREEN_WIDTH;
 
     return SafeArea(
       child: Scaffold(
@@ -83,23 +80,23 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
                           .insertUserPosts(snapshot.data ?? []);
                       return snapshot.data is List && snapshot.data!.length > 0
                           ? Obx(
-                              () => ResponsiveGridList(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 35),
-                                minSpacing: 50,
-                                desiredItemWidth: isSmallScreen ? 270 : 350,
-                                children: List.generate(
-                                  Get.find<PostController>().userPosts.length,
-                                  (index) {
-                                    final post = Get.find<PostController>()
-                                        .userPosts[index];
-                                    return PostCard(
-                                      post,
-                                      isCreator: true,
-                                      onDeleteTap: () => deletePost(post.id),
-                                    );
-                                  },
+                              () => ListView.separated(
+                                physics: BouncingScrollPhysics(),
+                                separatorBuilder: (__, _) => SizedBox(
+                                  height: 40,
                                 ),
+                                padding: const EdgeInsets.all(35),
+                                itemCount:
+                                    Get.find<PostController>().userPosts.length,
+                                itemBuilder: (ctx, index) {
+                                  final post = Get.find<PostController>()
+                                      .userPosts[index];
+                                  return PostCard(
+                                    post,
+                                    isCreator: true,
+                                    onDeleteTap: () => deletePost(post.id),
+                                  );
+                                },
                               ),
                             )
                           : NoData();

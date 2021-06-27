@@ -62,8 +62,8 @@ class _PostCardState extends State<PostCard> {
       alignment: null,
       onTap: widget.openedFromDialog
           ? null
-          : () {
-              showDialog(
+          : () async {
+              await showDialog(
                   context: context,
                   builder: (context) {
                     return Center(
@@ -79,6 +79,7 @@ class _PostCardState extends State<PostCard> {
                       ),
                     );
                   });
+              setState(() {});
             },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,33 +157,7 @@ class _PostCardState extends State<PostCard> {
                       ),
                       const SizedBox(width: 5),
                       GestureDetector(
-                        onTap: () async {
-                          if (!Globals.isLoggedIn) {
-                            NavigationService.push(context,
-                                path: NavigationService.loginPath);
-                          } else {
-                            bool isLiked = controller.isLiked(
-                                postId: widget.post.id,
-                                userId: Globals.userId!);
-
-                            final success = await PostRepo.updateLikeCount(
-                                postId: widget.post.id,
-                                event: isLiked
-                                    ? UpdateCountEvent.remove
-                                    : UpdateCountEvent.add);
-
-                            if (success == true) {
-                              controller.updateLike(
-                                  postId: widget.post.id,
-                                  userId: Globals.userId!,
-                                  event: isLiked
-                                      ? UpdateCountEvent.remove
-                                      : UpdateCountEvent.add);
-                              isLiked = !isLiked;
-                              setState(() {});
-                            }
-                          }
-                        },
+                        onTap: () => likePost(controller),
                         child: Icon(
                           Globals.isLoggedIn
                               ? controller.isLiked(
@@ -205,6 +180,25 @@ class _PostCardState extends State<PostCard> {
         ],
       ),
     );
+  }
+
+  void likePost(PostController controller) async {
+    if (!Globals.isLoggedIn) {
+      NavigationService.push(context, path: NavigationService.loginPath);
+    } else {
+      bool isLiked =
+          controller.isLiked(postId: widget.post.id, userId: Globals.userId!);
+
+      controller.updateLike(
+          postId: widget.post.id,
+          userId: Globals.userId!,
+          event: isLiked ? UpdateCountEvent.remove : UpdateCountEvent.add);
+      isLiked = !isLiked;
+      setState(() {});
+      await PostRepo.updateLikeCount(
+          postId: widget.post.id,
+          event: !isLiked ? UpdateCountEvent.remove : UpdateCountEvent.add);
+    }
   }
 
   Widget _content() {

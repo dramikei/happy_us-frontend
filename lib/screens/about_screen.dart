@@ -65,9 +65,9 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 10),
             CustomText(
               '''
-The motto of HAPPY US is creating awareness about mental health and Spreading happiness. From staying indoors to ensure safety to recurrent upsurges in corona cases, losses both family and financial has buckled our head with plenty of stress and anxiety. Looking at overwhelming concerns, Team Happy us felt a need to share people's plight.'Happy us' application enables you to share your emotions and thoughts on this social platform without revealing your identity. 
+The motto of HAPPY US is creating awareness about mental health and Spreading happiness. From staying indoors to ensure safety to recurrent upsurges in corona cases, losses both family and financial has buckled our head with plenty of stress and anxiety. Looking at overwhelming concerns, Team HAPPY US felt a need to share people's plight.'HAPPY US' application enables you to share your emotions and thoughts on this social platform without revealing your identity. 
 
-Do you feel the need to talk without being judged and also not get handful of lessons in return? Well, here is a solution. We provide you with volunteers who can be your listening partners. Also, on the application, you will find plentiful of authentic information on procedures dealing with seeking assistance for children who have lost parents in corona pandemic. you need to know one thing. We, Happy us, are here for you.
+Do you feel the need to talk without being judged and also not get handful of lessons in return? Well, here is a solution. We provide you with volunteers who can be your listening partners. Also, on the application, you will find plentiful of authentic information on procedures dealing with seeking assistance for children who have lost parents in corona pandemic. you need to know one thing. We, HAPPY US, are here for you.
               ''',
               style: TextStyle(fontSize: 17),
             ),

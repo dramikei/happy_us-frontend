@@ -10,7 +10,6 @@ import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/post_card.dart';
-import 'package:happy_us/widgets/responsive_grid_view.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 
 class FeedsPage extends StatefulWidget {
@@ -40,8 +39,6 @@ class _FeedsPageState extends State<FeedsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isSmallScreen =
-        MediaQuery.of(context).size.width < SMALL_SCREEN_WIDTH;
     final postController = Get.find<PostController>();
     return SafeArea(
       child: Scaffold(
@@ -75,21 +72,20 @@ class _FeedsPageState extends State<FeedsPage> {
                 postController.insertPosts(snapshot.data!);
 
                 return snapshot.data!.length > 0
-                    ? ResponsiveGridList(
-                        padding: const EdgeInsets.symmetric(vertical: 35),
-                        minSpacing: 50,
-                        desiredItemWidth: isSmallScreen ? 270 : 350,
-                        children: List.generate(
-                          postController.posts.length,
-                          (index) {
-                            final post = postController.posts[index];
-                            return PostCard(
-                              post,
-                              isCreator: false,
-                            );
-                          },
-                        ),
-                      )
+                    ? ListView.separated(
+                        physics: BouncingScrollPhysics(),
+                        separatorBuilder: (__, _) => SizedBox(
+                              height: 40,
+                            ),
+                        padding: const EdgeInsets.fromLTRB(35, 35, 35, 85),
+                        itemCount: postController.posts.length,
+                        itemBuilder: (ctx, index) {
+                          final post = postController.posts[index];
+                          return PostCard(
+                            post,
+                            isCreator: false,
+                          );
+                        })
                     : NoData();
               } else
                 return Center(

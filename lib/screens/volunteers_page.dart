@@ -5,7 +5,6 @@ import 'package:happy_us/models/volunteer.dart';
 import 'package:happy_us/repository/volunteer_repo.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/no_data.dart';
-import 'package:happy_us/widgets/responsive_grid_view.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 
@@ -31,9 +30,6 @@ class _VolunteersPageState extends State<VolunteersPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < SMALL_SCREEN_WIDTH;
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -48,10 +44,10 @@ class _VolunteersPageState extends State<VolunteersPage> {
                 "Always happy to listen",
                 maxLines: 2,
                 style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white.withOpacity(0.87)
-                      : null,
-                ),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white.withOpacity(0.87)
+                          : null,
+                    ),
               ),
             ),
           ),
@@ -65,18 +61,18 @@ class _VolunteersPageState extends State<VolunteersPage> {
             future: _volunteers,
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.data?.isNotEmpty ?? true)
-                  return ResponsiveGridList(
-                    padding: const EdgeInsets.symmetric(vertical: 50),
-                    minSpacing: 50,
-                    desiredItemWidth: isSmallScreen ? 270 : 350,
-                    children: List.generate(
-                      snapshot.data!.length,
-                      (index) {
-                        final volunteer = snapshot.data![index];
-                        return VolunteerCard(volunteer, index);
-                      },
+                if (snapshot.data != null && snapshot.data!.isNotEmpty)
+                  return ListView.separated(
+                    physics: BouncingScrollPhysics(),
+                    padding: const EdgeInsets.fromLTRB(35, 45, 35, 85),
+                    separatorBuilder: (__, _) => SizedBox(
+                      height: 40,
                     ),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (ctx, index) {
+                      final volunteer = snapshot.data![index];
+                      return VolunteerCard(volunteer, index);
+                    },
                   );
                 else {
                   return NoData();
