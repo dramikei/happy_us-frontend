@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:happy_us/screens/about_screen.dart';
 import 'package:happy_us/screens/connection_lost_screen.dart';
 import 'package:happy_us/screens/home_navigation_screen.dart';
+import 'package:happy_us/screens/intro_screen.dart';
 import 'package:happy_us/screens/login_screen.dart';
 import 'package:happy_us/screens/my_appointments_screen.dart';
 import 'package:happy_us/screens/my_posts_screen.dart';
@@ -25,6 +26,7 @@ class NavigationService {
   static String appointmentPath = '/appointments';
   static String postsPath = '/posts';
   static String aboutPath = '/about';
+  static String introPath = '/intro';
   static String createPostPath = '/create';
   static String connectionLostPath = '/connection-lost';
 
@@ -32,6 +34,10 @@ class NavigationService {
     router.define(
       initialPath,
       handler: _defaultHandler(SplashScreen()),
+    );
+    router.define(
+      introPath,
+      handler: _defaultHandler(IntroScreen()),
     );
     router.define(createPostPath, handler: Handler(
       handlerFunc: (context, params) {

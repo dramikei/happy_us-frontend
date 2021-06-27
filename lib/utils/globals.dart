@@ -76,6 +76,10 @@ class Globals {
 
   static String? get userType => box.read('type');
 
+  static bool get seenIntro => box.read('introSeen') ?? false;
+
+  static void setIntroSeen([bool seen = true]) => box.write('introSeen', seen);
+
   static String? fcmToken;
 
   static bool get isUser => box.read('type') == 'user';

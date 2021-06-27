@@ -61,8 +61,14 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           path: NavigationService.connectionLostPath,
         );
-      } else
-        _initCurrentUser();
+      } else {
+        if (Globals.seenIntro)
+          _initCurrentUser();
+        else {
+          Globals.setIntroSeen();
+          NavigationService.push(context, path: NavigationService.introPath);
+        }
+      }
     }();
   }
 
