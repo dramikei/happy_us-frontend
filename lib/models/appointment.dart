@@ -11,7 +11,9 @@ class Appointment {
     userSocial = json['userSocial'] ?? {};
     status = json['status'];
     id = json['_id'];
-    time = DateTime.parse(json['time']);
+    time = DateTime.parse(json['time']).subtract(
+      Duration(hours: 5, minutes: 30),
+    );
     userId = json['userId'];
     volunteerId = json['volunteerId'];
     message = json['message'];
