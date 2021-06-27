@@ -94,7 +94,9 @@ class _FeedsPageState extends State<FeedsPage> {
             },
           ),
         ),
-        floatingActionButton: _customFAB(context),
+        floatingActionButton: Globals.userType != 'volunteer'
+            ? _customFAB(context)
+            : SizedBox.shrink(),
       ),
     );
   }
