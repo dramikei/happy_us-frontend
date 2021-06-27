@@ -1,5 +1,6 @@
 import 'package:happy_us/models/post.dart';
 import 'package:happy_us/utils/globals.dart';
+import 'package:ntp/ntp.dart';
 
 enum UpdateCountEvent { remove, add }
 
@@ -11,14 +12,14 @@ class PostRepo {
     required String userId,
     required String content,
     required String heading,
-  }) =>
-      _requestHandler(_dio.post(
+  }) async =>
+      await _requestHandler(_dio.post(
         '/post',
         data: {
           'content': content,
           'heading': heading,
           'creatorId': userId,
-          'time': DateTime.now().toString(),
+          'time': (await NTP.now()).toString(),
           "likedBy": [],
         },
       ));

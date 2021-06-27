@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-// import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -53,16 +53,16 @@ class __MainAppState extends State<_MainApp> {
           .setCrashlyticsCollectionEnabled(!kDebugMode);
     }();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-    // _connectivitySubscription = Connectivity()
-    //     .onConnectivityChanged
-    //     .listen((ConnectivityResult connectivityResult) {
-    //   if (connectivityResult == ConnectivityResult.none) {
-    //     NavigationService.push(
-    //       context,
-    //       path: NavigationService.connectionLostPath,
-    //     );
-    //   }
-    // });
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult connectivityResult) {
+      if (connectivityResult == ConnectivityResult.none) {
+        NavigationService.push(
+          context,
+          path: NavigationService.connectionLostPath,
+        );
+      }
+    });
     super.initState();
   }
 
