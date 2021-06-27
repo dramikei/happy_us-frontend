@@ -30,11 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
     String? username,
     String? password,
   }) {
-    if (username == null || username.isEmpty)
+    if (username == null || username.trim().isEmpty)
       return "Username cannot be empty";
     else if (username.length < 2)
       return "Username length cannot be less than 2";
-    else if (password == null || password.isEmpty)
+    else if (password == null || password.trim().isEmpty)
       return "Password cannot be empty";
     else if (password.length < 6)
       return "Password length cannot be less than 6";

@@ -40,13 +40,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String? password,
     String? socialId,
   }) {
-    if (username == null || username.isEmpty)
+    if (username == null || username.trim().isEmpty)
       return "Username cannot be empty";
     else if (username.length < 2)
       return "Username length cannot be less than 2";
-    else if (socialId == null || socialId.isEmpty)
+    else if (socialId == null || socialId.trim().isEmpty)
       return "Please enter a valid ${_acceptedAccounts[_selectedIdIndex]} ID";
-    else if (password == null || password.isEmpty)
+    else if (password == null || password.trim().isEmpty)
       return "Password cannot be empty";
     else if (password.length < 6)
       return "Password length cannot be less than 6";

@@ -36,7 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
   String? _confirmNewPassword;
 
   String? _validatePassword(String? password) {
-    if (password == null || password.isEmpty)
+    if (password == null || password.trim().isEmpty)
       return "password cannot be empty";
     else if (password.length < 6)
       return "password length cannot be less than 6";
@@ -52,6 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Scaffold(
         body: Obx(
           () => ListView(
+            padding: const EdgeInsets.only(bottom: 20),
             physics: const BouncingScrollPhysics(),
             children: [
               if (Globals.isLoggedIn) ...[
