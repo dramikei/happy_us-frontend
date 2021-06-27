@@ -95,7 +95,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     padding: const EdgeInsets.all(13.0),
                     child: CustomText(
                       "Login for a better now!",
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                      ),
                       maxLines: 3,
                     ),
                   ),

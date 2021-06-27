@@ -111,7 +111,8 @@ class StaticInfoCard extends StatelessWidget {
                   AlertsService.error("Can't launch link");
               },
               text: _points[index],
-              linkStyle: TextStyle(color: kFocusColor),
+              linkStyle: TextStyle(color: kFocusColor, fontSize: 17),
+              style: TextStyle(fontSize: 17),
             ),
             contentPadding: const EdgeInsets.all(10),
           ),
