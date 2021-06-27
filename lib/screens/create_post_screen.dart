@@ -25,45 +25,49 @@ class CreatePostScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Alert(
-          context: context,
-          style: AlertStyle(
-            backgroundColor: Theme.of(context).brightness == Brightness.light
-                ? Colors.white
-                : Theme.of(context).primaryColor,
-            titleStyle: TextStyle(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black
-                  : Colors.white,
-            ),
-            // animationType: AnimationType.fromTop
-          ),
-          title: "Are you sure you want to leave?",
-          content: Text(
-              "You will lose any entered content once you leave this screen"),
-          buttons: [
-            DialogButton(
-              child: Text(
-                'Stay',
-                style: TextStyle(color: Colors.white),
+        if ((_content?.isNotEmpty ?? false) ||
+            (_heading?.isNotEmpty ?? false)) {
+          Alert(
+            context: context,
+            style: AlertStyle(
+              backgroundColor: Theme.of(context).brightness == Brightness.light
+                  ? Colors.white
+                  : Theme.of(context).primaryColor,
+              titleStyle: TextStyle(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,
               ),
-              onPressed: () => Navigator.pop(context),
-              color: kFocusColor,
+              // animationType: AnimationType.fromTop
             ),
-            DialogButton(
-              child: Text(
-                'Leave',
-                style: TextStyle(color: Colors.white),
+            title: "Are you sure you want to leave?",
+            content: Text(
+                "You will lose any entered content once you leave this screen"),
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Leave',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  NavigationService.pop(context);
+                },
+                color: Colors.red,
               ),
-              onPressed: () {
-                Navigator.pop(context);
-                NavigationService.pop(context);
-              },
-              color: kFocusColor,
-            ),
-          ],
-        ).show();
-        return false;
+              DialogButton(
+                child: Text(
+                  'Stay',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () => Navigator.pop(context),
+                color: Colors.green,
+              ),
+            ],
+          ).show();
+          return false;
+        }
+        else return true;
       },
       child: SafeArea(
         child: Scaffold(

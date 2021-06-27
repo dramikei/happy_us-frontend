@@ -1,14 +1,17 @@
 import 'package:easy_container/easy_container.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/controllers/post.getx.dart';
 import 'package:happy_us/models/post.dart';
 import 'package:happy_us/repository/post_repo.dart';
+import 'package:happy_us/services/alerts_service.dart';
 import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostCard extends StatefulWidget {
   static const id = 'PostCard';
@@ -202,11 +205,23 @@ class _PostCardState extends State<PostCard> {
   }
 
   Widget _content() {
-    return CustomText(
-      widget.post.content,
-      style: TextStyle(fontSize: 16),
-      overflow: widget.openedFromDialog ? null : TextOverflow.ellipsis,
-      maxLines: widget.openedFromDialog ? null : 8,
-    );
+    return widget.openedFromDialog
+        ? Linkify(
+            onOpen: (link) async {
+              if (await canLaunch(link.url))
+                await launch(link.url);
+              else
+                AlertsService.error("Can't launch link");
+            },
+            text: widget.post.content,
+            style: TextStyle(fontSize: 16),
+            linkStyle: TextStyle(color: kFocusColor),
+          )
+        : CustomText(
+            widget.post.content,
+            style: TextStyle(fontSize: 16),
+            overflow: widget.openedFromDialog ? null : TextOverflow.ellipsis,
+            maxLines: widget.openedFromDialog ? null : 8,
+          );
   }
 }

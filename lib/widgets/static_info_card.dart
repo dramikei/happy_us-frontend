@@ -1,9 +1,12 @@
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_us/services/alerts_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:lottie/lottie.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StaticInfoCard extends StatelessWidget {
   static const id = 'StaticInfoCard';
@@ -100,7 +103,16 @@ class StaticInfoCard extends StatelessWidget {
             ),
           ),
           endChild: ListTile(
-            title: CustomText(_points[index]),
+            title: Linkify(
+              onOpen: (link) async {
+                if (await canLaunch(link.url))
+                  await launch(link.url);
+                else
+                  AlertsService.error("Can't launch link");
+              },
+              text: _points[index],
+              linkStyle: TextStyle(color: kFocusColor),
+            ),
             contentPadding: const EdgeInsets.all(10),
           ),
         ),
