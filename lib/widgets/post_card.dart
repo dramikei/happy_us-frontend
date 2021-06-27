@@ -198,9 +198,19 @@ class _PostCardState extends State<PostCard> {
           event: isLiked ? UpdateCountEvent.remove : UpdateCountEvent.add);
       isLiked = !isLiked;
       setState(() {});
-      await PostRepo.updateLikeCount(
+
+      final success = await PostRepo.updateLikeCount(
           postId: widget.post.id,
           event: !isLiked ? UpdateCountEvent.remove : UpdateCountEvent.add);
+
+      if (success != true) {
+        isLiked = !isLiked;
+        controller.updateLike(
+            postId: widget.post.id,
+            userId: Globals.userId!,
+            event: isLiked ? UpdateCountEvent.remove : UpdateCountEvent.add);
+        setState(() {});
+      }
     }
   }
 
