@@ -10,10 +10,11 @@ class IntroScreen extends StatelessWidget {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    NavigationService.push(context, path: NavigationService.registerPath);
+    NavigationService.pop(context);
+    NavigationService.push(context, path: NavigationService.homePath);
   }
 
-  Widget _buildImage(String assetName) {
+  Widget _buildLottie(String assetName) {
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
       child: Lottie.asset(
@@ -31,21 +32,28 @@ class IntroScreen extends StatelessWidget {
           key: introKey,
           pages: [
             PageViewModel(
-              title: "Exams? Worry not!!",
+              title: "Feeds Page",
               body:
-                  "\nGet access to college-specific curriculum taught by your seniors or that topper friend you have!!",
-              image: _buildImage('exam'),
+                  "\nOn this page, you will see posts from other people and will be able to react to them.\n\nYou can also share what you are feeling by pressing the plus button!!",
+              image: _buildLottie('feed'),
             ),
             PageViewModel(
-              title: "Freelancing using academics?",
+              title: "Volunteer Page",
               body:
-                  "Ofcourse, You can teach your friends by uploading courses.\n\n Using our website you can upload courses relevant to your college!!",
-              image: _buildImage('money'),
+                  "Here you can find the volunteer for you by checking their info and request an appointment with them.\n\nTime Pass 101: Try dragging the stress ball(Yellow button on bottom right) from edges.",
+              image: _buildLottie('volunteer'),
             ),
             PageViewModel(
-              title: "\nSave yourself @11Hour",
-              body: "\n\nStart enrolling in our courses!!",
-              image: _buildImage('clock'),
+              title: "Reach Out Page",
+              body:
+                  "\n\nSome simple steps that you can follow for helping people affected by Covid",
+              image: _buildLottie('reach_out'),
+            ),
+            PageViewModel(
+              title: "Dashboard",
+              body:
+                  "\n\nAfter logging in, you will find all your appointments, posts and notification in the page. \n\nYou can also manage your account from this page.",
+              image: _buildLottie('dashboard'),
             ),
           ],
           onDone: () => _onIntroEnd(context),
@@ -60,9 +68,9 @@ class IntroScreen extends StatelessWidget {
             child: Text(
               'Skip',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.white),
             ),
           ),
           next: EasyContainer(
@@ -80,9 +88,9 @@ class IntroScreen extends StatelessWidget {
             child: Text(
               'Done',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.white),
             ),
           ),
           dotsDecorator: DotsDecorator(
