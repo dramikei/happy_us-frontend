@@ -27,10 +27,29 @@ class CreatePostScreen extends StatelessWidget {
       onWillPop: () async {
         Alert(
           context: context,
+          style: AlertStyle(
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? Colors.white
+                : Theme.of(context).primaryColor,
+            titleStyle: TextStyle(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
+            // animationType: AnimationType.fromTop
+          ),
           title: "Are you sure you want to leave?",
           content: Text(
               "You will lose any entered content once you leave this screen"),
           buttons: [
+            DialogButton(
+              child: Text(
+                'Stay',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: kFocusColor,
+            ),
             DialogButton(
               child: Text(
                 'Leave',
@@ -40,14 +59,6 @@ class CreatePostScreen extends StatelessWidget {
                 Navigator.pop(context);
                 NavigationService.pop(context);
               },
-              color: kFocusColor,
-            ),
-            DialogButton(
-              child: Text(
-                'Stay',
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () => Navigator.pop(context),
               color: kFocusColor,
             ),
           ],
