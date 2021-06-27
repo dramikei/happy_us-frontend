@@ -14,6 +14,8 @@ class Notification {
     title = json['title'];
     description = json['description'];
     seen = json['seen'];
-    time = DateTime.parse(json['time']);
+    time = DateTime.parse(json['time']).subtract(
+      Duration(hours: 5, minutes: 30),
+    );
   }
 }

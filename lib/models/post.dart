@@ -14,7 +14,9 @@ class Post {
     content = json['content'];
     heading = json['heading'];
     creatorId = json['creatorId'];
-    timeAgo = timeago.format(DateTime.parse(json['time']));
+    timeAgo = timeago.format(DateTime.parse(json['time']).subtract(
+      Duration(hours: 5, minutes: 30),
+    ));
     likedBy = (json['likedBy'] as List).cast<String>();
   }
 }

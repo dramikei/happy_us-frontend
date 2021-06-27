@@ -10,7 +10,6 @@ import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/custom_text.dart';
-import 'package:ntp/ntp.dart';
 
 class VolunteerCard extends StatelessWidget {
   static const id = 'VolunteerCard';
@@ -118,7 +117,7 @@ class VolunteerCard extends StatelessWidget {
         await AppointmentRepo.createAppointment(
           volunteerId: volunteer.id,
           userSocial: Get.find<UserController>().user.value.social,
-          time: await NTP.now(),
+          time: _date,
         );
         AlertsService.success("Appointment requested successfully!!");
       }
