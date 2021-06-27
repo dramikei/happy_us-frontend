@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:happy_us/models/base_user.dart';
 import 'package:happy_us/repository/auth_repo.dart';
 import 'package:happy_us/repository/user_repo.dart';
+import 'package:happy_us/screens/register_screen.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:get/get.dart';
@@ -144,6 +145,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     );
                 },
               ),
+              underlineText(
+                  context: context, text: "App Version: 1.0.0+1", onTap: null)
             ],
           ),
         ),

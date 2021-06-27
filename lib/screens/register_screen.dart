@@ -293,7 +293,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 Widget underlineText({
   required BuildContext context,
   required String text,
-  required VoidCallback onTap,
+  required VoidCallback? onTap,
 }) {
   return Align(
     alignment: Alignment.center,
