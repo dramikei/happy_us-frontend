@@ -149,7 +149,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 },
               ),
               underlineText(
-                  context: context, text: "App Version: 1.0.0+1", onTap: null)
+                  context: context, text: "App Version: 1.0.0+2", onTap: null)
             ],
           ),
         ),

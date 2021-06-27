@@ -25,8 +25,8 @@ class CreatePostScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if ((_content?.isNotEmpty ?? false) ||
-            (_heading?.isNotEmpty ?? false)) {
+        if ((_content?.trim().isNotEmpty ?? false) ||
+            (_heading?.trim().isNotEmpty ?? false)) {
           Alert(
             context: context,
             style: AlertStyle(
@@ -66,8 +66,8 @@ class CreatePostScreen extends StatelessWidget {
             ],
           ).show();
           return false;
-        }
-        else return true;
+        } else
+          return true;
       },
       child: SafeArea(
         child: Scaffold(
@@ -95,12 +95,16 @@ class CreatePostScreen extends StatelessWidget {
                   child: Text("Post"),
                   onTap: (startLoading, stopLoading, btnState) async {
                     if (btnState == ButtonState.Idle) {
-                      if (_heading == null || _heading!.length < 1) {
+                      if (_heading == null ||
+                          _heading!.length < 1 ||
+                          _heading!.trim().isEmpty) {
                         AlertsService.error(
                             'Heading must be at least 1 character long!');
                         return;
                       }
-                      if (_content == null || _content!.length <= 20) {
+                      if (_content == null ||
+                          _content!.length <= 20 ||
+                          _content!.trim().isEmpty) {
                         AlertsService.error(
                             'Content must be at least 20 characters long!');
                         return;
@@ -112,7 +116,6 @@ class CreatePostScreen extends StatelessWidget {
                         content: _content!,
                         heading: _heading!,
                       );
-                      print(post);
 
                       if (post != null) {
                         AlertsService.success('Post created');
