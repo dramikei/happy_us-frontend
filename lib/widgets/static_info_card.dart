@@ -46,7 +46,7 @@ class StaticInfoCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   CustomText(
-                    "As we all know covid 19 has made many children orphans  as loosing both their parents to  disease. It is important that such children enter the legal pool of adoption, not only for the welfare of the child but also for the legal protection of the entire adoptive family. If the procedure is not completed legally, the child may be separated from the adoptive parents, and the parents may even be arrested for child trafficking.",
+                    "As we all know covid 19 has made many children orphans  as loosing both their parents to  disease. It is important that such children enter the legal pool of adoption, not only for the welfare of the child but also for the legal protection of the entire adoptive family.\n\nIf the procedure is not completed legally, the child may be separated from the adoptive parents, and the parents may even be arrested for child trafficking.",
                     style: TextStyle(fontSize: 17),
                   ),
                   const SizedBox(height: 25),

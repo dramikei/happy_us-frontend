@@ -125,6 +125,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontSize: 21,
                     ),
                   ),
+                  const CustomText(
+                    "This platform will be used for your appointments.",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   CustomTextField(
                     onChanged: (v) => _socialId = v,

@@ -89,6 +89,9 @@ class CreatePostScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(7.5),
                 child: ArgonButton(
                   height: 25,
+                  loader: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
                   width: 100,
                   color: kAccentColor,
                   borderRadius: 10,

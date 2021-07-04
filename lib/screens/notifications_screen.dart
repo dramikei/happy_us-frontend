@@ -68,7 +68,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     : NoData();
               } else
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(kFocusColor),
+                  ),
                 );
             },
           ),

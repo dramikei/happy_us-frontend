@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
 import 'package:happy_us/controllers/appointment.getx.dart';
 import 'package:happy_us/repository/appointment_repo.dart';
+import 'package:happy_us/services/alerts_service.dart';
 import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:happy_us/models/appointment.dart';
 import 'package:happy_us/widgets/appointment_card.dart';
 import 'package:happy_us/widgets/no_data.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyAppointmentsScreen extends StatefulWidget {
   static const id = 'MyAppointmentsScreen';
@@ -48,6 +52,28 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> {
             'My Appointments',
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Alert(
+              title: 'Platform specific steps',
+              context: context,
+              content: Linkify(
+                onOpen: (link) async {
+                  if (await canLaunch(link.url))
+                    await launch(link.url);
+                  else
+                    AlertsService.error("Can't launch link");
+                },
+                text:
+                    "\nFor discord, Join this server: https://discord.gg/BZthDJkGS4.\n\nOn appointment acceptance, you will receive the text channel name to join.\n\nFor snapchat, our volunteer will contact you on the ID you provided.\n\nYour selected volunteer will message you at the decided time in case of both the platforms.",
+                linkStyle: TextStyle(color: kFocusColor, fontSize: 17),
+                style: TextStyle(fontSize: 17),
+              ),
+            ).show();
+          },
+          child: Icon(Icons.info),
+          tooltip: "Platform specific steps",
+        ),
         body: RefreshIndicator(
           onRefresh: refreshPage,
           child: FutureBuilder<List<Appointment>?>(
@@ -71,7 +97,9 @@ class _MyAppointmentsScreenState extends State<MyAppointmentsScreen> {
                     : NoData();
               } else
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(kFocusColor),
+                  ),
                 );
             },
           ),

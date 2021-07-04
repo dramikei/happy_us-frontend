@@ -89,7 +89,9 @@ class _FeedsPageState extends State<FeedsPage> {
                     : NoData();
               } else
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(kFocusColor),
+                  ),
                 );
             },
           ),

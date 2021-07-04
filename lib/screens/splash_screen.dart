@@ -8,6 +8,7 @@ import 'package:happy_us/repository/auth_repo.dart';
 import 'package:happy_us/repository/user_repo.dart';
 import 'package:happy_us/repository/volunteer_repo.dart';
 import 'package:happy_us/services/navigation_service.dart';
+import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/logo.dart';
 
@@ -81,7 +82,9 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Logo(isSplashScreen: true),
-            CircularProgressIndicator(),
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(kFocusColor),
+            ),
           ],
         ),
       ),

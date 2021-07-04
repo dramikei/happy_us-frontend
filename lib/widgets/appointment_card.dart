@@ -1,3 +1,4 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_us/controllers/appointment.getx.dart';
 import 'package:happy_us/repository/appointment_repo.dart';
@@ -126,27 +127,57 @@ class _AppointmentCardState extends State<AppointmentCard> {
                         maxLines: 1,
                         maxLength: 30,
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 25),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ArgonButton(
+                            child: Text(
+                              'Reject',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            borderRadius: 10,
+                            height: 39,
+                            width: 90,
+                            onTap: (startLoading, stopLoading, btnState) async {
+                              if (btnState == ButtonState.Idle) {
+                                startLoading();
+                                await _updateStatus('Rejected');
+                                stopLoading();
+                              }
+                            },
+                            loader: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                            color: Colors.red,
+                          ),
+                          ArgonButton(
+                            child: Text(
+                              'Accept',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            borderRadius: 10,
+                            height: 39,
+                            width: 90,
+                            loader: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                            onTap: (startLoading, stopLoading, btnState) async {
+                              if (btnState == ButtonState.Idle) {
+                                startLoading();
+                                await _updateStatus('Accepted');
+                                stopLoading();
+                              }
+                            },
+                            color: Colors.green,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                  buttons: [
-                    DialogButton(
-                      child: Text(
-                        'Reject',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () => _updateStatus('Rejected'),
-                      color: Colors.red,
-                    ),
-                    DialogButton(
-                      child: Text(
-                        'Accept',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () => _updateStatus('Accepted'),
-                      color: Colors.green,
-                    ),
-                  ],
+                  buttons: [],
                 ).show(),
               )
           ],
