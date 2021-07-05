@@ -7,6 +7,7 @@ import 'package:happy_us/utils/constants.dart';
 import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
 import 'package:happy_us/widgets/custom_text.dart';
+import 'package:lottie/lottie.dart';
 
 class VolunteersPage extends StatefulWidget {
   static const id = 'VolunteersPage';
@@ -41,7 +42,7 @@ class _VolunteersPageState extends State<VolunteersPage> {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: FittedBox(
               child: CustomText(
-                "Always happy to listen",
+                "Choose the best fit",
                 maxLines: 2,
                 style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
                       color: Theme.of(context).brightness == Brightness.dark
@@ -68,10 +69,17 @@ class _VolunteersPageState extends State<VolunteersPage> {
                     separatorBuilder: (__, _) => SizedBox(
                       height: 40,
                     ),
-                    itemCount: snapshot.data!.length,
+                    itemCount: snapshot.data!.length + 1,
                     itemBuilder: (ctx, index) {
-                      final volunteer = snapshot.data![index];
-                      return VolunteerCard(volunteer, index);
+                      return index == 0
+                          ? Padding(
+                              padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                              child: Lottie.asset(
+                                'assets/lottie/volunteer.json',
+                                width: double.infinity,
+                              ),
+                            )
+                          : VolunteerCard(snapshot.data![index - 1], index - 1);
                     },
                   );
                 else {
@@ -90,7 +98,8 @@ class _VolunteersPageState extends State<VolunteersPage> {
             ? SizedBox.shrink()
             : PressableDough(
                 child: FloatingActionButton(
-                  child: Icon(Icons.games_sharp),
+                  tooltip: 'Stress ball',
+                  child: Icon(Icons.psychology),
                   onPressed: () {
                     showDialog(
                         context: context,

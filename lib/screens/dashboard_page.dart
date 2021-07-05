@@ -10,6 +10,7 @@ import 'package:happy_us/services/navigation_service.dart';
 import 'package:happy_us/utils/globals.dart';
 import 'package:happy_us/widgets/profile.dart';
 import 'package:happy_us/widgets/settings_tile.dart';
+import 'package:lottie/lottie.dart';
 
 class DashboardPage extends StatefulWidget {
   static const id = 'DashboardPage';
@@ -66,6 +67,13 @@ class _DashboardPageState extends State<DashboardPage> {
                   indent: 100,
                   endIndent: 100,
                   height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                  child: Lottie.asset(
+                    'assets/lottie/dashboard.json',
+                    width: double.infinity,
+                  ),
                 ),
                 if (Globals.isUser)
                   SettingsTile(
