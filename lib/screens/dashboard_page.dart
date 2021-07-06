@@ -47,11 +47,12 @@ class _DashboardPageState extends State<DashboardPage> {
           },
           tooltip: 'Toggle theme',
           child: Icon(
-              Get.theme.brightness == Brightness.dark
-                  ? Icons.light_mode_sharp
-                  : Icons.dark_mode_sharp,
-              size: 21,
-              color: Colors.black),
+            Globals.theme == ThemeMode.dark
+                ? Icons.light_mode_sharp
+                : Icons.dark_mode_sharp,
+            size: 21,
+            color: Colors.black,
+          ),
         ),
         body: Obx(
           () => ListView(
@@ -59,7 +60,11 @@ class _DashboardPageState extends State<DashboardPage> {
             physics: const BouncingScrollPhysics(),
             children: [
               if (Globals.isLoggedIn) ...[
-                Profile(user: user),
+                Profile(
+                  user: Globals.isUser
+                      ? Get.find<UserController>().user.value
+                      : Get.find<VolunteerController>().volunteer.value,
+                ),
                 ChangePasswordButton(),
                 const Divider(
                   color: kFocusColor,

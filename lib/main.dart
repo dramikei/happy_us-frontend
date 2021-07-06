@@ -97,12 +97,12 @@ class __MainAppState extends State<_MainApp> {
           title: 'Happy Us',
           navigatorObservers: <NavigatorObserver>[observer],
           initialBinding: BindingsBuilder(
-            () => {
-              Get.put(UserController(), permanent: true),
-              Get.put(VolunteerController(), permanent: true),
-              Get.put(PostController(), permanent: true),
-              Get.put(NotificationController(), permanent: true),
-              Get.put(AppointmentController(), permanent: true)
+            () {
+              Get.put(UserController(), permanent: true);
+              Get.put(VolunteerController(), permanent: true);
+              Get.put(PostController(), permanent: true);
+              Get.put(NotificationController(), permanent: true);
+              Get.put(AppointmentController(), permanent: true);
             },
           ),
           debugShowCheckedModeBanner: false,
