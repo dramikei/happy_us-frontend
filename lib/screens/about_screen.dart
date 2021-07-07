@@ -128,7 +128,7 @@ We, HAPPY US, are here for you.
             const SizedBox(height: 20),
             underlineText(
               context: context,
-              text: "App Version: 2.1.1+5",
+              text: "App Version: 3.0.1+9",
               onTap: null,
             )
           ],
