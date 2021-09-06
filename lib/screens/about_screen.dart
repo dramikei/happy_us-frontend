@@ -27,11 +27,6 @@ class AboutScreen extends StatelessWidget {
       'img': 'assets/images/communication_head.jpeg'
     },
     {
-      'name': 'Rishabh pandey',
-      'post': 'Social Media Head',
-      'img': 'assets/images/social_media_head.jpeg'
-    },
-    {
       'name': 'Bhanvi aggarwal',
       'post': 'HR Head',
       'img': 'assets/images/hr_head.jpeg'
