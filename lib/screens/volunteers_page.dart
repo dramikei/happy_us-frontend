@@ -8,6 +8,7 @@ import 'package:happy_us/widgets/no_data.dart';
 import 'package:happy_us/widgets/volunteer_card.dart';
 import 'package:happy_us/widgets/custom_text.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VolunteersPage extends StatefulWidget {
   static const id = 'VolunteersPage';
@@ -100,7 +101,9 @@ class _VolunteersPageState extends State<VolunteersPage> {
                 child: FloatingActionButton(
                   tooltip: 'Professional Help?',
                   child: Icon(Icons.medical_services_sharp),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await launch("https://www.youtube.com/");
+                  },
                 ),
               ),
       ),
