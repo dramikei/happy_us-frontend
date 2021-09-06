@@ -98,42 +98,9 @@ class _VolunteersPageState extends State<VolunteersPage> {
             ? SizedBox.shrink()
             : PressableDough(
                 child: FloatingActionButton(
-                  tooltip: 'Stress ball',
-                  child: Icon(Icons.psychology),
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return PressableDough(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 50,
-                              ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: kFocusColor,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(50),
-                                child: FittedBox(
-                                  child: Column(
-                                    children: [
-                                      CustomText(
-                                        "Stress",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      CustomText(
-                                        "Ball",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        });
-                  },
+                  tooltip: 'Professional Help?',
+                  child: Icon(Icons.medical_services_sharp),
+                  onPressed: () {},
                 ),
               ),
       ),

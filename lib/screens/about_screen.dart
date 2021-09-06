@@ -41,6 +41,21 @@ class AboutScreen extends StatelessWidget {
       'post': 'Operations Head\n(or was he?)',
       'img': 'assets/images/operation_head.jpeg'
     },
+    {
+      'name': 'Ranchi Mittal',
+      'post': 'Designing Head',
+      'img': 'assets/images/designing_head.jpeg'
+    },
+    {
+      'name': 'Akshat Rastogi',
+      'post': 'iOS Specialist',
+      'img': 'assets/images/iOS_Specialist.jpeg'
+    },
+    {
+      'name': 'Yash Sharma',
+      'post': 'iOS Specialist',
+      'img': 'assets/images/iOS_Specialist_1.jpeg'
+    },
   ];
   static const _superHeroes = 'assets/images/super-heroes.jpg';
 
