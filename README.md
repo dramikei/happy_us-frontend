@@ -1,16 +1,10 @@
 # happy_us
 
-A new Flutter project.
+Happy Us is an humantarian initiative for people going through a hard time. The platform allows the users to vent or talk to an expert who is willing to listen to what the person is going through while also maintaining anonimity and privacy.
 
-## Getting Started
+happy_us frontend is the frontend application built in flutter while providing support for both iOS and Android
 
-This project is a starting point for a Flutter application.
+# Contributors
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Shivam Verma](https://github.com/dramikei/happy_us-frontend/commits?author=sarcastic-verma)
+- [Rithik](https://github.com/dramikei/happy_us-frontend/commits?author=rithik-dev)
